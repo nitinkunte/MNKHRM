@@ -1,0 +1,56 @@
+﻿@page "/userole"
+
+@attribute [Authorize]
+
+@inject HttpClient Http
+@inject IAccessTokenProvider TokenProvider
+
+<h1>User Roles</h1>
+
+@if (!string.IsNullOrWhiteSpace(Role))
+{
+    <p>
+        Logged in user's role = @Role
+    </p>
+}
+else
+{
+    <p><em>Loading...</em></p>
+}
+@if (!string.IsNullOrWhiteSpace(errorMsg))
+{
+    <p>Error: @errorMsg</p>
+}
+
+
+@code {
+
+    private string errorMsg { get; set; }
+    private string Role { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            errorMsg = string.Empty;
+            var tokenResult = await TokenProvider.RequestAccessToken();
+            if (tokenResult.TryGetToken(out var token))
+            {
+                Http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
+
+                Role = await Http.GetFromJsonAsync<string>("https://localhost:34280/api/Employees/GetRole");
+            }
+            else
+            {
+                errorMsg = "Invalid Token";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMsg = ex.ToString();
+        }
+
+    }
+
+}

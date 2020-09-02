@@ -1,0 +1,39 @@
+@page "/authentication/{action}"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+@inject HttpClient Http
+@inject IAccessTokenProvider TokenProvider
+
+<RemoteAuthenticatorView Action="@Action" OnLogInSucceeded=@this.OnLogInSucceeded />
+
+@code{ [Parameter] public string Action { get; set; }
+
+    [CascadingParameter]
+    public Task<AuthenticationState> authenticationState { get; set; }
+
+    public async void OnLogInSucceeded()
+    {
+        var user = (await authenticationState).User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            var role = await Http.GetFromJsonAsync<UserRole>("https://localhost:34280/api/Employees/GetRole");
+            try
+            {
+
+                var tokenResult = await TokenProvider.RequestAccessToken();
+                if (tokenResult.TryGetToken(out var token))
+                {
+                    Http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                //errorMsg = ex.ToString();
+            }
+        }
+    } }
+
+
