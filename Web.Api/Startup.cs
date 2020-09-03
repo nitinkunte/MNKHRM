@@ -64,28 +64,6 @@ namespace Web.Api
 
                     //Configuration.Bind("AzureAd", options)
                     );
-
-            #region Jwt Section
-
-            IdentityModelEventSource.ShowPII = true;
-
-            //IConfigurationSection jwtAuthenticationSection = Configuration.GetSection("JwtAuthentication");
-
-            //AddJwtAuthentication(services, jwtAuthenticationSection);
-            #endregion Jwt Section
-
-
-
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy("AllowEveryone",
-            //        builder =>
-            //        {
-            //            builder.WithOrigins("https://localhost:32516/", "*")
-            //                                .AllowAnyHeader()
-            //                                .AllowAnyMethod();
-            //        });
-            //});
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -95,6 +73,18 @@ namespace Web.Api
                         .SetIsOriginAllowed((host) => true)
                         .AllowAnyHeader());
             });
+
+
+            #region Jwt Section
+
+            ///TODO - remove this before production
+            IdentityModelEventSource.ShowPII = true;
+
+            //IConfigurationSection jwtAuthenticationSection = Configuration.GetSection("JwtAuthentication");
+
+            //AddJwtAuthentication(services, jwtAuthenticationSection);
+            #endregion Jwt Section
+
 
 
             // configure DI for application services
@@ -123,6 +113,13 @@ namespace Web.Api
 
             app.UseHttpsRedirection();
 
+            //            app.UseCors("CorsPolicy");
+            app.UseCors(options =>
+                    options.WithOrigins("https://localhost:32516")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                );
+
             app.UseSwagger();
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
@@ -131,9 +128,6 @@ namespace Web.Api
             });
 
             app.UseRouting();
-
-            app.UseCors("CorsPolicy");
-
 
             app.UseAuthentication();
             app.UseAuthorization();

@@ -11,7 +11,6 @@ namespace Web.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("AllowEveryone")]
     public class BaseController : ControllerBase
     {
         protected readonly IEmployeeService employeeService;
@@ -56,7 +55,9 @@ namespace Web.Api.Controllers
         protected string GetCurrentUserId()
         {
             if (!string.IsNullOrWhiteSpace(_signInUserId)) return _signInUserId;
-            var claim = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            var userName = User?.Identity?.Name;
+            var claim = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Name);
             if (claim != null)
             {
                 _signInUserId = claim.Value;

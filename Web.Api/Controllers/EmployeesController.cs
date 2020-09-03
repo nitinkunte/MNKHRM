@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -22,12 +23,16 @@ namespace Web.Api.Controllers
 
         }
 
-        [AllowAnonymous]
-        [HttpGet]
-        public IActionResult GetRole()
+        /// <summary>
+        /// Get user roles
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet("getrole")]
+        public async Task<IActionResult> GetRole()
         {
             var user = base.GetCurrentUserId();
-            UserRole ret = new UserRole { UserName = user };
+            UR ret = new UR { UserName = user };
             if (user.StartsWith("nitin"))
             {
                 ret.RoleName = "Super User";

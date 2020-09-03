@@ -30,7 +30,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-
         try
         {
             errorMsg = string.Empty;
@@ -39,7 +38,15 @@ else
             {
                 Http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
 
-                Role = await Http.GetFromJsonAsync<string>("https://localhost:34280/api/Employees/GetRole");
+                var ur = await Http.GetFromJsonAsync<Web.DTO.NetStd.Data.UR>("https://localhost:34280/api/Employees/GetRole");
+                if (null != ur)
+                {
+                    Role = ur.RoleName;
+                }
+                else
+                {
+                    Role = "Unknown";
+                }
             }
             else
             {

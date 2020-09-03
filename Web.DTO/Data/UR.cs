@@ -1,9 +1,9 @@
 ﻿using System;
 namespace Web.DTO.NetStd.Data
 {
-    public class UserRole
+    public class UR
     {
-        public UserRole()
+        public UR()
         {
         }
 
