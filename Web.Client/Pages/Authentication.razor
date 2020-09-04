@@ -1,4 +1,4 @@
-@page "/authentication/{action}"
+﻿@page "/authentication/{action}"
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
 @inject HttpClient Http
@@ -11,7 +11,7 @@
     [CascadingParameter]
     public Task<AuthenticationState> authenticationState { get; set; }
 
-    public async Task OnLogInSucceeded()
+    public async void OnLogInSucceeded()
     {
 #if DEBUG
         await Task.Delay(10000);
@@ -28,7 +28,7 @@
                 if (tokenResult.TryGetToken(out var token))
                 {
                     Http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
-                    var role = await Http.GetFromJsonAsync<Web.DTO.NetStd.Data.UR>("https://localhost:34280/api/Employees/GetRole");
+                    var role = await Http.GetFromJsonAsync<Web.DTO.Data.UR>("https://localhost:34280/api/Employees/GetRole");
                     System.Security.Claims.ClaimsIdentity claimsIdentity = new System.Security.Claims.ClaimsIdentity();
                     claimsIdentity.AddClaim(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, role.RoleName));
                     user.AddIdentity(claimsIdentity);
