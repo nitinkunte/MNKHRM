@@ -4,6 +4,9 @@
 
 @inject HttpClient Http
 @inject IAccessTokenProvider TokenProvider
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject Web.Client.Services.IAPIService apiService
+
 
 <h1>User Roles</h1>
 
@@ -17,9 +20,16 @@ else
 {
     <p><em>Loading...</em></p>
 }
+@if (!string.IsNullOrWhiteSpace(BaseUri))
+{
+    <p>BaseUri: @BaseUri</p>
+
+}
+
 @if (!string.IsNullOrWhiteSpace(errorMsg))
 {
     <p>Error: @errorMsg</p>
+
 }
 
 
@@ -27,31 +37,21 @@ else
 
     private string errorMsg { get; set; }
     private string Role { get; set; }
+    private string BaseUri { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+#if DEBUG
+        System.Threading.Thread.Sleep(10000);
+#endif
         try
         {
-            errorMsg = string.Empty;
-            var tokenResult = await TokenProvider.RequestAccessToken();
-            if (tokenResult.TryGetToken(out var token))
+            var userRole = await apiService.GetUserRole("abc");
+            if (null != userRole)
             {
-                Http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
+                errorMsg = userRole.RoleName;
+            }
 
-                var ur = await Http.GetFromJsonAsync<Web.DTO.NetStd.Data.UR>("https://localhost:34280/api/Employees/GetRole");
-                if (null != ur)
-                {
-                    Role = ur.RoleName;
-                }
-                else
-                {
-                    Role = "Unknown";
-                }
-            }
-            else
-            {
-                errorMsg = "Invalid Token";
-            }
         }
         catch (Exception ex)
         {

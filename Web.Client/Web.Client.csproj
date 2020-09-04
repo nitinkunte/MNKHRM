@@ -13,6 +13,8 @@
     <PackageReference Include="System.Net.Http.Json" Version="3.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+    <PackageReference Include="BlazorPlus" Version="1.2.45" />
+    <PackageReference Include="Blazored.SessionStorage" Version="1.0.12" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,5 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>

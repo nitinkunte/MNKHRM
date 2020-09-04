@@ -13,8 +13,12 @@ namespace Web.Api.Controllers
     [Authorize]
     public class SessionController : BaseController
     {
-        public SessionController(IEmployeeService employeeService) : base(employeeService)
+
+        public SessionController(IEmployeeService employeeService
+                                 , ISessionService sessionService)
+            : base(employeeService, sessionService)
         {
+
         }
     }
 }

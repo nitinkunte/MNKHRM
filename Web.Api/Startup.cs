@@ -89,6 +89,7 @@ namespace Web.Api
 
             // configure DI for application services
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<ISessionService, SessionService>();
 
             services.AddControllers();
 

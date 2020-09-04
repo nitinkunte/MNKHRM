@@ -3,6 +3,7 @@
 
 @inject HttpClient Http
 @inject IAccessTokenProvider TokenProvider
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 
 <RemoteAuthenticatorView Action="@Action" OnLogInSucceeded=@this.OnLogInSucceeded />
 
@@ -13,27 +14,18 @@
 
     public async void OnLogInSucceeded()
     {
-#if DEBUG
-        await Task.Delay(10000);
-#endif
+
         var user = (await authenticationState).User;
 
         if (user.Identity.IsAuthenticated)
         {
-
             try
             {
-
                 var tokenResult = await TokenProvider.RequestAccessToken();
                 if (tokenResult.TryGetToken(out var token))
                 {
-                    Http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Value);
-                    var role = await Http.GetFromJsonAsync<Web.DTO.Data.UR>("https://localhost:34280/api/Employees/GetRole");
-                    System.Security.Claims.ClaimsIdentity claimsIdentity = new System.Security.Claims.ClaimsIdentity();
-                    claimsIdentity.AddClaim(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, role.RoleName));
-                    user.AddIdentity(claimsIdentity);
+                    await sessionStorage.SetItemAsync("accessToken", token.Value);
                 }
-
             }
             catch (Exception ex)
             {

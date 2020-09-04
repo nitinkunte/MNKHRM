@@ -14,10 +14,12 @@ namespace Web.Api.Controllers
     public class BaseController : ControllerBase
     {
         protected readonly IEmployeeService employeeService;
+        private readonly ISessionService sessionService;
 
-        public BaseController(IEmployeeService employeeService)
+        public BaseController(IEmployeeService employeeService, ISessionService sessionService)
         {
             this.employeeService = employeeService;
+            this.sessionService = sessionService;
         }
 
         private string _signInUserId;
@@ -52,7 +54,7 @@ namespace Web.Api.Controllers
         }
 
 
-        protected string GetCurrentUserId()
+        private string GetCurrentUserId()
         {
             if (!string.IsNullOrWhiteSpace(_signInUserId)) return _signInUserId;
 

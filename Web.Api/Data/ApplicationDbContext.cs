@@ -19,6 +19,7 @@ namespace Web.Api.Data
         public DbSet<Immigration> Immigrations { get; set; }
         public DbSet<EmergencyContact> EmergencyContacts { get; set; }
         public DbSet<EmploymentInfo> EmploymentInfos { get; set; }
+        public DbSet<UserRoleModel> UserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

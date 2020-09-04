@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Web.Api.Helpers;
 using Web.Api.Services;
 using Web.DTO.Data;
-using Web.DTO.NetStd.Data;
+using Web.DTO.Data;
 
 namespace Web.Api.Controllers
 {
@@ -18,8 +20,14 @@ namespace Web.Api.Controllers
     //[Authorize]
     public class EmployeesController : BaseController
     {
-        public EmployeesController(IEmployeeService employeeService) : base(employeeService)
+        private readonly AppSettings appSettings;
+
+        public EmployeesController(IEmployeeService employeeService
+            , ISessionService sessionService
+            , IOptions<AppSettings> iOptionAppSettings)
+            : base(employeeService, sessionService)
         {
+            this.appSettings = (null != iOptionAppSettings) ? iOptionAppSettings.Value : throw new ArgumentNullException(nameof(iOptionAppSettings));
 
         }
 
@@ -31,8 +39,8 @@ namespace Web.Api.Controllers
         [HttpGet("getrole")]
         public async Task<IActionResult> GetRole()
         {
-            var user = base.GetCurrentUserId();
-            UR ret = new UR { UserName = user };
+            var user = base.SignInUserId;
+            UserRoleModel ret = new UserRoleModel { UserName = user };
             if (user.StartsWith("nitin"))
             {
                 ret.RoleName = "Super User";
