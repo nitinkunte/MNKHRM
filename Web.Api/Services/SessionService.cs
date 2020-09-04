@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Web.Api.Data;
+using Web.DTO;
 using Web.DTO.Data;
 
 namespace Web.Api.Services
@@ -10,6 +12,7 @@ namespace Web.Api.Services
     {
         Task<UserRoleModel> GetUserRoleByUserNameAsync(string userName);
         Task<UserRoleModel> SaveUserRoleAsync(UserRoleModel userRole);
+        Task LoginAsync(SessionModel sessionModel);
     }
 
     public class SessionService : ISessionService
@@ -41,7 +44,7 @@ namespace Web.Api.Services
                     .FirstOrDefaultAsync(x => x.UserName == userRole.UserName);
                 if (null != dbUser)
                 {
-                    dbUser.RoleName = userRole.RoleName;
+                    dbUser.RoleName = MNKConstants.ROLES.GetFirstOrDefault(userRole.RoleName);
                     dbUser.FirstName = (string.IsNullOrWhiteSpace(userRole.FirstName)) ? dbUser.FirstName : userRole.FirstName;
                     dbUser.LastName = (string.IsNullOrWhiteSpace(userRole.LastName)) ? dbUser.LastName : userRole.LastName;
                     dbUser.UpdateDate = DateTime.UtcNow;
@@ -53,6 +56,7 @@ namespace Web.Api.Services
                 }
                 else
                 {
+                    userRole.RoleName = MNKConstants.ROLES.GetFirstOrDefault(userRole.RoleName);
                     await dbContext.UserRoles.AddAsync(userRole);
                     await dbContext.SaveChangesAsync();
                     ret = userRole;
@@ -61,5 +65,12 @@ namespace Web.Api.Services
 
             return ret;
         }
+
+        public async Task LoginAsync(SessionModel sessionModel)
+        {
+            await dbContext.SessionModels.AddAsync(sessionModel);
+            await dbContext.SaveChangesAsync();
+        }
+
     }
 }

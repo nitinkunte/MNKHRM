@@ -39,6 +39,8 @@ namespace Web.Api.Controllers
         [HttpGet("getrole")]
         public async Task<IActionResult> GetRole()
         {
+            // var xyz = base.GetUserDetails();
+
             var user = base.SignInUserId;
             UserRoleModel ret = new UserRoleModel { UserName = user };
             if (user.StartsWith("nitin"))

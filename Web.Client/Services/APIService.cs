@@ -7,6 +7,7 @@ namespace Web.Client.Services
     public interface IAPIService
     {
         Task<UserRoleModel> GetUserRole(string userName);
+        Task<UserRoleModel> LoginAsync();
     }
 
     public class APIService : IAPIService
@@ -21,6 +22,11 @@ namespace Web.Client.Services
         public async Task<UserRoleModel> GetUserRole(string userName)
         {
             return await http.Get<UserRoleModel>("api/employees/getrole");
+        }
+
+        public async Task<UserRoleModel> LoginAsync()
+        {
+            return await http.Get<UserRoleModel>("api/session/login");
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Web.Api.Data
         public DbSet<EmergencyContact> EmergencyContacts { get; set; }
         public DbSet<EmploymentInfo> EmploymentInfos { get; set; }
         public DbSet<UserRoleModel> UserRoles { get; set; }
+        public DbSet<SessionModel> SessionModels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,6 +44,14 @@ namespace Web.Api.Data
                .HasForeignKey<Immigration>(y => y.EmployeeId)
                .IsRequired(false);
 
+            modelBuilder.Entity<UserRoleModel>()
+                .HasAlternateKey(x => x.UserName);
+
+            modelBuilder.Entity<UserRoleModel>()
+                .HasIndex(x => x.UserName);
+
+            modelBuilder.Entity<SessionModel>()
+                .HasIndex(x => x.UserName);
             //modelBuilder.Entity<Employee>()
             //   .HasOne<Address>(x => x.AddressOther)
             //   .WithOne(e => e.Employee)

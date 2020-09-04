@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
@@ -14,7 +15,7 @@ namespace Web.Api.Controllers
     public class BaseController : ControllerBase
     {
         protected readonly IEmployeeService employeeService;
-        private readonly ISessionService sessionService;
+        protected readonly ISessionService sessionService;
 
         public BaseController(IEmployeeService employeeService, ISessionService sessionService)
         {
@@ -67,6 +68,40 @@ namespace Web.Api.Controllers
             }
             return string.Empty;
         }
+
+
+        protected UserDetails GetUserDetails()
+        {
+            UserDetails ret = null;
+
+            var userName = User?.Identity?.Name;
+            var claim = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Name);
+            if (claim?.Value != null)
+            {
+                ret = new UserDetails { UserName = claim.Value };
+                claim = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.GivenName);
+                ret.FirstName = (null != claim) ? claim.Value : string.Empty;
+                claim = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Surname);
+                ret.LastName = (null != claim) ? claim.Value : string.Empty;
+                claim = User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier");
+                ret.UserOID = (null != claim) ? claim.Value : string.Empty;
+                claim = User.FindFirst("ipaddr");
+                ret.IpAddress = (null != claim) ? claim.Value : string.Empty;
+            }
+            return ret;
+        }
+
+
+        protected class UserDetails
+        {
+            public string UserName { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string UserOID { get; set; }
+            public string IpAddress { get; set; }
+        }
+
+
     }
 
 

@@ -1,9 +1,9 @@
 ﻿@page "/authentication/{action}"
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
-@inject HttpClient Http
 @inject IAccessTokenProvider TokenProvider
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject Web.Client.Services.IAPIService apiService
 
 <RemoteAuthenticatorView Action="@Action" OnLogInSucceeded=@this.OnLogInSucceeded />
 
@@ -21,15 +21,22 @@
         {
             try
             {
+                Console.WriteLine("Inside Athentication.razor");
                 var tokenResult = await TokenProvider.RequestAccessToken();
                 if (tokenResult.TryGetToken(out var token))
                 {
                     await sessionStorage.SetItemAsync("accessToken", token.Value);
+                    var userRoleModel = await apiService.LoginAsync();
+                    if (!string.IsNullOrWhiteSpace(userRoleModel.RoleName))
+                    {
+                        await sessionStorage.SetItemAsync("roleName", userRoleModel.RoleName);
+                        Console.WriteLine($"Inside Athentication.razor ==> RoleName={userRoleModel.RoleName}");
+                    }
                 }
             }
             catch (Exception ex)
             {
-                var errorMsg = ex.ToString();
+                Console.WriteLine($"Inside Athentication.razor Error:==> {ex.ToString()}");
             }
         }
     } }

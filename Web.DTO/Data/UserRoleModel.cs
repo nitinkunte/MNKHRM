@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace Web.DTO.Data
 {
     public class UserRoleModel : BaseEntity
@@ -7,9 +9,11 @@ namespace Web.DTO.Data
         {
         }
 
-        public string RoleName { get; set; }
-
+        [Required]
         public string UserName { get; set; }
+
+        [Required]
+        public string RoleName { get; set; }
 
         public string FirstName { get; set; }
 
