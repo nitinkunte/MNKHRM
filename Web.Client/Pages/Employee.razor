@@ -1,0 +1,54 @@
+﻿@page "/employee"
+
+<h3>Employee</h3>
+
+<div class="row">
+    <div class="col-md-10">
+        <RadzenFieldset Text="Personal Info">
+            <div class="row">
+                <div class="col-md-4 align-items-center d-flex">
+                    <RadzenLabel Text="First Name" />
+                </div>
+                <div class="col-md-8">
+                    <RadzenTextBox style="width: 100%;" Name="fname" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 align-items-center d-flex">
+                    <RadzenLabel Text="Middle Name" />
+                </div>
+                <div class="col-md-8">
+                    <RadzenTextBox style="width: 100%;" Name="mname" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 align-items-center d-flex">
+                    <RadzenLabel Text="Last Name" />
+                </div>
+                <div class="col-md-8">
+                    <RadzenTextBox style="width: 100%;" Name="lname" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 align-items-center d-flex">
+                    <RadzenLabel Text="Date of Birth" />
+                </div>
+                <div class="col-md-8">
+                    <RadzenTextBox style="width: 100%;" Name="DOB" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 align-items-center d-flex">
+                    <RadzenLabel Text="Social Security" />
+                </div>
+                <div class="col-md-8">
+                    <RadzenTextBox style="width: 100%;" Name="ssn" />
+                </div>
+            </div>
+            <hr />
+
+            <Web.Client.Components.Employees.Personal />
+
+        </RadzenFieldset>
+    </div>
+</div>
