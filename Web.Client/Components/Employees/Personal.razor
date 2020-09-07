@@ -1,47 +1,29 @@
 ﻿
-<RadzenTabs>
-    <Tabs>
-        <RadzenTabsItem Text="Personal">
-            <RadzenTextBox Placeholder="Search..." Change="@(args => Change(args, "TextBox with placeholder"))" Style="margin-bottom: 20px" />
-        </RadzenTabsItem>
-        <RadzenTabsItem Text="Address">
-            <RadzenTextBox Style="margin-bottom: 20px" @oninput="@(args => Change(args.Value.ToString(), "TextBox with change on every input"))" />
-        </RadzenTabsItem>
-        <RadzenTabsItem Text="Immigration">
-            <RadzenDatePicker @bind-Value="value" DateFormat="d" Change="@(args => Change(args, "DatePicker", "MM/dd/yyyy"))" />
-        </RadzenTabsItem>
-    </Tabs>
-</RadzenTabs>
+<RadzenCard Style="width:600px; margin-bottom: 20px; height:500px;">
+    <div class="row">
+        <div class="col-md-6">
+            <div>Company:</div>
+            <b>MNK</b>
+            <div style="margin-top:20px">Employee:</div>
+            <b>Nitin Kunte</b>
+            <br />
+            <RadzenImage Path="https://lh3.googleusercontent.com/-5_hw5Z_b6vE/AAAAAAAAAAI/AAAAAAAAAFY/CQMh87RLIog/photo.jpg" Style="width:100px;" />
+        </div>
+        <div class="col-md-6">
+            <div>Freight:</div>
+            <b>Date</b>
+            <div style="margin-top:20px">Ship country:</div>
+            <b>Country</b>
+            <div style="margin-top:20px">Ship city:</div>
+            <b>City</b>
+            <div style="margin-top:20px">Ship name:</div>
+            <b>Ship name</b>
+        </div>
+    </div>
+</RadzenCard>
 
 
 
 @code {
-    DateTime? value = DateTime.Now;
 
-    IEnumerable<DateTime> dates = new DateTime[] { DateTime.Today.AddDays(-1), DateTime.Today.AddDays(1) };
-
-    Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
-
-    void Change(DateTime? value, string name, string format)
-    {
-        events.Add(DateTime.Now, $"{name} value changed to {value?.ToString(format)}");
-        StateHasChanged();
-    }
-    void Change(string value, string name)
-    {
-        events.Add(DateTime.Now, $"{name} value changed to {value}");
-        StateHasChanged();
-    }
-    void DateRenderSpecial(DateRenderEventArgs args)
-    {
-        if (dates.Contains(args.Date))
-        {
-            args.Attributes.Add("style", "background-color: #ff6d41; border-color: white;");
-        }
-    }
-
-    void DateRender(DateRenderEventArgs args)
-    {
-        args.Disabled = dates.Contains(args.Date);
-    }
 }
