@@ -66,7 +66,7 @@ namespace Web.DTO.Data
 
         [JsonIgnore]
         [ForeignKey("EmployeeId")]
-        public virtual Employee Employee { get; set; }
+        public virtual EmployeeModel Employee { get; set; }
 
     }
 }

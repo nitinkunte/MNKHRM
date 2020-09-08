@@ -5,9 +5,10 @@ using System.Data.SqlTypes;
 
 namespace Web.DTO.Data
 {
-    public class Employee : BaseEntity
+    [Table("Employees")]
+    public class EmployeeModel : BaseEntity
     {
-        public Employee() { }
+        public EmployeeModel() { }
 
         [Required]
         [MinLength(2)]

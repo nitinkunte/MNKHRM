@@ -34,7 +34,7 @@ namespace Web.DTO.Data
         public int EmployeeId { get; set; }
 
         [JsonIgnore]
-        public virtual Employee Employee { get; set; }
+        public virtual EmployeeModel Employee { get; set; }
 
     }
 }

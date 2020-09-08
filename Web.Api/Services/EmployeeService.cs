@@ -11,8 +11,8 @@ namespace Web.Api.Services
 
     public interface IEmployeeService
     {
-        Task<List<Employee>> GetEmployeesAsync();
-        Task<Employee> GetEmployeeByIdAsync(int employeeId);
+        Task<List<EmployeeModel>> GetEmployeesAsync();
+        Task<EmployeeModel> GetEmployeeByIdAsync(int employeeId);
         Task<List<Address>> GetAddressesAsync(int employeeId);
         Task<List<EmergencyContact>> GetEmergencyContactsAsync(int employeeId);
         Task<EmploymentInfo> GetEmploymentInfoAsync(int employeeId);
@@ -23,13 +23,13 @@ namespace Web.Api.Services
         /// </summary>
         /// <param name="employee"></param>
         /// <returns></returns>
-        Task<Employee> SaveEmployeeAsync(Employee employee);
+        Task<EmployeeModel> SaveEmployeeAsync(EmployeeModel employee);
         Task<Address> SaveAddressAsync(Address address);
         Task<EmergencyContact> SaveEmergencyContactAsync(EmergencyContact emergencyContact);
         Task<EmploymentInfo> SaveEmploymentInfoAsync(EmploymentInfo EmploymentInfo);
         Task<Immigration> SaveImmigrationAsync(Immigration immigration);
 
-        Task<Employee> DeleteEmployeeAsync(int employeeId);
+        Task<EmployeeModel> DeleteEmployeeAsync(int employeeId);
 
     }
 
@@ -42,14 +42,14 @@ namespace Web.Api.Services
             this.dbContext = dbContext;
         }
 
-        public async Task<List<Employee>> GetEmployeesAsync()
+        public async Task<List<EmployeeModel>> GetEmployeesAsync()
         {
             return await dbContext.Employees
                                 .AsNoTracking()
                                 .ToListAsync();
         }
 
-        public async Task<Employee> GetEmployeeByIdAsync(int employeeId)
+        public async Task<EmployeeModel> GetEmployeeByIdAsync(int employeeId)
         {
             var ret = await dbContext.Employees
                             .AsNoTracking()
@@ -91,9 +91,9 @@ namespace Web.Api.Services
             return ret;
         }
 
-        public async Task<Employee> SaveEmployeeAsync(Employee employee)
+        public async Task<EmployeeModel> SaveEmployeeAsync(EmployeeModel employee)
         {
-            Employee ret = null;
+            EmployeeModel ret = null;
             if (null != employee)
             {
                 if (employee.Id <= 0) //insert
@@ -204,9 +204,9 @@ namespace Web.Api.Services
             return ret;
         }
 
-        public async Task<Employee> DeleteEmployeeAsync(int employeeId)
+        public async Task<EmployeeModel> DeleteEmployeeAsync(int employeeId)
         {
-            Employee ret = await dbContext.Employees
+            EmployeeModel ret = await dbContext.Employees
                                     .AsNoTracking()
                                     .FirstOrDefaultAsync(x => x.Id == employeeId);
             if (ret?.Id > 0)
@@ -220,9 +220,9 @@ namespace Web.Api.Services
 
 
 
-        private async Task<Employee> UpdateEmployeeDetailsAsync(Employee employee)
+        private async Task<EmployeeModel> UpdateEmployeeDetailsAsync(EmployeeModel employee)
         {
-            Employee ret = null;
+            EmployeeModel ret = null;
             if (employee?.Id > 0)
             {
                 if (null != employee.AddressHome)

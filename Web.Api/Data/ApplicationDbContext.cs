@@ -14,7 +14,7 @@ namespace Web.Api.Data
         {
         }
 
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<EmployeeModel> Employees { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Immigration> Immigrations { get; set; }
         public DbSet<EmergencyContact> EmergencyContacts { get; set; }
@@ -25,7 +25,7 @@ namespace Web.Api.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Employee>()
+            modelBuilder.Entity<EmployeeModel>()
                 .HasOne<EmploymentInfo>(x => x.EmploymentInfo)
                 .WithOne(j => j.Employee)
                 .HasForeignKey<EmploymentInfo>(jj => jj.EmployeeId)
@@ -38,7 +38,7 @@ namespace Web.Api.Data
             modelBuilder.Entity<EmergencyContact>()
                 .HasAlternateKey(x => new { x.EmployeeId, x.RelationshipStatus });
 
-            modelBuilder.Entity<Employee>()
+            modelBuilder.Entity<EmployeeModel>()
                .HasOne<Immigration>(x => x.Immigration)
                .WithOne(e => e.Employee)
                .HasForeignKey<Immigration>(y => y.EmployeeId)

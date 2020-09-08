@@ -10,7 +10,7 @@
                     <RadzenLabel Text="First Name" />
                 </div>
                 <div class="col-md-8">
-                    <RadzenTextBox style="width: 100%;" Name="fname" />
+                    <RadzenTextBox style="width: 100%;" Name="fname" @bind="@employeeModel.NameFirst" />
                 </div>
             </div>
             <div class="row">
@@ -18,7 +18,7 @@
                     <RadzenLabel Text="Middle Name" />
                 </div>
                 <div class="col-md-8">
-                    <RadzenTextBox style="width: 100%;" Name="mname" />
+                    <RadzenTextBox style="width: 100%;" Name="mname" @bind-Value="@employeeModel.NameMiddle" />
                 </div>
             </div>
             <div class="row">
@@ -26,7 +26,7 @@
                     <RadzenLabel Text="Last Name" />
                 </div>
                 <div class="col-md-8">
-                    <RadzenTextBox style="width: 100%;" Name="lname" />
+                    <RadzenTextBox style="width: 100%;" Name="lname" @bind-Value="@employeeModel.NameLast" />
                 </div>
             </div>
             <div class="row">
@@ -34,7 +34,7 @@
                     <RadzenLabel Text="Date of Birth" />
                 </div>
                 <div class="col-md-8">
-                    <RadzenTextBox style="width: 100%;" Name="DOB" />
+                    <RadzenDatePicker @bind-Value="@employeeModel.DateOfBirth" Name="dob" />
                 </div>
             </div>
             <div class="row">
@@ -47,7 +47,7 @@
             </div>
             <hr />
 
-            <Web.Client.Components.Employees.EmployeeTabs />
+
 
         </RadzenFieldset>
     </div>

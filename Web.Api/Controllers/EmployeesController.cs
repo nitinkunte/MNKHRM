@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Policy;
 using System.Threading.Tasks;
@@ -84,15 +85,20 @@ namespace Web.Api.Controllers
         /// <param name="employeeId"></param>
         /// <returns></returns>
         [HttpGet("GetEmployee/{employeeId}")]
-        public async Task<IActionResult> GetEmployee(int employeeId)
+        public async Task<IActionResult> GetEmployeeAsync(int employeeId)
         {
             try
             {
                 var emp = await employeeService.GetEmployeeByIdAsync(employeeId);
+                if (emp != null)
+                {
+                    return Ok(emp);
+                }
+                else
+                {
+                    return NotFound();
+                }
 
-                var responseData = ResponseData.Create(true, string.Empty, emp);
-
-                return Ok(responseData);
             }
             catch (Exception exception)
             {
@@ -231,7 +237,7 @@ namespace Web.Api.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("SaveEmployee")]
-        public async Task<IActionResult> SaveEmployee([FromBody] Employee model)
+        public async Task<IActionResult> SaveEmployee([FromBody] EmployeeModel model)
         {
             try
             {

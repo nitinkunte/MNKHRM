@@ -15,8 +15,9 @@ namespace Web.Client.Services
 {
     public interface IHttpService
     {
-        Task<T> Get<T>(string uri);
-        Task<T> Post<T>(string uri, object value);
+        Task<T> GetAsync<T>(string uri);
+        Task<T> PostAsync<T>(string uri, object value);
+        Task<T> GetFromJsonAsync<T>(string uri);
     }
 
     public class HttpService : IHttpService
@@ -39,20 +40,31 @@ namespace Web.Client.Services
             _configuration = configuration;
         }
 
-        public async Task<T> Get<T>(string uri)
+        public async Task<T> GetAsync<T>(string uri)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, uri);
             return await sendRequest<T>(request);
         }
 
-        public async Task<T> Post<T>(string uri, object value)
+        public async Task<T> GetFromJsonAsync<T>(string uri)
+        {
+            var accessToken = await _sessionStorageService.GetItemAsync<string>("accessToken");
+            ///TODO - remove the following line
+            accessToken = accessToken ?? string.Empty;
+            // add jwt auth header if user is logged in and request is to the api url
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var response = await _httpClient.GetFromJsonAsync<T>(uri);
+
+            return response;
+        }
+
+        public async Task<T> PostAsync<T>(string uri, object value)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, uri);
             request.Content = new StringContent(JsonSerializer.Serialize(value), Encoding.UTF8, "application/json");
             return await sendRequest<T>(request);
         }
 
-        // helper methods
 
         private async Task<T> sendRequest<T>(HttpRequestMessage request)
         {
@@ -62,7 +74,7 @@ namespace Web.Client.Services
             if (accessToken != null && isApiUrl)
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            using var response = await _httpClient.SendAsync(request);
+            var response = await _httpClient.SendAsync(request);
 
             // auto logout on 401 response
             if (response.StatusCode == HttpStatusCode.Unauthorized)
@@ -70,7 +82,6 @@ namespace Web.Client.Services
                 _navigationManager.NavigateTo("logout");
                 return default;
             }
-
             // throw exception on error response
             if (!response.IsSuccessStatusCode)
             {
