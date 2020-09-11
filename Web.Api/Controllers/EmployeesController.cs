@@ -89,6 +89,7 @@ namespace Web.Api.Controllers
         {
             try
             {
+                var user = base.SignInUserId;
                 var emp = await employeeService.GetEmployeeByIdAsync(employeeId);
                 if (emp != null)
                 {

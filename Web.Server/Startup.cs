@@ -1,19 +1,19 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Web.Server.Data;
+using Web.Server.Helpers;
 
 namespace Web.Server
 {
@@ -30,8 +30,55 @@ namespace Web.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
                 .AddAzureAD(options => Configuration.Bind("AzureAd", options));
+
+            services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =>
+            {
+                options.ResponseType = OpenIdConnectResponseType.Code;  //"code id_token";
+                options.SaveTokens = true;
+                options.Scope.Add("offline_access");
+                options.Scope.Add("User.Read");
+                options.Scope.Add("openid");
+                options.Authority = options.Authority + "/v2.0/";
+                options.TokenValidationParameters.ValidateIssuer = false;
+                options.Events = new OpenIdConnectEvents
+                {
+
+                    OnTokenValidated = context =>
+                    {
+                        // Access Token
+                        var accessToken = context.SecurityToken.RawData;
+                        Console.WriteLine($"Token : " + accessToken);
+                        return Task.CompletedTask;
+                    },
+
+                    OnAuthenticationFailed = context =>
+                    {
+                        Console.WriteLine($"Token Authentication failed with error: " + context.Exception.Message);
+                        return Task.CompletedTask;
+                    }
+                };
+            });
+
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+            var baseUri = appSettingsSection.GetValue<string>("BaseURLForApiService");
+            services.AddHttpClient<APIService>(c =>
+            {
+                c.BaseAddress = new Uri(baseUri);
+
+
+            });
+            services.AddHttpClient();
+
+            services.AddScoped<TokenProvider>();
 
             services.AddControllersWithViews(options =>
             {
@@ -40,6 +87,7 @@ namespace Web.Server
                     .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
+
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
