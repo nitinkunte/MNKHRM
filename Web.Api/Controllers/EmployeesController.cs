@@ -84,12 +84,13 @@ namespace Web.Api.Controllers
         /// </summary>
         /// <param name="employeeId"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("GetEmployee/{employeeId}")]
         public async Task<IActionResult> GetEmployeeAsync(int employeeId)
         {
             try
             {
-                var user = base.SignInUserId;
+                //var user = base.SignInUserId;
                 var emp = await employeeService.GetEmployeeByIdAsync(employeeId);
                 if (emp != null)
                 {

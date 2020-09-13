@@ -41,11 +41,12 @@ namespace Web.Server
 
             services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =>
             {
-                options.ResponseType = OpenIdConnectResponseType.Code;  //"code id_token";
+                options.ResponseType = OpenIdConnectResponseType.CodeIdToken;  //"code id_token";
                 options.SaveTokens = true;
                 options.Scope.Add("offline_access");
                 options.Scope.Add("User.Read");
                 options.Scope.Add("openid");
+                options.ClientSecret = Configuration["AzureAd:ClientSecret"];
                 options.Authority = options.Authority + "/v2.0/";
                 options.TokenValidationParameters.ValidateIssuer = false;
                 options.Events = new OpenIdConnectEvents
@@ -67,8 +68,12 @@ namespace Web.Server
                 };
             });
 
+            services.AddOptions();
+
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
+            services.Configure<AzureAd>(Configuration.GetSection("AzureAd"));
+
             var baseUri = appSettingsSection.GetValue<string>("BaseURLForApiService");
             services.AddHttpClient<APIService>(c =>
             {

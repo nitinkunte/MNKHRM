@@ -29,6 +29,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Web.Api.Helpers;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.IdentityModel.Logging;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.Identity.Web;
 
 namespace Web.Api
 {
@@ -50,20 +53,22 @@ namespace Web.Api
 
             services.AddOptions();
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+                {
+                    opt.Audience = Configuration["AzureAd:ClientId"];
+                    opt.Authority = $"{Configuration["AzureAd:Instance"]}{Configuration["AzureAd:TenantId"]}";
+                });
 
-            services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
-                    .AddAzureADBearer(options =>
 
-                    {
-                        options.Instance = "https://login.microsoftonline.com/";
-                        options.ClientId = "api://mnkhrm";
-                        options.Domain = "mnkinfotech.onmicrosoft.com";
-                        options.TenantId = "ffb79e93-1ae2-4f94-9ff3-3553938a5d00";
-                        var x = options;
-                    }
 
-                    //Configuration.Bind("AzureAd", options)
-                    );
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //          .AddJwtBearer(opt =>
+            //          {
+            //              opt.Audience = Configuration["AzureAd:ResourceId"];
+            //              opt.Authority = $"{Configuration["AzureAd:Instance"]}{Configuration["AzureAd:TenantId"]}";
+            //          });
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
