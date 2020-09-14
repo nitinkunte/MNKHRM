@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
+        integrity="sha512-1sLg2zcT3n7osSBWgWwaLYULxlCxQ8ReyS+8QvjyhF8YxrESmO+yjB59f3sNLLN022lg1X2PMckOlXkMQfYoGA=="
+        crossorigin="anonymous" />
+    <style>
+        .logo {
+            background: #0da58e;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            line-height: 52px;
+        }
+
+        .logo-img {
+            width: 50px;
+        }
+
+        .tabbable-responsive {
+            display: block;
+            min-width: 100%;
+            overflow-x: auto;
+            margin: 0px -20px -13px -20px;
+        }
+
+        .tabbable {
+            min-width: 100%;
+        }
+
+        .nav-tabs {
+            white-space: nowrap;
+            display: inline-block;
+            min-width: 100%;
+            padding: 0px 21px;
+
+        }
+
+        .nav-item {
+            display: inline-block;
+            background-color: whitesmoke;
+            border-top: 2px solid lightgrey;
+            border-left: 2px solid lightgrey;
+            border-right: 2px solid lightgrey;
+            border-radius: 5px 5px 1px 1px;
+
+        }
+
+        .nav-link {
+            display: inline-block;
+            color: dimgray;
+        }
+
+        .myBorder {
+            background-color: whitesmoke;
+            border-top: 10px rgb(204, 54, 54);
+            border-left: 1px rgb(212, 105, 105);
+            border-right: 1px rgb(112, 33, 33);
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+    </style>
+    <title>MNK HRM</title>
+</head>
+
+<body>
+    <h1>Save Employee</h1>
+
+    <div class="container-fluid ">
+        <div class="card shadow p-3 mb-5 bg-white rounded">
+            <div class="card-header">
+                <div class="d-flex mb-3">
+                    <div class="title">
+                        <h3>Neha Kunte</h3>
+                    </div>
+                    <div class="ml-auto">
+                        <div class="logo">
+                            <img src="https://www.mnkinfotech.com/wp-content/uploads/2015/05/leadership-150x150.jpg"
+                                alt="emp photo">
+                        </div>
+                    </div>
+                </div>
+                <form>
+                    <div class="shadow-sm p-3 bg-white rounded container-fluid">
+                        <div class="row mt-3">
+                            <div class="col-sm-5 form-group">
+                                <label for="NameFirst">First Name</label>
+                                <input id="NameFirst" class="form-control" placeholder="First Name" required />
+                                <div class="invalid-feedback">
+                                    Please provide a First Name.
+                                </div>
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <label for="NameMiddle">Middle</label>
+                                <input id="NameMiddle" class="form-control" placeholder="Middle Name" />
+                            </div>
+                            <div class="col-sm-5 form-group">
+                                <label for="NameLast">Last Name</label>
+                                <input id="NameLast" class="form-control" placeholder="Last Name" required />
+                                <div class="invalid-feedback">
+                                    Please provide a Last Name.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5 form-group">
+                                <label for="dob">Date of Birth</label>
+                                <input id="dob" class="form-control" type="date" required />
+                                <div class="invalid-feedback">
+                                    Please provide a Date of Birth.
+                                </div>
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label for="SSN">SSN</label>
+                                <input id="SSN" class="form-control" placeholder="SSN" required />
+                                <div class="invalid-feedback">
+                                    Please provide a SSN.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-block" id="btnSubmit">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- START TABS DIV -->
+                <div class="tabbable-responsive mt-2">
+                    <div class="tabbable">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="personal-tab" data-toggle="tab" href="#personal"
+                                    role="tab" aria-controls="personal" aria-selected="true">Personal</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="second-tab" data-toggle="tab" href="#second" role="tab"
+                                    aria-controls="second" aria-selected="false">Address & Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="third-tab" data-toggle="tab" href="#third" role="tab"
+                                    aria-controls="third" aria-selected="false">Employment Info</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="fourth-tab" data-toggle="tab" href="#fourth" role="tab"
+                                    aria-controls="fourth" aria-selected="false">Immigration</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="fifth-tab" data-toggle="tab" href="#fifth" role="tab"
+                                    aria-controls="fifth" aria-selected="false">Emergency Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="personal-tab">
+                        <form>
+                            <div>
+                                <div class="d-flex justify-content-between">
+                                    <h5>Personal Information</h5>
+                                    <p>
+                                        <button type="button" class="btn btn-outline-secondary">Reset</button>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row card-text">
+                                <div class="col-sm-4 form-group">
+                                    <label for="gender">Gender</label>
+                                    <select id="gender" class="form-control">
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-8 form-group">
+                                    <label for="NamePrintOnCheck">Name to be printed on check</label>
+                                    <input id="NamePrintOnCheck" class="form-control" placeholder="Name on check" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label for="maritalStatus">Maritial Status</label>
+                                    <select id="maritalStatus" class="form-control">
+                                        <option selected>Select...</option>
+                                        <option>Married</option>
+                                        <option>Single</option>
+                                        <option>Divorced</option>
+                                        <option>Separated</option>
+                                        <option>Widowed</option>
+                                        <option>Domestic Partner</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label for="Ethnicity">Ethnicity</label>
+                                    <select id="Ethnicity" class="form-control">
+                                        <option selected>Select...</option>
+                                        <option>American Indian|Alaska Native</option>
+                                        <option>Asian</option>
+                                        <option>Black|African American</option>
+                                        <option>Hawaiian|Pacific Islander</option>
+                                        <option>Hispanic|Latino</option>
+                                        <option>White</option>
+                                        <option>Two or More Races</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <input type="checkbox" class="form-check-input" id="isDisabled">
+                                    <label for="isDisabled">Is Disabled</label>
+                                    <textarea id="disablitydesc" class="form-control" rows="1"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 form-group">
+                                    <label for="notes">Notes</label>
+                                    <textarea id="Notes" class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="second" role="tabpanel" aria-labelledby="second-tab">
+                        <form>
+                            <h4>Address & Contact</h4>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Main Email</label>
+                                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4">Cell Phone</label>
+                                    <input type="tel" class="form-control" id="inputPassword4"
+                                        placeholder="111-111-1111">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress">Address</label>
+                                    <input type="text" class="form-control" id="inputAddress"
+                                        placeholder="1234 Main St">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputAddress2">Address 2</label>
+                                    <input type="text" class="form-control" id="inputAddress2"
+                                        placeholder="Apartment, studio, or floor">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputCity">City</label>
+                                    <input type="text" class="form-control" id="inputCity">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputState">State</label>
+                                    <select id="inputState" class="form-control">
+                                        <option selected>Choose...</option>
+                                        <option>Texas</option>
+                                        <option>Washington</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputZip">Zip</label>
+                                    <input type="text" class="form-control" id="inputZip">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="website">Website</label>
+                                    <input type="url" class="form-control" id="website" placeholder="Email">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="fax">Fax</label>
+                                    <input type="tel" class="form-control" id="fax" placeholder="111-111-1111">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="otherEmail">Other Email</label>
+                                    <input type="email" class="form-control" id="otherEmail" placeholder="Email">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="otherPhone">Other Phone</label>
+                                    <input type="tel" class="form-control" id="otherPhone" placeholder="111-111-1111">
+                                </div>
+                            </div>                            
+                            <div class="form-row">
+                                <div class="col-sm-12 d-flex justify-content-between">
+                                    <button type="button" type="reset" class="btn btn-secondary">Reset</button>
+                                    <button type="button" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="third" role="tabpanel" aria-labelledby="third-tab">
+                        <h5 class="card-title">Third Tab header</h5>
+                    </div>
+                    <div class="tab-pane fade" id="fourth" role="tabpanel" aria-labelledby="fourth-tab">
+                        <h5 class="card-title">Fourth Tab header</h5>
+                        <p class="card-text">Nulla dignissim justo sed nulla dignissim pellentesque. Maecenas
+                        </p>
+                    </div>
+                    <div class="tab-pane fade" id="fifth" role="tabpanel" aria-labelledby="fifth-tab">
+                        <h5 class="card-title">Fifth Tab header</h5>
+                        <p class="card-text">Nunc lacinia sodales ex, in mattis nulla eleifend in. Quisque molestie,
+                        </p>
+                    </div>
+
+                </div>
+                <!-- END TABS DIV -->
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

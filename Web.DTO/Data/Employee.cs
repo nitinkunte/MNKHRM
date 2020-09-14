@@ -18,6 +18,7 @@ namespace Web.DTO.Data
         [MinLength(1)]
         public string NameLast { get; set; }
         public string NamePrintOnCheck { get; set; }
+        [Required]
         public string SSN { get; set; }
         public int Gender { get; set; }
 
@@ -35,6 +36,8 @@ namespace Web.DTO.Data
         /// </summary>
         public bool IsDisabled { get; set; }
 
+        [StringLength(2000)]
+        public string DisabilityDesc {get; set;}
         public bool IsI9OnFile { get { return (ImmigrationId > 0); } private set { } }
 
         public int ImmigrationId { get; set; }
