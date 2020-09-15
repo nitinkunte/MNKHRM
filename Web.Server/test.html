@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
         integrity="sha512-1sLg2zcT3n7osSBWgWwaLYULxlCxQ8ReyS+8QvjyhF8YxrESmO+yjB59f3sNLLN022lg1X2PMckOlXkMQfYoGA=="
         crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <style>
         .logo {
             background: #0da58e;
@@ -22,6 +26,7 @@
             width: 50px;
         }
 
+        /* Tab related CSS */
         .tabbable-responsive {
             display: block;
             min-width: 100%;
@@ -56,14 +61,42 @@
             color: dimgray;
         }
 
-        .myBorder {
-            background-color: whitesmoke;
-            border-top: 10px rgb(204, 54, 54);
-            border-left: 1px rgb(212, 105, 105);
-            border-right: 1px rgb(112, 33, 33);
-            margin-top: 10px;
-            margin-bottom: 5px;
+        /* Tab related CSS ends */
+        /* Collapsible Accordion panels */
+        .panel-title>a:before {
+            float: right !important;
+            font-family: FontAwesome;
+            content: "\f068";
+            padding-right: 5px;
         }
+
+        .panel-title>a.collapsed:before {
+            float: right !important;
+            content: "\f067";
+        }
+
+        .panel-title>a:visited,
+        .panel-title>a:link {
+            color: dimgray;
+        }
+
+        .panel-title>a:hover,
+        .panel-title>a:active,
+        .panel-title>a:focus {
+            text-decoration: none;
+        }
+
+        panel-default {
+            border-color: #dddddd;
+        }
+
+        .panel-default>.panel-heading {
+            color: #555555;
+            background-color: whitesmoke;
+            border-color:dimgray;
+        }
+
+        /* Collapsible Accordion panels ends */
     </style>
     <title>MNK HRM</title>
 </head>
@@ -139,20 +172,20 @@
                                     role="tab" aria-controls="personal" aria-selected="true">Personal</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="second-tab" data-toggle="tab" href="#second" role="tab"
-                                    aria-controls="second" aria-selected="false">Address & Contact</a>
+                                <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab"
+                                    aria-controls="address" aria-selected="false">Address & Contact</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="third-tab" data-toggle="tab" href="#third" role="tab"
-                                    aria-controls="third" aria-selected="false">Employment Info</a>
+                                <a class="nav-link" id="employment-tab" data-toggle="tab" href="#employment" role="tab"
+                                    aria-controls="employment" aria-selected="false">Employment Info</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="fourth-tab" data-toggle="tab" href="#fourth" role="tab"
-                                    aria-controls="fourth" aria-selected="false">Immigration</a>
+                                <a class="nav-link" id="immigration-tab" data-toggle="tab" href="#immigration"
+                                    role="tab" aria-controls="immigration" aria-selected="false">Immigration</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="fifth-tab" data-toggle="tab" href="#fifth" role="tab"
-                                    aria-controls="fifth" aria-selected="false">Emergency Contact</a>
+                                <a class="nav-link" id="emergency-tab" data-toggle="tab" href="#emergency" role="tab"
+                                    aria-controls="emergency" aria-selected="false">Emergency Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -170,10 +203,11 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="row card-text">
+                            <div class="row">
                                 <div class="col-sm-4 form-group">
                                     <label for="gender">Gender</label>
                                     <select id="gender" class="form-control">
+                                        <option>Select...</option>
                                         <option>Male</option>
                                         <option>Female</option>
                                         <option>Other</option>
@@ -224,9 +258,16 @@
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="second" role="tabpanel" aria-labelledby="second-tab">
+                    <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
                         <form>
-                            <h4>Address & Contact</h4>
+                            <div>
+                                <div class="d-flex justify-content-between">
+                                    <h4>Address & Contact</h4>
+                                    <p>
+                                        <button type="button" class="btn btn-outline-secondary">Reset</button>
+                                    </p>
+                                </div>
+                            </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputEmail4">Main Email</label>
@@ -287,27 +328,414 @@
                                     <label for="otherPhone">Other Phone</label>
                                     <input type="tel" class="form-control" id="otherPhone" placeholder="111-111-1111">
                                 </div>
-                            </div>                            
-                            <div class="form-row">
-                                <div class="col-sm-12 d-flex justify-content-between">
-                                    <button type="button" type="reset" class="btn btn-secondary">Reset</button>
-                                    <button type="button" class="btn btn-primary">Save</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="employment" role="tabpanel" aria-labelledby="employment-tab">
+                        <form>
+                            <div class="">
+                                <div class="d-flex justify-content-between">
+                                    <h4>Employment Information</h4>
+                                    <p>
+                                        <button type="button" class="btn btn-outline-secondary">Reset</button>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="form-group row">
+                                        <label for="title" class="col-sm-3 col-form-label">Title</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="title" placeholder="Job Title">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="form-group row">
+                                        <label for="hiredate" class="col-sm-5 col-form-label">Hire Date</label>
+                                        <div class="">
+                                            <input type="date" class="form-control" id="hiredate"
+                                                placeholder="Hire Date">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="form-group row">
+                                        <label for="supervisor" class="col-sm-3 col-form-label">Supervisor</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="supervisor"
+                                                placeholder="Supervisor">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="form-group row">
+                                        <label for="orghiredate" class="col-sm-5 col-form-label">Org Hire Date</label>
+                                        <div class="">
+                                            <input type="date" class="form-control" id="orghiredate"
+                                                placeholder="Original Hire Date">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="form-group row">
+                                        <label for="department" class="col-sm-3 col-form-label">Department</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="department"
+                                                placeholder="Department">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="form-group row">
+                                        <label for="adjservicedate" class="col-sm-5 col-form-label">Adj Service
+                                            Date</label>
+                                        <div class="">
+                                            <input type="date" class="form-control" id="adjservicedate"
+                                                placeholder="Adjusted Service Date">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="form-group row">
+                                        <label for="empDesc" class="col-sm-3 col-form-label">Description</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" id="empDesc"
+                                                placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="form-group row">
+                                        <label for="releasedate" class="col-sm-5 col-form-label">Release Date</label>
+                                        <div class="">
+                                            <input type="date" class="form-control" id="releasedate"
+                                                placeholder="Release Date">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="form-group row">
+                                        <label for="empType" class="col-sm-3 col-form-label">Emp Type</label>
+                                        <div class="col-sm-9">
+                                            <select id="empType" class="form-control">
+                                                <option selected>Select...</option>
+                                                <option>Regular</option>
+                                                <option>Officer</option>
+                                                <option>Statutory</option>
+                                                <option>Owner</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="form-group row">
+                                        <label for="lastDayWorked" class="col-sm-5 col-form-label">Last Day Date</label>
+                                        <div class="">
+                                            <input type="date" class="form-control" id="lastDayWorked"
+                                                placeholder="Last Day Date">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="form-group row">
+                                        <label for="fullTime" class="col-sm-3 col-form-label">Full Time?</label>
+                                        <div class="col-sm-9">
+                                            <select id="fullTime" class="form-control">
+                                                <option selected>Select...</option>
+                                                <option>Full-time</option>
+                                                <option>Part-time</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="form-group row">
+                                        <label for="lastDayOnBenefits" class="col-sm-5 col-form-label">Last Day on
+                                            Benefits</label>
+                                        <div class="">
+                                            <input type="date" class="form-control" id="lastDayOnBenefits"
+                                                placeholder="Last Day on Benefits">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="checkbox" data-toggle="toggle" data-on="Seasonal"
+                                        data-off="Not Seasonal" data-onstyle="success" data-offstyle="danger"
+                                        data-width="140">
+                                </div>
+                                <div class="col">
+                                    <input type="checkbox" data-toggle="toggle" data-on="Severance Paid - Yes"
+                                        data-off="Severance Paid - No" data-onstyle="success" data-offstyle="danger"
+                                        data-width="200">
+                                </div>
+                                <div class="col">
+                                    <input type="checkbox" data-toggle="toggle" data-on="Rehire - Yes"
+                                        data-off="Rehire - No" data-onstyle="success" data-offstyle="danger" checked
+                                        data-width="150">
+                                </div>
+                                <div class="col">
+                                    <input type="checkbox" data-toggle="toggle" data-on="Protest
+                                    Unemployment - Yes" data-off="Protest
+                                    Unemployment - No" data-onstyle="success" checked data-offstyle="danger"
+                                        data-width="250">
+                                </div>
+                            </div>
+
+                            <div class="form-row mt-2">
+                                <div class="form-group col-md-7">
+                                    <label for="terminationNotes">Termination Notes</label>
+                                    <textarea class="form-control" id="terminationNotes"
+                                        placeholder="Termination Notes"></textarea>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label for="severanceNotes">Severance Notes</label>
+                                    <textarea class="form-control" id="severanceNotes" class="col-sm-6"
+                                        placeholder="Severance Notes"></textarea>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="third" role="tabpanel" aria-labelledby="third-tab">
-                        <h5 class="card-title">Third Tab header</h5>
+                    <div class="tab-pane fade" id="immigration" role="tabpanel" aria-labelledby="immigration-tab">
+                        <div>
+                            <div class="d-flex justify-content-between">
+                                <h5>Immigration Information</h5>
+                                <p>
+                                    <button type="button" class="btn btn-outline-secondary">Reset</button>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 form-group">
+                                <label for="immigrationStatus">Immigration Status</label>
+                                <select id="immigrationStatus" class="form-control">
+                                    <option>Select...</option>
+                                    <option>H1B</option>
+                                    <option>Citizen</option>
+                                    <option>Green Card</option>
+                                    <option>EAD</option>
+                                    <option>OPT-EAD</option>
+                                    <option>CPT</option>
+                                    <option>L1</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-8 form-group">
+                                <label for="calcExpiryDate">Calculated Expiry Date</label>
+                                <input id="calcExpiryDate" class="form-control" placeholder="N/A" disabled
+                                    aria-disabled="true" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingA">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#listA"
+                                                aria-expanded="true" aria-controls="listA">
+                                                List A
+                                            </a>
+                                        </h4>
+
+                                    </div>
+                                    <div id="listA" class="panel-collapse collapse show in" role="tabpanel"
+                                        aria-labelledby="headingA">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-3 form-group">
+                                                    <label for="gender">Document Title</label>
+                                                    <input id="NamePrintOnCheck" class="form-control"
+                                                        placeholder="Document Title" />
+                                                </div>
+                                                <div class="col-sm-3 form-group">
+                                                    <label for="gender">Issuing Authority</label>
+                                                    <input id="NamePrintOnCheck" class="form-control"
+                                                        placeholder="Issuing Authority" />
+                                                </div>
+                                                <div class="col-sm-3 form-group">
+                                                    <label for="gender">Document Number</label>
+                                                    <input id="NamePrintOnCheck" class="form-control"
+                                                        placeholder="Document #" />
+                                                </div>
+                                                <div class="col-sm-3 form-group">
+                                                    <label for="expiryDate">Expiry Date</label>
+                                                    <input id="expiryDate" class="form-control"
+                                                        placeholder="yyyy-mm-dd" type="date" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingB">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                                href="#listB" aria-expanded="false" aria-controls="listB">
+                                                List B 
+                                            </a>
+                                        </h4>
+
+                                    </div>
+                                    <div id="listB" class="panel-collapse collapse" role="tabpanel"
+                                        aria-labelledby="headingB">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-3 form-group">
+                                                    <label for="gender">Document Title</label>
+                                                    <input id="NamePrintOnCheck" class="form-control"
+                                                        placeholder="Document Title" />
+                                                </div>
+                                                <div class="col-sm-3 form-group">
+                                                    <label for="gender">Issuing Authority</label>
+                                                    <input id="NamePrintOnCheck" class="form-control"
+                                                        placeholder="Issuing Authority" />
+                                                </div>
+                                                <div class="col-sm-3 form-group">
+                                                    <label for="gender">Document Number</label>
+                                                    <input id="NamePrintOnCheck" class="form-control"
+                                                        placeholder="Document #" />
+                                                </div>
+                                                <div class="col-sm-3 form-group">
+                                                    <label for="gender">Expiry Date</label>
+                                                    <input id="NamePrintOnCheck" class="form-control"
+                                                        placeholder="Expiry Date" type="date" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingC">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                                href="#listC" aria-expanded="false" aria-controls="listC">
+                                                List C
+                                            </a>
+                                        </h4>
+
+                                    </div>
+                                    <div id="listC" class="panel-collapse collapse" role="tabpanel"
+                                        aria-labelledby="headingC">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-3 form-group">
+                                                    <label for="gender">Document Title</label>
+                                                    <input id="NamePrintOnCheck" class="form-control"
+                                                        placeholder="Document Title" />
+                                                </div>
+                                                <div class="col-sm-3 form-group">
+                                                    <label for="gender">Issuing Authority</label>
+                                                    <input id="NamePrintOnCheck" class="form-control"
+                                                        placeholder="Issuing Authority" />
+                                                </div>
+                                                <div class="col-sm-3 form-group">
+                                                    <label for="gender">Document Number</label>
+                                                    <input id="NamePrintOnCheck" class="form-control"
+                                                        placeholder="Document #" />
+                                                </div>
+                                                <div class="col-sm-3 form-group">
+                                                    <label for="gender">Expiry Date</label>
+                                                    <input id="NamePrintOnCheck" class="form-control"
+                                                        placeholder="Expiry Date" type="date" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>
                     </div>
-                    <div class="tab-pane fade" id="fourth" role="tabpanel" aria-labelledby="fourth-tab">
-                        <h5 class="card-title">Fourth Tab header</h5>
-                        <p class="card-text">Nulla dignissim justo sed nulla dignissim pellentesque. Maecenas
-                        </p>
-                    </div>
-                    <div class="tab-pane fade" id="fifth" role="tabpanel" aria-labelledby="fifth-tab">
-                        <h5 class="card-title">Fifth Tab header</h5>
-                        <p class="card-text">Nunc lacinia sodales ex, in mattis nulla eleifend in. Quisque molestie,
-                        </p>
+                    <div class="tab-pane fade" id="emergency" role="tabpanel" aria-labelledby="emergency-tab">
+                        <div>
+                            <div class="d-flex justify-content-between">
+                                <h5>Emergency Contact</h5>
+                                <p>
+                                    <button type="button" class="btn btn-outline-secondary">Reset</button>
+                                </p>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <label for="emergencyContactName">Name</label>
+                                    <input type="text" class="form-control" id="emergencyContactName" placeholder="Contact Name">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="emergencyContactEmail">Email</label>
+                                        <input type="email" class="form-control" id="emergencyContactEmail" placeholder="Contact Email">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="emergencyContactPhone">Phone</label>
+                                        <input type="tel" class="form-control" id="emergencyContactPhone"
+                                            placeholder="111-111-1111">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="emergencyContactRel">Relationship</label>
+                                    <select id="emergencyContactRel" class="form-control">
+                                        <option>Select...</option>
+                                        <option>Spouse</option>
+                                        <option>Partner</option>
+                                        <option>Mother</option>
+                                        <option>Father</option>
+                                        <option>Sister</option>
+                                        <option>Brother</option>
+                                        <option>Son</option>
+                                        <option>Daughter</option>
+                                        <option>Friend</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <label for="emergencyContactName">Name</label>
+                                    <input type="text" class="form-control" id="emergencyContactName" placeholder="Contact Name">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="emergencyContactEmail">Email</label>
+                                        <input type="email" class="form-control" id="emergencyContactEmail" placeholder="Contact Email">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="emergencyContactPhone">Phone</label>
+                                        <input type="tel" class="form-control" id="emergencyContactPhone"
+                                            placeholder="111-111-1111">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="emergencyContactRel">Relationship</label>
+                                    <select id="emergencyContactRel" class="form-control">
+                                        <option>Select...</option>
+                                        <option>Spouse</option>
+                                        <option>Partner</option>
+                                        <option>Mother</option>
+                                        <option>Father</option>
+                                        <option>Sister</option>
+                                        <option>Brother</option>
+                                        <option>Son</option>
+                                        <option>Daughter</option>
+                                        <option>Friend</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -336,6 +764,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 </body>
 
 </html>
