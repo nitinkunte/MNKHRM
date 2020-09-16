@@ -14,19 +14,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <style>
-        .logo {
-            background: #0da58e;
-            width: 60px;
-            height: 60px;
-            text-align: center;
-            line-height: 52px;
-        }
-
-        .logo-img {
-            width: 50px;
-        }
-
-        /* Tab related CSS */
+        /* Tab related CSS start */
         .tabbable-responsive {
             display: block;
             min-width: 100%;
@@ -43,7 +31,6 @@
             display: inline-block;
             min-width: 100%;
             padding: 0px 21px;
-
         }
 
         .nav-item {
@@ -53,7 +40,6 @@
             border-left: 2px solid lightgrey;
             border-right: 2px solid lightgrey;
             border-radius: 5px 5px 1px 1px;
-
         }
 
         .nav-link {
@@ -62,7 +48,7 @@
         }
 
         /* Tab related CSS ends */
-        /* Collapsible Accordion panels */
+        /* Collapsible Accordion panels start */
         .panel-title>a:before {
             float: right !important;
             font-family: FontAwesome;
@@ -93,10 +79,67 @@
         .panel-default>.panel-heading {
             color: #555555;
             background-color: whitesmoke;
-            border-color:dimgray;
+            border-color: dimgray;
         }
 
         /* Collapsible Accordion panels ends */
+
+        /*Profile Pic Start*/
+        .picture-container {
+            position: relative;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .picture {
+            width: 106px;
+            height: 106px;
+            background-color: #999999;
+            border: 4px solid #CCCCCC;
+            color: #FFFFFF;
+            border-radius: 50%;
+            margin: 0px auto;
+            overflow: hidden;
+            transition: all 0.2s;
+            -webkit-transition: all 0.2s;
+        }
+
+        .picture:hover {
+            border-color: #2ca8ff;
+        }
+
+        .content.ct-wizard-green .picture:hover {
+            border-color: #05ae0e;
+        }
+
+        .content.ct-wizard-blue .picture:hover {
+            border-color: #3472f7;
+        }
+
+        .content.ct-wizard-orange .picture:hover {
+            border-color: #ff9500;
+        }
+
+        .content.ct-wizard-red .picture:hover {
+            border-color: #ff3b30;
+        }
+
+        .picture input[type="file"] {
+            cursor: pointer;
+            display: block;
+            height: 100%;
+            left: 0;
+            opacity: 0 !important;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+        .picture-src {
+            width: 100%;
+        }
+
+        /*Profile Pic End*/
     </style>
     <title>MNK HRM</title>
 </head>
@@ -112,10 +155,16 @@
                         <h3>Neha Kunte</h3>
                     </div>
                     <div class="ml-auto">
-                        <div class="logo">
-                            <img src="https://www.mnkinfotech.com/wp-content/uploads/2015/05/leadership-150x150.jpg"
-                                alt="emp photo">
+                        <div class="container">
+                            <div class="picture-container">
+                                <div class="picture">
+                                    <img src="https://www.mnkinfotech.com/wp-content/uploads/2015/05/leadership-150x150.jpg" class="picture-src" id="wizardPicturePreview" title="">
+                                    <input type="file" id="wizard-picture" class="">
+                                </div>
+                                 <h6 class="">Choose Picture</h6>
+                            </div>
                         </div>
+
                     </div>
                 </div>
                 <form>
@@ -541,123 +590,123 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading" role="tab" id="headingA">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#listA"
-                                                aria-expanded="true" aria-controls="listA">
-                                                List A
-                                            </a>
-                                        </h4>
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingA">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#listA"
+                                                    aria-expanded="true" aria-controls="listA">
+                                                    List A
+                                                </a>
+                                            </h4>
 
-                                    </div>
-                                    <div id="listA" class="panel-collapse collapse show in" role="tabpanel"
-                                        aria-labelledby="headingA">
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-sm-3 form-group">
-                                                    <label for="gender">Document Title</label>
-                                                    <input id="NamePrintOnCheck" class="form-control"
-                                                        placeholder="Document Title" />
-                                                </div>
-                                                <div class="col-sm-3 form-group">
-                                                    <label for="gender">Issuing Authority</label>
-                                                    <input id="NamePrintOnCheck" class="form-control"
-                                                        placeholder="Issuing Authority" />
-                                                </div>
-                                                <div class="col-sm-3 form-group">
-                                                    <label for="gender">Document Number</label>
-                                                    <input id="NamePrintOnCheck" class="form-control"
-                                                        placeholder="Document #" />
-                                                </div>
-                                                <div class="col-sm-3 form-group">
-                                                    <label for="expiryDate">Expiry Date</label>
-                                                    <input id="expiryDate" class="form-control"
-                                                        placeholder="yyyy-mm-dd" type="date" />
+                                        </div>
+                                        <div id="listA" class="panel-collapse collapse show in" role="tabpanel"
+                                            aria-labelledby="headingA">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-3 form-group">
+                                                        <label for="gender">Document Title</label>
+                                                        <input id="NamePrintOnCheck" class="form-control"
+                                                            placeholder="Document Title" />
+                                                    </div>
+                                                    <div class="col-sm-3 form-group">
+                                                        <label for="gender">Issuing Authority</label>
+                                                        <input id="NamePrintOnCheck" class="form-control"
+                                                            placeholder="Issuing Authority" />
+                                                    </div>
+                                                    <div class="col-sm-3 form-group">
+                                                        <label for="gender">Document Number</label>
+                                                        <input id="NamePrintOnCheck" class="form-control"
+                                                            placeholder="Document #" />
+                                                    </div>
+                                                    <div class="col-sm-3 form-group">
+                                                        <label for="expiryDate">Expiry Date</label>
+                                                        <input id="expiryDate" class="form-control"
+                                                            placeholder="yyyy-mm-dd" type="date" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading" role="tab" id="headingB">
-                                        <h4 class="panel-title">
-                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
-                                                href="#listB" aria-expanded="false" aria-controls="listB">
-                                                List B 
-                                            </a>
-                                        </h4>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingB">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                                    href="#listB" aria-expanded="false" aria-controls="listB">
+                                                    List B
+                                                </a>
+                                            </h4>
 
-                                    </div>
-                                    <div id="listB" class="panel-collapse collapse" role="tabpanel"
-                                        aria-labelledby="headingB">
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-sm-3 form-group">
-                                                    <label for="gender">Document Title</label>
-                                                    <input id="NamePrintOnCheck" class="form-control"
-                                                        placeholder="Document Title" />
-                                                </div>
-                                                <div class="col-sm-3 form-group">
-                                                    <label for="gender">Issuing Authority</label>
-                                                    <input id="NamePrintOnCheck" class="form-control"
-                                                        placeholder="Issuing Authority" />
-                                                </div>
-                                                <div class="col-sm-3 form-group">
-                                                    <label for="gender">Document Number</label>
-                                                    <input id="NamePrintOnCheck" class="form-control"
-                                                        placeholder="Document #" />
-                                                </div>
-                                                <div class="col-sm-3 form-group">
-                                                    <label for="gender">Expiry Date</label>
-                                                    <input id="NamePrintOnCheck" class="form-control"
-                                                        placeholder="Expiry Date" type="date" />
+                                        </div>
+                                        <div id="listB" class="panel-collapse collapse" role="tabpanel"
+                                            aria-labelledby="headingB">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-3 form-group">
+                                                        <label for="gender">Document Title</label>
+                                                        <input id="NamePrintOnCheck" class="form-control"
+                                                            placeholder="Document Title" />
+                                                    </div>
+                                                    <div class="col-sm-3 form-group">
+                                                        <label for="gender">Issuing Authority</label>
+                                                        <input id="NamePrintOnCheck" class="form-control"
+                                                            placeholder="Issuing Authority" />
+                                                    </div>
+                                                    <div class="col-sm-3 form-group">
+                                                        <label for="gender">Document Number</label>
+                                                        <input id="NamePrintOnCheck" class="form-control"
+                                                            placeholder="Document #" />
+                                                    </div>
+                                                    <div class="col-sm-3 form-group">
+                                                        <label for="gender">Expiry Date</label>
+                                                        <input id="NamePrintOnCheck" class="form-control"
+                                                            placeholder="Expiry Date" type="date" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading" role="tab" id="headingC">
-                                        <h4 class="panel-title">
-                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
-                                                href="#listC" aria-expanded="false" aria-controls="listC">
-                                                List C
-                                            </a>
-                                        </h4>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingC">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                                    href="#listC" aria-expanded="false" aria-controls="listC">
+                                                    List C
+                                                </a>
+                                            </h4>
 
-                                    </div>
-                                    <div id="listC" class="panel-collapse collapse" role="tabpanel"
-                                        aria-labelledby="headingC">
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-sm-3 form-group">
-                                                    <label for="gender">Document Title</label>
-                                                    <input id="NamePrintOnCheck" class="form-control"
-                                                        placeholder="Document Title" />
-                                                </div>
-                                                <div class="col-sm-3 form-group">
-                                                    <label for="gender">Issuing Authority</label>
-                                                    <input id="NamePrintOnCheck" class="form-control"
-                                                        placeholder="Issuing Authority" />
-                                                </div>
-                                                <div class="col-sm-3 form-group">
-                                                    <label for="gender">Document Number</label>
-                                                    <input id="NamePrintOnCheck" class="form-control"
-                                                        placeholder="Document #" />
-                                                </div>
-                                                <div class="col-sm-3 form-group">
-                                                    <label for="gender">Expiry Date</label>
-                                                    <input id="NamePrintOnCheck" class="form-control"
-                                                        placeholder="Expiry Date" type="date" />
+                                        </div>
+                                        <div id="listC" class="panel-collapse collapse" role="tabpanel"
+                                            aria-labelledby="headingC">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-3 form-group">
+                                                        <label for="gender">Document Title</label>
+                                                        <input id="NamePrintOnCheck" class="form-control"
+                                                            placeholder="Document Title" />
+                                                    </div>
+                                                    <div class="col-sm-3 form-group">
+                                                        <label for="gender">Issuing Authority</label>
+                                                        <input id="NamePrintOnCheck" class="form-control"
+                                                            placeholder="Issuing Authority" />
+                                                    </div>
+                                                    <div class="col-sm-3 form-group">
+                                                        <label for="gender">Document Number</label>
+                                                        <input id="NamePrintOnCheck" class="form-control"
+                                                            placeholder="Document #" />
+                                                    </div>
+                                                    <div class="col-sm-3 form-group">
+                                                        <label for="gender">Expiry Date</label>
+                                                        <input id="NamePrintOnCheck" class="form-control"
+                                                            placeholder="Expiry Date" type="date" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
                         </div>
                     </div>
@@ -672,12 +721,14 @@
                             <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <label for="emergencyContactName">Name</label>
-                                    <input type="text" class="form-control" id="emergencyContactName" placeholder="Contact Name">
+                                    <input type="text" class="form-control" id="emergencyContactName"
+                                        placeholder="Contact Name">
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="emergencyContactEmail">Email</label>
-                                        <input type="email" class="form-control" id="emergencyContactEmail" placeholder="Contact Email">
+                                        <input type="email" class="form-control" id="emergencyContactEmail"
+                                            placeholder="Contact Email">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="emergencyContactPhone">Phone</label>
@@ -705,12 +756,14 @@
                             <div class="form-row">
                                 <div class="form-group col-md-3">
                                     <label for="emergencyContactName">Name</label>
-                                    <input type="text" class="form-control" id="emergencyContactName" placeholder="Contact Name">
+                                    <input type="text" class="form-control" id="emergencyContactName"
+                                        placeholder="Contact Name">
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="emergencyContactEmail">Email</label>
-                                        <input type="email" class="form-control" id="emergencyContactEmail" placeholder="Contact Email">
+                                        <input type="email" class="form-control" id="emergencyContactEmail"
+                                            placeholder="Contact Email">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="emergencyContactPhone">Phone</label>
@@ -747,12 +800,6 @@
 
 
 
-
-
-
-
-
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -765,6 +812,25 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script type="application/javascript">
+        $(document).ready(function () {
+            // Prepare the preview for profile picture
+            $("#wizard-picture").change(function () {
+                readURL(this);
+            });
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
 </body>
 
 </html>
