@@ -14,16 +14,17 @@ namespace Web.Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7");
+                .HasAnnotation("ProductVersion", "3.1.8");
 
-            modelBuilder.Entity("Web.DTO.Data.Address", b =>
+            modelBuilder.Entity("Web.DTO.Data.AddressModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AddressType")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("AddressType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -82,7 +83,7 @@ namespace Web.Api.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("Web.DTO.Data.EmergencyContact", b =>
+            modelBuilder.Entity("Web.DTO.Data.EmergencyContactModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -105,7 +106,7 @@ namespace Web.Api.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("RelationshipStatus")
+                    b.Property<int>("RelationshipStatusId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -116,12 +117,12 @@ namespace Web.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("EmployeeId", "RelationshipStatus");
+                    b.HasAlternateKey("EmployeeId", "RelationshipStatusId");
 
                     b.ToTable("EmergencyContacts");
                 });
 
-            modelBuilder.Entity("Web.DTO.Data.Employee", b =>
+            modelBuilder.Entity("Web.DTO.Data.EmployeeModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -136,14 +137,18 @@ namespace Web.Api.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("DisabilityDesc")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(2000);
+
                     b.Property<int>("EmploymentInfoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Ethnicity")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Ethnicity")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("Gender")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Gender")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ImmigrationId")
                         .HasColumnType("INTEGER");
@@ -157,8 +162,8 @@ namespace Web.Api.Migrations
                     b.Property<bool>("IsI9OnFile")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("MaritalStatus")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("MaritalStatus")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NameFirst")
                         .IsRequired()
@@ -178,6 +183,7 @@ namespace Web.Api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SSN")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -191,7 +197,7 @@ namespace Web.Api.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("Web.DTO.Data.EmploymentInfo", b =>
+            modelBuilder.Entity("Web.DTO.Data.EmploymentInfoModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -209,7 +215,7 @@ namespace Web.Api.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("EmploymentType")
+                    b.Property<int>("EmploymentTypeId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("HireDate")
@@ -280,7 +286,7 @@ namespace Web.Api.Migrations
                     b.ToTable("EmploymentInfos");
                 });
 
-            modelBuilder.Entity("Web.DTO.Data.Immigration", b =>
+            modelBuilder.Entity("Web.DTO.Data.ImmigrationModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -331,7 +337,7 @@ namespace Web.Api.Migrations
                     b.Property<string>("ListCIssuingAuthority")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Status")
+                    b.Property<int>("StatusId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -377,7 +383,7 @@ namespace Web.Api.Migrations
 
                     b.HasIndex("UserName");
 
-                    b.ToTable("SessionModels");
+                    b.ToTable("UserSessions");
                 });
 
             modelBuilder.Entity("Web.DTO.Data.UserRoleModel", b =>
@@ -418,18 +424,18 @@ namespace Web.Api.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("Web.DTO.Data.EmploymentInfo", b =>
+            modelBuilder.Entity("Web.DTO.Data.EmploymentInfoModel", b =>
                 {
-                    b.HasOne("Web.DTO.Data.Employee", "Employee")
+                    b.HasOne("Web.DTO.Data.EmployeeModel", "Employee")
                         .WithOne("EmploymentInfo")
-                        .HasForeignKey("Web.DTO.Data.EmploymentInfo", "EmployeeId");
+                        .HasForeignKey("Web.DTO.Data.EmploymentInfoModel", "EmployeeId");
                 });
 
-            modelBuilder.Entity("Web.DTO.Data.Immigration", b =>
+            modelBuilder.Entity("Web.DTO.Data.ImmigrationModel", b =>
                 {
-                    b.HasOne("Web.DTO.Data.Employee", "Employee")
+                    b.HasOne("Web.DTO.Data.EmployeeModel", "Employee")
                         .WithOne("Immigration")
-                        .HasForeignKey("Web.DTO.Data.Immigration", "EmployeeId");
+                        .HasForeignKey("Web.DTO.Data.ImmigrationModel", "EmployeeId");
                 });
 #pragma warning restore 612, 618
         }

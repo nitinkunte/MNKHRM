@@ -1,17 +1,18 @@
 ﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Web.DTO.Data;
-using System.Net.Http.Json;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authentication;
-using System.Net.Http.Headers;
-using System.IdentityModel.Tokens.Jwt;
 using System.Collections.Generic;
-using Microsoft.Identity.Client;
-using Microsoft.Extensions.Options;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Microsoft.Extensions.Options;
+using Microsoft.Identity.Client;
+using Web.DTO.Data;
+using Web.Server.Extensions;
 
 namespace Web.Server.Helpers
 {
@@ -20,6 +21,22 @@ namespace Web.Server.Helpers
         Task<UserRoleModel> GetUserRole(string userName);
         Task<UserRoleModel> LoginAsync();
         Task<EmployeeModel> GetEmployeeByIdAsync(int employeeId);
+        /// <summary>
+        /// Returns employee with all details such as Address, Emergency Contact, Job Info & Immigration
+        /// </summary>
+        /// <param name="employeeId">Id for the given employee</param>
+        /// <returns></returns>
+        Task<EmployeeModel> GetEmployeeDetailsByIdAsync(int employeeId);
+        /// <summary>
+        /// Insert/Update employee and all related classes like EmploymentInfo, Address, EmergencyContact, Immigration if they are sent
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<EmployeeModel> SaveEmployeeAsync(EmployeeModel employeeModel);
+        Task<AddressModel> SaveAddressAsync(AddressModel addressModel);
+        Task<EmploymentInfoModel> SaveEmploymentInfoAsync(EmploymentInfoModel employmentInfoModel);
+        Task<ImmigrationModel> SaveImmigrationAsync(ImmigrationModel immigrationModel);
+        Task<EmergencyContactModel> SaveEmergencyContactAsync(EmergencyContactModel emergencyContactModel);
     }
 
     public class APIService : IAPIService
@@ -31,9 +48,7 @@ namespace Web.Server.Helpers
         private readonly string URL_SESSION = "api/session/";
         private readonly string URL_EMPLOYEE = "api/employees/";
 
-        public APIService(HttpClient http
-                        , TokenProvider tokenProvider
-                        , IOptions<AzureAd> iOptions)
+        public APIService(HttpClient http, TokenProvider tokenProvider, IOptions<AzureAd> iOptions)
         {
             this.http = http;
             this.tokenProvider = tokenProvider;
@@ -50,6 +65,13 @@ namespace Web.Server.Helpers
             return ret;
         }
 
+        public async Task<EmployeeModel> GetEmployeeDetailsByIdAsync(int employeeId)
+        {
+            var url = $"{URL_EMPLOYEE }GetDetails/{employeeId}";
+            var ret = await http.GetFromJsonAsync<EmployeeModel>(url);
+            return ret;
+        }
+
         public async Task<UserRoleModel> GetUserRole(string userName)
         {
             return await http.GetFromJsonAsync<UserRoleModel>($"{URL_EMPLOYEE }getrole");
@@ -59,6 +81,88 @@ namespace Web.Server.Helpers
         {
             return await http.GetFromJsonAsync<UserRoleModel>($"{URL_SESSION }login");
         }
+
+        public async Task<EmployeeModel> SaveEmployeeAsync(EmployeeModel employeeModel)
+        {
+            EmployeeModel ret = new EmployeeModel();
+            var url = $"{URL_EMPLOYEE }SaveEmployee";
+            var response = await http.PostAsJsonAsync<EmployeeModel>(url, employeeModel);
+            if (response?.IsSuccessStatusCode == true)
+            {
+                var res = await response.Content.ReadAsAsync<ResponseData>();
+                if (res.IsSuccess)
+                {
+                    ret = res.Deserialize<EmployeeModel>();
+                }
+            }
+            return ret;
+        }
+
+        public async Task<AddressModel> SaveAddressAsync(AddressModel addressModel)
+        {
+            AddressModel ret = new AddressModel();
+            var url = $"{URL_EMPLOYEE }SaveAddress";
+            var response = await http.PostAsJsonAsync<AddressModel>(url, addressModel);
+            if (response?.IsSuccessStatusCode == true)
+            {
+                var res = await response.Content.ReadAsAsync<ResponseData>();
+                if (res.IsSuccess)
+                {
+                    ret = res.Deserialize<AddressModel>();
+                }
+            }
+            return ret;
+        }
+
+        public async Task<EmploymentInfoModel> SaveEmploymentInfoAsync(EmploymentInfoModel employmentInfoModel)
+        {
+            EmploymentInfoModel ret = new EmploymentInfoModel();
+            var url = $"{URL_EMPLOYEE }SaveEmploymentInfo";
+            var response = await http.PostAsJsonAsync<EmploymentInfoModel>(url, employmentInfoModel);
+            if (response?.IsSuccessStatusCode == true)
+            {
+                var res = await response.Content.ReadAsAsync<ResponseData>();
+                if (res.IsSuccess)
+                {
+                    ret = res.Deserialize<EmploymentInfoModel>();
+                }
+            }
+            return ret;
+        }
+
+        public async Task<ImmigrationModel> SaveImmigrationAsync(ImmigrationModel immigrationModel)
+        {
+            ImmigrationModel ret = new ImmigrationModel();
+            var url = $"{URL_EMPLOYEE }SaveEmploymentInfo";
+            var response = await http.PostAsJsonAsync<ImmigrationModel>(url, immigrationModel);
+            if (response?.IsSuccessStatusCode == true)
+            {
+                var res = await response.Content.ReadAsAsync<ResponseData>();
+                if (res.IsSuccess)
+                {
+                    ret = res.Deserialize<ImmigrationModel>();
+                }
+            }
+            return ret;
+        }
+
+        public async Task<EmergencyContactModel> SaveEmergencyContactAsync(EmergencyContactModel emergencyContactModel)
+        {
+            EmergencyContactModel ret = new EmergencyContactModel();
+            var url = $"{URL_EMPLOYEE }SaveEmploymentInfo";
+            var response = await http.PostAsJsonAsync<EmergencyContactModel>(url, emergencyContactModel);
+            if (response?.IsSuccessStatusCode == true)
+            {
+                var res = await response.Content.ReadAsAsync<ResponseData>();
+                if (res.IsSuccess)
+                {
+                    ret = res.Deserialize<EmergencyContactModel>();
+                }
+            }
+            return ret;
+        }
+
+
 
         private string GetTokenWithAudienceChanged(string token)
         {
@@ -93,11 +197,10 @@ namespace Web.Server.Helpers
 
                 var config = appSettings;
                 IConfidentialClientApplication app = ConfidentialClientApplicationBuilder.Create(config.ClientId)
-                            .WithClientSecret(config.ClientSecret)
-                            .WithAuthority(new Uri($"{config.Instance}{config.TenantId}"))
+                    .WithClientSecret(config.ClientSecret)
+                    .WithAuthority(new Uri($"{config.Instance}{config.TenantId}"))
 
-                            .Build();
-
+                    .Build();
 
                 string[] ResourceIds = new string[] { config.ApplicationIDURI };
 
@@ -120,10 +223,8 @@ namespace Web.Server.Helpers
                 ret = result.AccessToken;
             }
 
-
             return ret;
         }
-
 
     }
 }

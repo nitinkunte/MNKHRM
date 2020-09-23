@@ -6,10 +6,11 @@ using System.Text.Json.Serialization;
 
 namespace Web.DTO.Data
 {
-    public class Immigration : BaseEntity
+    [Table("Immigrations")]
+    public class ImmigrationModel : BaseEntity
     {
         [Required]
-        public int Status { get; set; }
+        public int StatusId { get; set; }
         public bool IsListA { get; set; }
 
         public string ListADocTitle { get; set; }

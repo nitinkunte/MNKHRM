@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Web.Api.Migrations
 {
-    public partial class Intial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,7 +27,7 @@ namespace Web.Api.Migrations
                     PhoneMobile = table.Column<string>(nullable: true),
                     Website = table.Column<string>(nullable: true),
                     Fax = table.Column<string>(nullable: true),
-                    AddressType = table.Column<int>(nullable: false),
+                    AddressType = table.Column<string>(nullable: false),
                     EmployeeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -48,13 +48,13 @@ namespace Web.Api.Migrations
                     Name = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: false),
-                    RelationshipStatus = table.Column<int>(nullable: false),
+                    RelationshipStatusId = table.Column<int>(nullable: false),
                     EmployeeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EmergencyContacts", x => x.Id);
-                    table.UniqueConstraint("AK_EmergencyContacts_EmployeeId_RelationshipStatus", x => new { x.EmployeeId, x.RelationshipStatus });
+                    table.UniqueConstraint("AK_EmergencyContacts_EmployeeId_RelationshipStatusId", x => new { x.EmployeeId, x.RelationshipStatusId });
                 });
 
             migrationBuilder.CreateTable(
@@ -70,13 +70,14 @@ namespace Web.Api.Migrations
                     NameMiddle = table.Column<string>(nullable: true),
                     NameLast = table.Column<string>(nullable: false),
                     NamePrintOnCheck = table.Column<string>(nullable: true),
-                    SSN = table.Column<string>(nullable: true),
-                    Gender = table.Column<int>(nullable: false),
+                    SSN = table.Column<string>(nullable: false),
+                    Gender = table.Column<string>(nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
-                    MaritalStatus = table.Column<int>(nullable: false),
-                    Ethnicity = table.Column<int>(nullable: false),
+                    MaritalStatus = table.Column<string>(nullable: true),
+                    Ethnicity = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
                     IsDisabled = table.Column<bool>(nullable: false),
+                    DisabilityDesc = table.Column<string>(maxLength: 2000, nullable: true),
                     IsI9OnFile = table.Column<bool>(nullable: false),
                     ImmigrationId = table.Column<int>(nullable: false),
                     AddressHomeId = table.Column<int>(nullable: false),
@@ -86,6 +87,44 @@ namespace Web.Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employees", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRoles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IsActive = table.Column<bool>(nullable: false),
+                    UpdateUser = table.Column<string>(nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    UserName = table.Column<string>(nullable: false),
+                    RoleName = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRoles", x => x.Id);
+                    table.UniqueConstraint("AK_UserRoles_UserName", x => x.UserName);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserSessions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IsActive = table.Column<bool>(nullable: false),
+                    UpdateUser = table.Column<string>(nullable: true),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    UserName = table.Column<string>(nullable: false),
+                    IPAddress = table.Column<string>(nullable: true),
+                    UserOID = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserSessions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,7 +141,7 @@ namespace Web.Api.Migrations
                     OriginalHireDate = table.Column<DateTime>(nullable: false),
                     AdjustedServiceDate = table.Column<DateTime>(nullable: false),
                     ReleaseDate = table.Column<DateTime>(nullable: false),
-                    EmploymentType = table.Column<int>(nullable: false),
+                    EmploymentTypeId = table.Column<int>(nullable: false),
                     IsFullTime = table.Column<bool>(nullable: false),
                     IsSeasonal = table.Column<bool>(nullable: false),
                     IsExempt = table.Column<bool>(nullable: false),
@@ -140,7 +179,7 @@ namespace Web.Api.Migrations
                     IsActive = table.Column<bool>(nullable: false),
                     UpdateUser = table.Column<string>(nullable: true),
                     UpdateDate = table.Column<DateTime>(nullable: true),
-                    Status = table.Column<int>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
                     IsListA = table.Column<bool>(nullable: false),
                     ListADocTitle = table.Column<string>(nullable: true),
                     ListAIssuingAuthority = table.Column<string>(nullable: true),
@@ -178,6 +217,16 @@ namespace Web.Api.Migrations
                 table: "Immigrations",
                 column: "EmployeeId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRoles_UserName",
+                table: "UserRoles",
+                column: "UserName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserSessions_UserName",
+                table: "UserSessions",
+                column: "UserName");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -193,6 +242,12 @@ namespace Web.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Immigrations");
+
+            migrationBuilder.DropTable(
+                name: "UserRoles");
+
+            migrationBuilder.DropTable(
+                name: "UserSessions");
 
             migrationBuilder.DropTable(
                 name: "Employees");

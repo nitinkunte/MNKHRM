@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Web.DTO.Data
 {
-    public class EmergencyContact : BaseEntity
+    public class EmergencyContactModel : BaseEntity
     {
         [Required]
         public string Name { get; set; }
@@ -16,7 +16,7 @@ namespace Web.DTO.Data
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
 
-        public int RelationshipStatus { get; set; }
+        public int RelationshipStatusId { get; set; }
 
         [Required]
         public int EmployeeId { get; set; }

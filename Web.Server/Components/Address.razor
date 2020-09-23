@@ -1,0 +1,118 @@
+@using DTO.Data
+@inject APIService api
+
+<EditForm Model="@Emp" OnSubmit="@HandleSubmitAsync">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <input type="hidden" @bind="Emp.Id">
+    <div class="panel">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a href="#panelBodyAddress" class="accordion-toggle collapsed" data-toggle="collapse"
+                    data-parent="#accordion">Address & Contact</a>
+            </h4>
+        </div>
+        <div id="panelBodyAddress" class="panel-collapse collapse">
+            <div class="panel-body shadow-sm p-3 mb-3 bg-white rounded">
+                <form>
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            <p>
+                                <button type="button" class="btn btn-outline-primary">Save Adress &
+                                    Contact
+                                    Information</button>
+                            </p>
+                            <p>
+                                <button type="button" class="btn btn-outline-secondary">Reset</button>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Main Email</label>
+                            <input type="email" class="form-control" id="inputEmail4" @bind="Addr.Email"
+                                placeholder="Email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="cellPhone">Cell Phone</label>
+                            <input type="tel" class="form-control" id="cellPhone" @bind="Addr.PhoneMobile"
+                                placeholder="111-111-1111">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputAddress">Address</label>
+                            <input type="text" class="form-control" id="inputAddress" @bind="Addr.Street1"
+                                placeholder="1234 Main St">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputAddress2">Address 2</label>
+                            <input type="text" class="form-control" id="inputAddress2" @bind="Addr.Street2"
+                                placeholder="Apartment, studio, or floor">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">City</label>
+                            <input type="text" class="form-control" id="inputCity"  @bind="Addr.City">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputState">State</label>
+                            <select id="inputState" class="form-control">
+                                <option selected>Choose...</option>
+                                <option>Texas</option>
+                                <option>Washington</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">Zip</label>
+                            <input type="text" class="form-control" id="inputZip" @bind="Addr.Zip">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="website">Website</label>
+                            <input type="url" class="form-control" id="website"  @bind="Addr.Website"
+                                placeholder="Email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="fax">Fax</label>
+                            <input type="tel" class="form-control" id="fax"  @bind="Addr.Fax"
+                                placeholder="111-111-1111">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="otherEmail">Other Email</label>
+                            <input type="email" class="form-control" id="otherEmail" @bind="Addr.Email"
+                                placeholder="Email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="otherPhone">Other Phone</label>
+                            <input type="tel" class="form-control" id="otherPhone" @bind="Addr.PhoneLand"
+                                placeholder="111-111-1111">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</EditForm> 
+
+@code{
+    private AddressModel Addr;
+
+    [CascadingParameter (Name = "Emp")]
+    public EmployeeModel Emp { get; set; }
+    private string MaxDate = DateTime.Now.AddYears (-17).ToString ("yyyy-MM-dd");
+
+    protected override async Task OnInitializedAsync () {
+        //Emp = await api.GetEmployeeByIdAsync (3);
+    }
+
+    private async Task HandleSubmitAsync () {
+        var abc = Emp;
+        var ky = await api.SaveEmployeeAsync (Emp);
+    }
+}

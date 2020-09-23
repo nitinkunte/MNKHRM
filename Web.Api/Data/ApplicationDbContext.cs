@@ -15,10 +15,10 @@ namespace Web.Api.Data
         }
 
         public DbSet<EmployeeModel> Employees { get; set; }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<Immigration> Immigrations { get; set; }
-        public DbSet<EmergencyContact> EmergencyContacts { get; set; }
-        public DbSet<EmploymentInfo> EmploymentInfos { get; set; }
+        public DbSet<AddressModel> Addresses { get; set; }
+        public DbSet<ImmigrationModel> Immigrations { get; set; }
+        public DbSet<EmergencyContactModel> EmergencyContacts { get; set; }
+        public DbSet<EmploymentInfoModel> EmploymentInfos { get; set; }
         public DbSet<UserRoleModel> UserRoles { get; set; }
         public DbSet<SessionModel> SessionModels { get; set; }
 
@@ -26,22 +26,22 @@ namespace Web.Api.Data
         {
             //base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<EmployeeModel>()
-                .HasOne<EmploymentInfo>(x => x.EmploymentInfo)
+                .HasOne<EmploymentInfoModel>(x => x.EmploymentInfo)
                 .WithOne(j => j.Employee)
-                .HasForeignKey<EmploymentInfo>(jj => jj.EmployeeId)
+                .HasForeignKey<EmploymentInfoModel>(jj => jj.EmployeeId)
                 .IsRequired(false);
 
-            modelBuilder.Entity<Address>()
+            modelBuilder.Entity<AddressModel>()
                 .HasAlternateKey(x => new { x.EmployeeId, x.AddressType });
 
 
-            modelBuilder.Entity<EmergencyContact>()
-                .HasAlternateKey(x => new { x.EmployeeId, x.RelationshipStatus });
+            modelBuilder.Entity<EmergencyContactModel>()
+                .HasAlternateKey(x => new { x.EmployeeId, x.RelationshipStatusId });
 
             modelBuilder.Entity<EmployeeModel>()
-               .HasOne<Immigration>(x => x.Immigration)
+               .HasOne<ImmigrationModel>(x => x.Immigration)
                .WithOne(e => e.Employee)
-               .HasForeignKey<Immigration>(y => y.EmployeeId)
+               .HasForeignKey<ImmigrationModel>(y => y.EmployeeId)
                .IsRequired(false);
 
             modelBuilder.Entity<UserRoleModel>()

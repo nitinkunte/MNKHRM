@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Web.Api.Data;
 using Web.DTO.Data;
+using Web.DTO.Enums;
 
 namespace Web.Api.Services
 {
@@ -13,10 +14,10 @@ namespace Web.Api.Services
     {
         Task<List<EmployeeModel>> GetEmployeesAsync();
         Task<EmployeeModel> GetEmployeeByIdAsync(int employeeId);
-        Task<List<Address>> GetAddressesAsync(int employeeId);
-        Task<List<EmergencyContact>> GetEmergencyContactsAsync(int employeeId);
-        Task<EmploymentInfo> GetEmploymentInfoAsync(int employeeId);
-        Task<Immigration> GetImmigrationAsync(int employeeId);
+        Task<List<AddressModel>> GetAddressesAsync(int employeeId);
+        Task<List<EmergencyContactModel>> GetEmergencyContactsAsync(int employeeId);
+        Task<EmploymentInfoModel> GetEmploymentInfoAsync(int employeeId);
+        Task<ImmigrationModel> GetImmigrationAsync(int employeeId);
 
         /// <summary>
         /// Saves the employee and all related classes such as addresses, job info etc
@@ -24,10 +25,10 @@ namespace Web.Api.Services
         /// <param name="employee"></param>
         /// <returns></returns>
         Task<EmployeeModel> SaveEmployeeAsync(EmployeeModel employee);
-        Task<Address> SaveAddressAsync(Address address);
-        Task<EmergencyContact> SaveEmergencyContactAsync(EmergencyContact emergencyContact);
-        Task<EmploymentInfo> SaveEmploymentInfoAsync(EmploymentInfo EmploymentInfo);
-        Task<Immigration> SaveImmigrationAsync(Immigration immigration);
+        Task<AddressModel> SaveAddressAsync(AddressModel address);
+        Task<EmergencyContactModel> SaveEmergencyContactAsync(EmergencyContactModel emergencyContact);
+        Task<EmploymentInfoModel> SaveEmploymentInfoAsync(EmploymentInfoModel EmploymentInfo);
+        Task<ImmigrationModel> SaveImmigrationAsync(ImmigrationModel immigration);
 
         Task<EmployeeModel> DeleteEmployeeAsync(int employeeId);
 
@@ -57,7 +58,7 @@ namespace Web.Api.Services
             return ret;
         }
 
-        public async Task<List<Address>> GetAddressesAsync(int employeeId)
+        public async Task<List<AddressModel>> GetAddressesAsync(int employeeId)
         {
             var ret = await dbContext.Addresses
                             .Where(x => x.EmployeeId == employeeId)
@@ -66,7 +67,7 @@ namespace Web.Api.Services
             return ret;
         }
 
-        public async Task<Immigration> GetImmigrationAsync(int employeeId)
+        public async Task<ImmigrationModel> GetImmigrationAsync(int employeeId)
         {
             var ret = await dbContext.Immigrations
                     .AsNoTracking()
@@ -74,7 +75,7 @@ namespace Web.Api.Services
             return ret;
         }
 
-        public async Task<List<EmergencyContact>> GetEmergencyContactsAsync(int employeeId)
+        public async Task<List<EmergencyContactModel>> GetEmergencyContactsAsync(int employeeId)
         {
             var ret = await dbContext.EmergencyContacts
                             .Where(x => x.EmployeeId == employeeId)
@@ -83,7 +84,7 @@ namespace Web.Api.Services
             return ret;
         }
 
-        public async Task<EmploymentInfo> GetEmploymentInfoAsync(int employeeId)
+        public async Task<EmploymentInfoModel> GetEmploymentInfoAsync(int employeeId)
         {
             var ret = await dbContext.EmploymentInfos
                             .AsNoTracking()
@@ -107,10 +108,10 @@ namespace Web.Api.Services
             return ret;
         }
 
-        public async Task<Address> SaveAddressAsync(Address model)
+        public async Task<AddressModel> SaveAddressAsync(AddressModel model)
         {
-            Address ret = null;
-            if ((model?.EmployeeId > 0) && (model?.AddressType > 0))
+            AddressModel ret = null;
+            if ((model?.EmployeeId > 0) && (AddressTypeEnums.IsValid(model.AddressType)))
             {
                 var addr = await dbContext.Addresses
                                     .AsNoTracking()
@@ -132,14 +133,14 @@ namespace Web.Api.Services
             return ret;
         }
 
-        public async Task<EmergencyContact> SaveEmergencyContactAsync(EmergencyContact model)
+        public async Task<EmergencyContactModel> SaveEmergencyContactAsync(EmergencyContactModel model)
         {
-            EmergencyContact ret = null;
-            if ((model?.EmployeeId > 0) && (model?.RelationshipStatus > 0))
+            EmergencyContactModel ret = null;
+            if ((model?.EmployeeId > 0) && (model?.RelationshipStatusId > 0))
             {
                 var emergency = await dbContext.EmergencyContacts
                                     .AsNoTracking()
-                                    .FirstOrDefaultAsync(x => x.EmployeeId == model.EmployeeId && x.RelationshipStatus == model.RelationshipStatus);
+                                    .FirstOrDefaultAsync(x => x.EmployeeId == model.EmployeeId && x.RelationshipStatusId == model.RelationshipStatusId);
                 if (emergency?.Id > 0) //update
                 {
                     model.Id = emergency.Id;
@@ -156,9 +157,9 @@ namespace Web.Api.Services
             return ret;
         }
 
-        public async Task<EmploymentInfo> SaveEmploymentInfoAsync(EmploymentInfo model)
+        public async Task<EmploymentInfoModel> SaveEmploymentInfoAsync(EmploymentInfoModel model)
         {
-            EmploymentInfo ret = null;
+            EmploymentInfoModel ret = null;
             if (model?.EmployeeId > 0)
             {
                 var job = await dbContext.EmploymentInfos
@@ -180,9 +181,9 @@ namespace Web.Api.Services
             return ret;
         }
 
-        public async Task<Immigration> SaveImmigrationAsync(Immigration model)
+        public async Task<ImmigrationModel> SaveImmigrationAsync(ImmigrationModel model)
         {
-            Immigration ret = null;
+            ImmigrationModel ret = null;
             if (model?.EmployeeId > 0)
             {
                 var immi = await dbContext.Immigrations

@@ -6,9 +6,10 @@ using System.Text.Json.Serialization;
 
 namespace Web.DTO.Data
 {
-    public class EmploymentInfo : BaseEntity
+    [Table("EmploymentInfos")]
+    public class EmploymentInfoModel : BaseEntity
     {
-        public EmploymentInfo()
+        public EmploymentInfoModel()
         {
         }
 
@@ -30,7 +31,7 @@ namespace Web.DTO.Data
         public DateTime ReleaseDate { get; set; } = SqlDateTime.MinValue.Value;
 
         [Required]
-        public int EmploymentType { get; set; }
+        public int EmploymentTypeId { get; set; }
 
         public bool IsFullTime { get; set; } = true;
         public bool IsSeasonal { get; set; } = false;

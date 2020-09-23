@@ -70,6 +70,7 @@ namespace Web.Server
 
             services.AddOptions();
 
+
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
             services.Configure<AzureAd>(Configuration.GetSection("AzureAd"));

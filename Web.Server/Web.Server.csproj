@@ -21,5 +21,6 @@
     <ProjectReference Include="..\Web.DTO\Web.DTO.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\MNK.Components\MNK.Components.csproj" />
   </ItemGroup>
 </Project>

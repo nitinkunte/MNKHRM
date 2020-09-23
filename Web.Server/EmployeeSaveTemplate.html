@@ -194,7 +194,7 @@
                                 class="picture-src" id="wizardPicturePreview" title="">
                             <input type="file" id="wizard-picture" class="form-control">
                         </div>
-                        <label for="wizard-picture" class="font-weight-light">Choose Photo</label>
+                        <label for="wizard-picture" class="font-weight-light fa fa-camera-retro fa-2x"></label>
                     </div>
                     <hr>
                     <div class="row mt-3">
@@ -240,645 +240,654 @@
                     </div>
                 </div>
         </form>
-    </div>
 
 
-    <div class="card-body">
-        <div class="container-fluid">
-            <div id="accordion" class="panel-group">
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a href="#panelBodyPersonal" class="accordion-toggle" data-toggle="collapse"
-                                data-parent="#accordion">Personal Information</a>
-                        </h4>
-                    </div>
-                    <div id="panelBodyPersonal" class="panel-collapse collapse in">
-                        <div class="panel-body shadow-sm mb-3 p-3 bg-white rounded">
-                            <form>
-                                <div>
-                                    <div class="d-flex justify-content-between">
-                                        <p>
-                                            <button type="button" class="btn btn-outline-primary">Save Personal
-                                                Information</button>
-                                        </p>
-                                        <p>
-                                            <button type="button" class="btn btn-outline-secondary">Reset</button>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4 form-group">
-                                        <label for="gender">Gender</label>
-                                        <select id="gender" class="form-control">
-                                            <option>Select...</option>
-                                            <option>Male</option>
-                                            <option>Female</option>
-                                            <option>Other</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-8 form-group">
-                                        <label for="NamePrintOnCheck">Name to be printed on check</label>
-                                        <input id="NamePrintOnCheck" class="form-control" placeholder="Name on check" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4 form-group">
-                                        <label for="maritalStatus">Maritial Status</label>
-                                        <select id="maritalStatus" class="form-control">
-                                            <option selected>Select...</option>
-                                            <option>Married</option>
-                                            <option>Single</option>
-                                            <option>Divorced</option>
-                                            <option>Separated</option>
-                                            <option>Widowed</option>
-                                            <option>Domestic Partner</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-4 form-group">
-                                        <label for="Ethnicity">Ethnicity</label>
-                                        <select id="Ethnicity" class="form-control">
-                                            <option selected>Select...</option>
-                                            <option>American Indian|Alaska Native</option>
-                                            <option>Asian</option>
-                                            <option>Black|African American</option>
-                                            <option>Hawaiian|Pacific Islander</option>
-                                            <option>Hispanic|Latino</option>
-                                            <option>White</option>
-                                            <option>Two or More Races</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-4 form-group">
-                                        <input type="checkbox" class="form-check-input" id="isDisabled">
-                                        <label for="isDisabled">Is Disabled</label>
-                                        <textarea id="disablitydesc" class="form-control" rows="1"></textarea>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 form-group">
-                                        <label for="notes">Notes</label>
-                                        <textarea id="Notes" class="form-control" rows="3"></textarea>
-                                    </div>
-                                </div>
-                            </form>
+
+        <div class="card-body">
+            <div class="container-fluid">
+                <div id="accordion" class="panel-group">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="#panelBodyPersonal" class="accordion-toggle" data-toggle="collapse"
+                                    data-parent="#accordion">Personal Information</a>
+                            </h4>
                         </div>
-                    </div>
-                </div>
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a href="#panelBodyAddress" class="accordion-toggle collapsed" data-toggle="collapse"
-                                data-parent="#accordion">Address & Contact</a>
-                        </h4>
-                    </div>
-                    <div id="panelBodyAddress" class="panel-collapse collapse">
-                        <div class="panel-body shadow-sm p-3 mb-3 bg-white rounded">
-                            <form>
-                                <div>
-                                    <div class="d-flex justify-content-between">
-                                        <p>
-                                            <button type="button" class="btn btn-outline-primary">Save Adress & Contact
-                                                Information</button>
-                                        </p>
-                                        <p>
-                                            <button type="button" class="btn btn-outline-secondary">Reset</button>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="inputEmail4">Main Email</label>
-                                        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="inputPassword4">Cell Phone</label>
-                                        <input type="tel" class="form-control" id="inputPassword4"
-                                            placeholder="111-111-1111">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="inputAddress">Address</label>
-                                        <input type="text" class="form-control" id="inputAddress"
-                                            placeholder="1234 Main St">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="inputAddress2">Address 2</label>
-                                        <input type="text" class="form-control" id="inputAddress2"
-                                            placeholder="Apartment, studio, or floor">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="inputCity">City</label>
-                                        <input type="text" class="form-control" id="inputCity">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="inputState">State</label>
-                                        <select id="inputState" class="form-control">
-                                            <option selected>Choose...</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">Zip</label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="website">Website</label>
-                                        <input type="url" class="form-control" id="website" placeholder="Email">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="fax">Fax</label>
-                                        <input type="tel" class="form-control" id="fax" placeholder="111-111-1111">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="otherEmail">Other Email</label>
-                                        <input type="email" class="form-control" id="otherEmail" placeholder="Email">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="otherPhone">Other Phone</label>
-                                        <input type="tel" class="form-control" id="otherPhone"
-                                            placeholder="111-111-1111">
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a href="#panelBodyEmployment" class="accordion-toggle collapsed" data-toggle="collapse"
-                                data-parent="#accordion">Employment Information</a>
-                        </h4>
-                    </div>
-                    <div id="panelBodyEmployment" class="panel-collapse collapse">
-                        <div class="panel-body shadow-sm p-3 mb-3 bg-white rounded">
-                            <form>
-                                <div class="">
-                                    <div class="d-flex justify-content-between">
-                                        <p>
-                                            <button type="button" class="btn btn-outline-primary">Save Employment
-                                                Information</button>
-                                        </p>
-                                        <p>
-                                            <button type="button" class="btn btn-outline-secondary">Reset</button>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-7">
-                                        <div class="form-group row">
-                                            <label for="title" class="col-sm-3 col-form-label">Title</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="title"
-                                                    placeholder="Job Title">
-                                            </div>
+                        <div id="panelBodyPersonal" class="panel-collapse collapse in">
+                            <div class="panel-body shadow-sm mb-3 p-3 bg-white rounded">
+                                <form>
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <p>
+                                                <button type="button" class="btn btn-outline-primary">Save Personal
+                                                    Information</button>
+                                            </p>
+                                            <p>
+                                                <button type="button" class="btn btn-outline-secondary">Reset</button>
+                                            </p>
                                         </div>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="form-group row">
-                                            <label for="hiredate" class="col-sm-5 col-form-label">Hire Date</label>
-                                            <div class="">
-                                                <input type="date" class="form-control" id="hiredate"
-                                                    placeholder="Hire Date">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-7">
-                                        <div class="form-group row">
-                                            <label for="supervisor" class="col-sm-3 col-form-label">Supervisor</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="supervisor"
-                                                    placeholder="Supervisor">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="form-group row">
-                                            <label for="orghiredate" class="col-sm-5 col-form-label">Org Hire
-                                                Date</label>
-                                            <div class="">
-                                                <input type="date" class="form-control" id="orghiredate"
-                                                    placeholder="Original Hire Date">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-7">
-                                        <div class="form-group row">
-                                            <label for="department" class="col-sm-3 col-form-label">Department</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="department"
-                                                    placeholder="Department">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="form-group row">
-                                            <label for="adjservicedate" class="col-sm-5 col-form-label">Adj Service
-                                                Date</label>
-                                            <div class="">
-                                                <input type="date" class="form-control" id="adjservicedate"
-                                                    placeholder="Adjusted Service Date">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-7">
-                                        <div class="form-group row">
-                                            <label for="empDesc" class="col-sm-3 col-form-label">Description</label>
-                                            <div class="col-sm-9">
-                                                <textarea class="form-control" id="empDesc"
-                                                    placeholder="Description"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="form-group row">
-                                            <label for="releasedate" class="col-sm-5 col-form-label">Release
-                                                Date</label>
-                                            <div class="">
-                                                <input type="date" class="form-control" id="releasedate"
-                                                    placeholder="Release Date">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-7">
-                                        <div class="form-group row">
-                                            <label for="empType" class="col-sm-3 col-form-label">Emp Type</label>
-                                            <div class="col-sm-9">
-                                                <select id="empType" class="form-control">
-                                                    <option selected>Select...</option>
-                                                    <option>Regular</option>
-                                                    <option>Officer</option>
-                                                    <option>Statutory</option>
-                                                    <option>Owner</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="form-group row">
-                                            <label for="lastDayWorked" class="col-sm-5 col-form-label">Last Day
-                                                Date</label>
-                                            <div class="">
-                                                <input type="date" class="form-control" id="lastDayWorked"
-                                                    placeholder="Last Day Date">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-7">
-                                        <div class="form-group row">
-                                            <label for="fullTime" class="col-sm-3 col-form-label">Full Time?</label>
-                                            <div class="col-sm-9">
-                                                <select id="fullTime" class="form-control">
-                                                    <option selected>Select...</option>
-                                                    <option>Full-time</option>
-                                                    <option>Part-time</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="form-group row">
-                                            <label for="lastDayOnBenefits" class="col-sm-5 col-form-label">Last Day on
-                                                Benefits</label>
-                                            <div class="">
-                                                <input type="date" class="form-control" id="lastDayOnBenefits"
-                                                    placeholder="Last Day on Benefits">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row pl-4">
-                                    <div class="col-sm-8 pr-4">
-                                        <div class="row">
-                                            <label for="terminationNotes">Termination Notes</label>
-                                        </div>
-                                        <div class="row">
-                                            <textarea class="form-control" id="terminationNotes"
-                                                placeholder="Termination Notes"></textarea>
-                                        </div>
-                                        <div class="row pt-4">
-                                            <label for="severanceNotes">Severance Notes</label>
-                                        </div>
-                                        <div class="row">
-                                            <textarea class="form-control" id="severanceNotes" class="col-sm-6"
-                                                placeholder="Severance Notes"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4 pl-4">
-                                        <div class="row">
-                                            <div class="form-group w-100">
-                                                <input type="checkbox" name="fancy-checkbox-info" id="chkSeasonal"
-                                                    autocomplete="off" />
-                                                <div class="btn-group w-100">
-                                                    <label for="chkSeasonal" class="btn btn-info">
-                                                        <span class="fa fa-check"></span>
-                                                        <span> </span>
-                                                    </label>
-                                                    <label for="chkSeasonal" class="btn btn-light active w-75">
-                                                        Seasonal?
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group w-100">
-                                                <input type="checkbox" name="fancy-checkbox-info" id="chkSeverancePaid"
-                                                    autocomplete="off" />
-                                                <div class="btn-group w-100">
-                                                    <label for="chkSeverancePaid" class="btn btn-info">
-                                                        <span class="fa fa-check"></span>
-                                                        <span> </span>
-                                                    </label>
-                                                    <label for="chkSeverancePaid" class="btn btn-light active w-75">
-                                                        Severance Paid?
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group w-100">
-                                                <input type="checkbox" checked name="fancy-checkbox-info" id="chkRehire"
-                                                    autocomplete="off" />
-                                                <div class="btn-group w-100">
-                                                    <label for="chkRehire" class="btn btn-info">
-                                                        <span class="fa fa-check"></span>
-                                                        <span> </span>
-                                                    </label>
-                                                    <label for="chkRehire" class="btn btn-light active w-75">
-                                                        Rehire?
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group w-100">
-                                                <input type="checkbox" checked name="fancy-checkbox-info"
-                                                    id="chkProtestUnemployment" autocomplete="off" />
-                                                <div class="btn-group w-100">
-                                                    <label for="chkProtestUnemployment" class="btn btn-info">
-                                                        <span class="fa fa-check"></span>
-                                                        <span> </span>
-                                                    </label>
-                                                    <label for="chkProtestUnemployment"
-                                                        class="btn btn-light active w-75">
-                                                        Protest Unemployment
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a href="#panelBodyImmigration" class="accordion-toggle collapsed" data-toggle="collapse"
-                                data-parent="#accordion">Immigration Information</a>
-                        </h4>
-                    </div>
-                    <div id="panelBodyImmigration" class="panel-collapse collapse">
-                        <div class="panel-body shadow-sm p-3 bg-white rounded">
-                            <form>
-                                <div>
-                                    <div class="d-flex justify-content-between">
-                                        <p>
-                                            <button type="button" class="btn btn-outline-primary">Save Immigration
-                                                Information</button>
-                                        </p>
-                                        <p>
-                                            <button type="button" class="btn btn-outline-secondary">Reset</button>
-                                        </p>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-4 form-group">
-                                            <label for="immigrationStatus">Immigration Status</label>
-                                            <select id="immigrationStatus" class="form-control">
+                                            <label for="gender">Gender</label>
+                                            <select id="gender" class="form-control">
                                                 <option>Select...</option>
-                                                <option>H1B</option>
-                                                <option>Citizen</option>
-                                                <option>Green Card</option>
-                                                <option>EAD</option>
-                                                <option>OPT-EAD</option>
-                                                <option>CPT</option>
-                                                <option>L1</option>
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                                <option>Other</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8 form-group">
-                                            <label for="calcExpiryDate">Calculated Expiry Date</label>
-                                            <input id="calcExpiryDate" class="form-control" placeholder="N/A" disabled
-                                                aria-disabled="true" />
+                                            <label for="NamePrintOnCheck">Name to be printed on check</label>
+                                            <input id="NamePrintOnCheck" class="form-control"
+                                                placeholder="Name on check" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4 form-group">
+                                            <label for="maritalStatus">Maritial Status</label>
+                                            <select id="maritalStatus" class="form-control">
+                                                <option selected>Select...</option>
+                                                <option>Married</option>
+                                                <option>Single</option>
+                                                <option>Divorced</option>
+                                                <option>Separated</option>
+                                                <option>Widowed</option>
+                                                <option>Domestic Partner</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4 form-group">
+                                            <label for="Ethnicity">Ethnicity</label>
+                                            <select id="Ethnicity" class="form-control">
+                                                <option selected>Select...</option>
+                                                <option>American Indian|Alaska Native</option>
+                                                <option>Asian</option>
+                                                <option>Black|African American</option>
+                                                <option>Hawaiian|Pacific Islander</option>
+                                                <option>Hispanic|Latino</option>
+                                                <option>White</option>
+                                                <option>Two or More Races</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4 form-group">
+                                            <input type="checkbox" class="form-check-input" id="isDisabled">
+                                            <label for="isDisabled">Is Disabled</label>
+                                            <textarea id="disablitydesc" class="form-control" rows="1"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 form-group">
+                                            <label for="notes">Notes</label>
+                                            <textarea id="Notes" class="form-control" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="#panelBodyAddress" class="accordion-toggle collapsed" data-toggle="collapse"
+                                    data-parent="#accordion">Address & Contact</a>
+                            </h4>
+                        </div>
+                        <div id="panelBodyAddress" class="panel-collapse collapse">
+                            <div class="panel-body shadow-sm p-3 mb-3 bg-white rounded">
+                                <form>
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <p>
+                                                <button type="button" class="btn btn-outline-primary">Save Adress &
+                                                    Contact
+                                                    Information</button>
+                                            </p>
+                                            <p>
+                                                <button type="button" class="btn btn-outline-secondary">Reset</button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputEmail4">Main Email</label>
+                                            <input type="email" class="form-control" id="inputEmail4"
+                                                placeholder="Email">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputPassword4">Cell Phone</label>
+                                            <input type="tel" class="form-control" id="inputPassword4"
+                                                placeholder="111-111-1111">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputAddress">Address</label>
+                                            <input type="text" class="form-control" id="inputAddress"
+                                                placeholder="1234 Main St">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputAddress2">Address 2</label>
+                                            <input type="text" class="form-control" id="inputAddress2"
+                                                placeholder="Apartment, studio, or floor">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputCity">City</label>
+                                            <input type="text" class="form-control" id="inputCity">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="inputState">State</label>
+                                            <select id="inputState" class="form-control">
+                                                <option selected>Choose...</option>
+                                                <option>Texas</option>
+                                                <option>Washington</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label for="inputZip">Zip</label>
+                                            <input type="text" class="form-control" id="inputZip">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="website">Website</label>
+                                            <input type="url" class="form-control" id="website" placeholder="Email">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="fax">Fax</label>
+                                            <input type="tel" class="form-control" id="fax" placeholder="111-111-1111">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="otherEmail">Other Email</label>
+                                            <input type="email" class="form-control" id="otherEmail"
+                                                placeholder="Email">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="otherPhone">Other Phone</label>
+                                            <input type="tel" class="form-control" id="otherPhone"
+                                                placeholder="111-111-1111">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="#panelBodyEmployment" class="accordion-toggle collapsed" data-toggle="collapse"
+                                    data-parent="#accordion">Employment Information</a>
+                            </h4>
+                        </div>
+                        <div id="panelBodyEmployment" class="panel-collapse collapse">
+                            <div class="panel-body shadow-sm p-3 mb-3 bg-white rounded">
+                                <form>
+                                    <div class="">
+                                        <div class="d-flex justify-content-between">
+                                            <p>
+                                                <button type="button" class="btn btn-outline-primary">Save Employment
+                                                    Information</button>
+                                            </p>
+                                            <p>
+                                                <button type="button" class="btn btn-outline-secondary">Reset</button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <div class="form-group row">
+                                                <label for="title" class="col-sm-3 col-form-label">Title</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="title"
+                                                        placeholder="Job Title">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group row">
+                                                <label for="hiredate" class="col-sm-5 col-form-label">Hire Date</label>
+                                                <div class="">
+                                                    <input type="date" class="form-control" id="hiredate"
+                                                        placeholder="Hire Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <div class="form-group row">
+                                                <label for="supervisor"
+                                                    class="col-sm-3 col-form-label">Supervisor</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="supervisor"
+                                                        placeholder="Supervisor">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group row">
+                                                <label for="orghiredate" class="col-sm-5 col-form-label">Org Hire
+                                                    Date</label>
+                                                <div class="">
+                                                    <input type="date" class="form-control" id="orghiredate"
+                                                        placeholder="Original Hire Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <div class="form-group row">
+                                                <label for="department"
+                                                    class="col-sm-3 col-form-label">Department</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="department"
+                                                        placeholder="Department">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group row">
+                                                <label for="adjservicedate" class="col-sm-5 col-form-label">Adj Service
+                                                    Date</label>
+                                                <div class="">
+                                                    <input type="date" class="form-control" id="adjservicedate"
+                                                        placeholder="Adjusted Service Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <div class="form-group row">
+                                                <label for="empDesc" class="col-sm-3 col-form-label">Description</label>
+                                                <div class="col-sm-9">
+                                                    <textarea class="form-control" id="empDesc"
+                                                        placeholder="Description"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group row">
+                                                <label for="releasedate" class="col-sm-5 col-form-label">Release
+                                                    Date</label>
+                                                <div class="">
+                                                    <input type="date" class="form-control" id="releasedate"
+                                                        placeholder="Release Date">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <hr>
-                                    <div class="">
-                                        <div class="cards-grid">
-                                            <div class="card ">
-                                                <div class="card-header card-header-listA">
-                                                    List A
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <div class="form-group row">
+                                                <label for="empType" class="col-sm-3 col-form-label">Emp Type</label>
+                                                <div class="col-sm-9">
+                                                    <select id="empType" class="form-control">
+                                                        <option selected>Select...</option>
+                                                        <option>Regular</option>
+                                                        <option>Officer</option>
+                                                        <option>Statutory</option>
+                                                        <option>Owner</option>
+                                                    </select>
                                                 </div>
-                                                <div class="card-body">
-                                                    <div class="row p-2">
-                                                        <label for="issuingAuthority">Issuing Authority</label>
-                                                        <input id="issuingAuthority" class="form-control"
-                                                            placeholder="Issuing Authority" />
-                                                    </div>
-                                                    <div class="row p-2">
-                                                        <label for="docTitle">Document Title</label>
-                                                        <input id="docTitle" class="form-control"
-                                                            placeholder="Document Title" />
-                                                    </div>
-                                                    <div class="row p-2">
-                                                        <label for="docNumber">Document Number</label>
-                                                        <input id="docNumber" class="form-control"
-                                                            placeholder="Document #" />
-                                                    </div>
-                                                    <div class="row p-2">
-                                                        <label for="expiryDate">Expiry Date</label>
-                                                        <input id="expiryDate" class="form-control"
-                                                            placeholder="yyyy-mm-dd" type="date" />
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group row">
+                                                <label for="lastDayWorked" class="col-sm-5 col-form-label">Last Day
+                                                    Date</label>
+                                                <div class="">
+                                                    <input type="date" class="form-control" id="lastDayWorked"
+                                                        placeholder="Last Day Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <div class="form-group row">
+                                                <label for="fullTime" class="col-sm-3 col-form-label">Full Time?</label>
+                                                <div class="col-sm-9">
+                                                    <select id="fullTime" class="form-control">
+                                                        <option selected>Select...</option>
+                                                        <option>Full-time</option>
+                                                        <option>Part-time</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group row">
+                                                <label for="lastDayOnBenefits" class="col-sm-5 col-form-label">Last Day
+                                                    on
+                                                    Benefits</label>
+                                                <div class="">
+                                                    <input type="date" class="form-control" id="lastDayOnBenefits"
+                                                        placeholder="Last Day on Benefits">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row pl-4">
+                                        <div class="col-sm-8 pr-4">
+                                            <div class="row">
+                                                <label for="terminationNotes">Termination Notes</label>
+                                            </div>
+                                            <div class="row">
+                                                <textarea class="form-control" id="terminationNotes"
+                                                    placeholder="Termination Notes"></textarea>
+                                            </div>
+                                            <div class="row pt-4">
+                                                <label for="severanceNotes">Severance Notes</label>
+                                            </div>
+                                            <div class="row">
+                                                <textarea class="form-control" id="severanceNotes" class="col-sm-6"
+                                                    placeholder="Severance Notes"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 pl-4">
+                                            <div class="row">
+                                                <div class="form-group w-100">
+                                                    <input type="checkbox" name="fancy-checkbox-info" id="chkSeasonal"
+                                                        autocomplete="off" />
+                                                    <div class="btn-group w-100">
+                                                        <label for="chkSeasonal" class="btn btn-info">
+                                                            <span class="fa fa-check"></span>
+                                                            <span> </span>
+                                                        </label>
+                                                        <label for="chkSeasonal" class="btn btn-light active w-75">
+                                                            Seasonal?
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card">
-                                                <div class="card-header card-header-listBC">
-                                                    List B
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="row p-2">
-                                                        <label for="issuingAuthority">Issuing Authority</label>
-                                                        <input id="issuingAuthority" class="form-control"
-                                                            placeholder="Issuing Authority" />
-                                                    </div>
-                                                    <div class="row p-2">
-                                                        <label for="docTitle">Document Title</label>
-                                                        <input id="docTitle" class="form-control"
-                                                            placeholder="Document Title" />
-                                                    </div>
-                                                    <div class="row p-2">
-                                                        <label for="docNumber">Document Number</label>
-                                                        <input id="docNumber" class="form-control"
-                                                            placeholder="Document #" />
-                                                    </div>
-                                                    <div class="row p-2">
-                                                        <label for="expiryDate">Expiry Date</label>
-                                                        <input id="expiryDate" class="form-control"
-                                                            placeholder="yyyy-mm-dd" type="date" />
+                                            <div class="row">
+                                                <div class="form-group w-100">
+                                                    <input type="checkbox" name="fancy-checkbox-info"
+                                                        id="chkSeverancePaid" autocomplete="off" />
+                                                    <div class="btn-group w-100">
+                                                        <label for="chkSeverancePaid" class="btn btn-info">
+                                                            <span class="fa fa-check"></span>
+                                                            <span> </span>
+                                                        </label>
+                                                        <label for="chkSeverancePaid" class="btn btn-light active w-75">
+                                                            Severance Paid?
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card">
-                                                <div class="card-header card-header-listBC">
-                                                    List C
+                                            <div class="row">
+                                                <div class="form-group w-100">
+                                                    <input type="checkbox" checked name="fancy-checkbox-info"
+                                                        id="chkRehire" autocomplete="off" />
+                                                    <div class="btn-group w-100">
+                                                        <label for="chkRehire" class="btn btn-info">
+                                                            <span class="fa fa-check"></span>
+                                                            <span> </span>
+                                                        </label>
+                                                        <label for="chkRehire" class="btn btn-light active w-75">
+                                                            Rehire?
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                                <div class="card-body">
-                                                    <div class="row p-2">
-                                                        <label for="issuingAuthority">Issuing Authority</label>
-                                                        <input id="issuingAuthority" class="form-control"
-                                                            placeholder="Issuing Authority" />
-                                                    </div>
-                                                    <div class="row p-2">
-                                                        <label for="docTitle">Document Title</label>
-                                                        <input id="docTitle" class="form-control"
-                                                            placeholder="Document Title" />
-                                                    </div>
-                                                    <div class="row p-2">
-                                                        <label for="docNumber">Document Number</label>
-                                                        <input id="docNumber" class="form-control"
-                                                            placeholder="Document #" />
-                                                    </div>
-                                                    <div class="row p-2">
-                                                        <label for="expiryDate">Expiry Date</label>
-                                                        <input id="expiryDate" class="form-control"
-                                                            placeholder="yyyy-mm-dd" type="date" />
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group w-100">
+                                                    <input type="checkbox" checked name="fancy-checkbox-info"
+                                                        id="chkProtestUnemployment" autocomplete="off" />
+                                                    <div class="btn-group w-100">
+                                                        <label for="chkProtestUnemployment" class="btn btn-info">
+                                                            <span class="fa fa-check"></span>
+                                                            <span> </span>
+                                                        </label>
+                                                        <label for="chkProtestUnemployment"
+                                                            class="btn btn-light active w-75">
+                                                            Protest Unemployment
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                            </form>
+
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a href="#panelBodyEmergencyContact" class="accordion-toggle collapsed"
-                                data-toggle="collapse" data-parent="#accordion">Emergency Contact</a>
-                        </h4>
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="#panelBodyImmigration" class="accordion-toggle collapsed"
+                                    data-toggle="collapse" data-parent="#accordion">Immigration Information</a>
+                            </h4>
+                        </div>
+                        <div id="panelBodyImmigration" class="panel-collapse collapse">
+                            <div class="panel-body shadow-sm p-3 bg-white rounded">
+                                <form>
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <p>
+                                                <button type="button" class="btn btn-outline-primary">Save Immigration
+                                                    Information</button>
+                                            </p>
+                                            <p>
+                                                <button type="button" class="btn btn-outline-secondary">Reset</button>
+                                            </p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4 form-group">
+                                                <label for="immigrationStatus">Immigration Status</label>
+                                                <select id="immigrationStatus" class="form-control">
+                                                    <option>Select...</option>
+                                                    <option>H1B</option>
+                                                    <option>Citizen</option>
+                                                    <option>Green Card</option>
+                                                    <option>EAD</option>
+                                                    <option>OPT-EAD</option>
+                                                    <option>CPT</option>
+                                                    <option>L1</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-8 form-group">
+                                                <label for="calcExpiryDate">Calculated Expiry Date</label>
+                                                <input id="calcExpiryDate" class="form-control" placeholder="N/A"
+                                                    disabled aria-disabled="true" />
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="">
+                                            <div class="cards-grid">
+                                                <div class="card ">
+                                                    <div class="card-header card-header-listA">
+                                                        List A
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row p-2">
+                                                            <label for="issuingAuthority">Issuing Authority</label>
+                                                            <input id="issuingAuthority" class="form-control"
+                                                                placeholder="Issuing Authority" />
+                                                        </div>
+                                                        <div class="row p-2">
+                                                            <label for="docTitle">Document Title</label>
+                                                            <input id="docTitle" class="form-control"
+                                                                placeholder="Document Title" />
+                                                        </div>
+                                                        <div class="row p-2">
+                                                            <label for="docNumber">Document Number</label>
+                                                            <input id="docNumber" class="form-control"
+                                                                placeholder="Document #" />
+                                                        </div>
+                                                        <div class="row p-2">
+                                                            <label for="expiryDate">Expiry Date</label>
+                                                            <input id="expiryDate" class="form-control"
+                                                                placeholder="yyyy-mm-dd" type="date" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="card-header card-header-listBC">
+                                                        List B
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row p-2">
+                                                            <label for="issuingAuthority">Issuing Authority</label>
+                                                            <input id="issuingAuthority" class="form-control"
+                                                                placeholder="Issuing Authority" />
+                                                        </div>
+                                                        <div class="row p-2">
+                                                            <label for="docTitle">Document Title</label>
+                                                            <input id="docTitle" class="form-control"
+                                                                placeholder="Document Title" />
+                                                        </div>
+                                                        <div class="row p-2">
+                                                            <label for="docNumber">Document Number</label>
+                                                            <input id="docNumber" class="form-control"
+                                                                placeholder="Document #" />
+                                                        </div>
+                                                        <div class="row p-2">
+                                                            <label for="expiryDate">Expiry Date</label>
+                                                            <input id="expiryDate" class="form-control"
+                                                                placeholder="yyyy-mm-dd" type="date" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="card-header card-header-listBC">
+                                                        List C
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row p-2">
+                                                            <label for="issuingAuthority">Issuing Authority</label>
+                                                            <input id="issuingAuthority" class="form-control"
+                                                                placeholder="Issuing Authority" />
+                                                        </div>
+                                                        <div class="row p-2">
+                                                            <label for="docTitle">Document Title</label>
+                                                            <input id="docTitle" class="form-control"
+                                                                placeholder="Document Title" />
+                                                        </div>
+                                                        <div class="row p-2">
+                                                            <label for="docNumber">Document Number</label>
+                                                            <input id="docNumber" class="form-control"
+                                                                placeholder="Document #" />
+                                                        </div>
+                                                        <div class="row p-2">
+                                                            <label for="expiryDate">Expiry Date</label>
+                                                            <input id="expiryDate" class="form-control"
+                                                                placeholder="yyyy-mm-dd" type="date" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <div id="panelBodyEmergencyContact" class="panel-collapse collapse">
-                        <div class="panel-body shadow-sm p-3 bg-white rounded">
-                            <div>
-                                <div class="d-flex justify-content-between">
-                                    <p>
-                                        <button type="button" class="btn btn-outline-primary">Save Emergency Contacts
-                                        </button>
-                                    </p>
-                                    <p>
-                                        <button type="button" class="btn btn-outline-secondary">Reset</button>
-                                    </p>
-                                </div>
-                                <hr>
-                                <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                        <label for="emergencyContactName">Name</label>
-                                        <input type="text" class="form-control" id="emergencyContactName"
-                                            placeholder="Contact Name">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="#panelBodyEmergencyContact" class="accordion-toggle collapsed"
+                                    data-toggle="collapse" data-parent="#accordion">Emergency Contact</a>
+                            </h4>
+                        </div>
+                        <div id="panelBodyEmergencyContact" class="panel-collapse collapse">
+                            <div class="panel-body shadow-sm p-3 bg-white rounded">
+                                <div>
+                                    <div class="d-flex justify-content-between">
+                                        <p>
+                                            <button type="button" class="btn btn-outline-primary">Save Emergency
+                                                Contacts
+                                            </button>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-outline-secondary">Reset</button>
+                                        </p>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="emergencyContactEmail">Email</label>
-                                        <input type="email" class="form-control" id="emergencyContactEmail"
-                                            placeholder="Contact Email">
+                                    <hr>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="emergencyContactName">Name</label>
+                                            <input type="text" class="form-control" id="emergencyContactName"
+                                                placeholder="Contact Name">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="emergencyContactEmail">Email</label>
+                                            <input type="email" class="form-control" id="emergencyContactEmail"
+                                                placeholder="Contact Email">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="emergencyContactPhone">Phone</label>
+                                            <input type="tel" class="form-control" id="emergencyContactPhone"
+                                                placeholder="111-111-1111">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="emergencyContactRel">Relationship</label>
+                                            <select id="emergencyContactRel" class="form-control">
+                                                <option>Select...</option>
+                                                <option>Spouse</option>
+                                                <option>Partner</option>
+                                                <option>Mother</option>
+                                                <option>Father</option>
+                                                <option>Sister</option>
+                                                <option>Brother</option>
+                                                <option>Son</option>
+                                                <option>Daughter</option>
+                                                <option>Friend</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="emergencyContactPhone">Phone</label>
-                                        <input type="tel" class="form-control" id="emergencyContactPhone"
-                                            placeholder="111-111-1111">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="emergencyContactRel">Relationship</label>
-                                        <select id="emergencyContactRel" class="form-control">
-                                            <option>Select...</option>
-                                            <option>Spouse</option>
-                                            <option>Partner</option>
-                                            <option>Mother</option>
-                                            <option>Father</option>
-                                            <option>Sister</option>
-                                            <option>Brother</option>
-                                            <option>Son</option>
-                                            <option>Daughter</option>
-                                            <option>Friend</option>
-                                            <option>Other</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                        <label for="emergencyContactName">Name</label>
-                                        <input type="text" class="form-control" id="emergencyContactName"
-                                            placeholder="Contact Name">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="emergencyContactEmail">Email</label>
-                                        <input type="email" class="form-control" id="emergencyContactEmail"
-                                            placeholder="Contact Email">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="emergencyContactPhone">Phone</label>
-                                        <input type="tel" class="form-control" id="emergencyContactPhone"
-                                            placeholder="111-111-1111">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="emergencyContactRel">Relationship</label>
-                                        <select id="emergencyContactRel" class="form-control">
-                                            <option>Select...</option>
-                                            <option>Spouse</option>
-                                            <option>Partner</option>
-                                            <option>Mother</option>
-                                            <option>Father</option>
-                                            <option>Sister</option>
-                                            <option>Brother</option>
-                                            <option>Son</option>
-                                            <option>Daughter</option>
-                                            <option>Friend</option>
-                                            <option>Other</option>
-                                        </select>
+                                    <hr>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="emergencyContactName">Name</label>
+                                            <input type="text" class="form-control" id="emergencyContactName"
+                                                placeholder="Contact Name">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="emergencyContactEmail">Email</label>
+                                            <input type="email" class="form-control" id="emergencyContactEmail"
+                                                placeholder="Contact Email">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="emergencyContactPhone">Phone</label>
+                                            <input type="tel" class="form-control" id="emergencyContactPhone"
+                                                placeholder="111-111-1111">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="emergencyContactRel">Relationship</label>
+                                            <select id="emergencyContactRel" class="form-control">
+                                                <option>Select...</option>
+                                                <option>Spouse</option>
+                                                <option>Partner</option>
+                                                <option>Mother</option>
+                                                <option>Father</option>
+                                                <option>Sister</option>
+                                                <option>Brother</option>
+                                                <option>Son</option>
+                                                <option>Daughter</option>
+                                                <option>Friend</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </div>

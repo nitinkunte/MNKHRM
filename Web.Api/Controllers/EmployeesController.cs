@@ -12,6 +12,7 @@ using Web.Api.Helpers;
 using Web.Api.Services;
 using Web.DTO.Data;
 using Web.DTO.Data;
+using Web.DTO.Enums;
 
 namespace Web.Api.Controllers
 {
@@ -210,8 +211,8 @@ namespace Web.Api.Controllers
                 var addresses = await employeeService.GetAddressesAsync(employeeId);
                 if (addresses?.Count > 0)
                 {
-                    emp.AddressHome = addresses.FirstOrDefault(x => x.AddressType == 10);
-                    emp.AddressOther = addresses.FirstOrDefault(x => x.AddressType == 20);
+                    emp.AddressHome = addresses.FirstOrDefault(x => x.AddressType.ToUpper() == AddressTypeEnums.Home.Value);
+                    emp.AddressOther = addresses.FirstOrDefault(x => x.AddressType.ToUpper() == AddressTypeEnums.Work.Value);
                 }
                 var contacts = await employeeService.GetEmergencyContactsAsync(employeeId);
                 if (contacts?.Count > 0)
@@ -263,14 +264,15 @@ namespace Web.Api.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("SaveAddress")]
-        public async Task<IActionResult> SaveAddress([FromBody] Address model)
+        public async Task<IActionResult> SaveAddress([FromBody] AddressModel model)
         {
             try
             {
                 if (!ModelState.IsValid) return BadRequest(ModelState);
 
                 if (model?.EmployeeId < 0) return NotFound("Invalid EmployeeId");
-                if (model?.AddressType < 0) return NotFound("Invalid AddressType");
+                if (string.IsNullOrWhiteSpace(model?.AddressType)) return NotFound("Invalid AddressType");
+                if (!AddressTypeEnums.IsValid(model.AddressType)) return NotFound("Invalid AddressType");
 
                 var ret = await employeeService.SaveAddressAsync(model);
 
@@ -290,7 +292,7 @@ namespace Web.Api.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("SaveEmploymentInfo")]
-        public async Task<IActionResult> SaveEmploymentInfo([FromBody] EmploymentInfo model)
+        public async Task<IActionResult> SaveEmploymentInfo([FromBody] EmploymentInfoModel model)
         {
             try
             {
@@ -316,7 +318,7 @@ namespace Web.Api.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("SaveImmigration")]
-        public async Task<IActionResult> SaveImmigration([FromBody] Immigration model)
+        public async Task<IActionResult> SaveImmigration([FromBody] ImmigrationModel model)
         {
             try
             {
@@ -342,14 +344,14 @@ namespace Web.Api.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("SaveEmergencyContact")]
-        public async Task<IActionResult> SaveEmergencyContact([FromBody] EmergencyContact model)
+        public async Task<IActionResult> SaveEmergencyContact([FromBody] EmergencyContactModel model)
         {
             try
             {
                 if (!ModelState.IsValid) return BadRequest(ModelState);
 
                 if (model?.EmployeeId < 0) return NotFound("Invalid EmployeeId");
-                if (model?.RelationshipStatus < 0) return NotFound("Invalid RelationshipStatus");
+                if (model?.RelationshipStatusId < 0) return NotFound("Invalid RelationshipStatus");
 
                 var ret = await employeeService.SaveEmergencyContactAsync(model);
 

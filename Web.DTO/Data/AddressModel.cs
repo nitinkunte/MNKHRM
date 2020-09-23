@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Web.DTO.Data
 {
-    public class Address : BaseEntity
+    [Table("Addresses")]
+    public class AddressModel : BaseEntity
     {
         [Required]
         public string Street1 { get; set; }
@@ -35,7 +36,7 @@ namespace Web.DTO.Data
         public string Fax { get; set; }
 
         [Required]
-        public int AddressType { get; set; }
+        public string AddressType { get; set; }
 
         [Required]
         public int EmployeeId { get; set; }
