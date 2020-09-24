@@ -27,6 +27,13 @@ namespace Web.Server.Helpers
         /// <param name="employeeId">Id for the given employee</param>
         /// <returns></returns>
         Task<EmployeeModel> GetEmployeeDetailsByIdAsync(int employeeId);
+
+        /// <summary>
+        /// Returns List of Addresses for this employee
+        /// </summary>
+        /// <param name="employeeId">Id for the given employee</param>
+        /// <returns>Returns List of Addresses for this employee</returns>
+        Task<List<AddressModel>> GetAddressesAsync(int employeeId);
         /// <summary>
         /// Insert/Update employee and all related classes like EmploymentInfo, Address, EmergencyContact, Immigration if they are sent
         /// </summary>
@@ -69,6 +76,19 @@ namespace Web.Server.Helpers
         {
             var url = $"{URL_EMPLOYEE }GetDetails/{employeeId}";
             var ret = await http.GetFromJsonAsync<EmployeeModel>(url);
+            return ret;
+        }
+
+       public async Task<List<AddressModel>> GetAddressesAsync(int employeeId)
+        {
+            var ret = new List<AddressModel>();
+            var url = $"{URL_EMPLOYEE }GetAddresses/{employeeId}";
+            var response = await http.GetFromJsonAsync<ResponseData>(url);
+            if ((response?.IsSuccess == true) && (null != response?.Data))
+            {
+                ret = response.Deserialize<List<AddressModel>>();
+            }
+
             return ret;
         }
 
@@ -174,17 +194,17 @@ namespace Web.Server.Helpers
                 Console.WriteLine($"Audiences = {string.Join(",", tokken.Audiences)}");
                 string ty = string.Empty;
                 string val = string.Empty;
-                foreach (var claim in tokken.Claims)
-                {
-                    ty = claim.Type ?? string.Empty;
-                    val = claim.Value ?? string.Empty;
-                    Console.WriteLine($"Type = {ty} <==> Value = {val}");
-                }
+                // foreach (var claim in tokken.Claims)
+                // {
+                //     ty = claim.Type ?? string.Empty;
+                //     val = claim.Value ?? string.Empty;
+                //     Console.WriteLine($"Type = {ty} <==> Value = {val}");
+                // }
 
-                Console.WriteLine($"Issuer = {tokken.Issuer ?? string.Empty}");
-                Console.WriteLine($"Subject = {tokken.Subject ?? string.Empty}");
-                Console.WriteLine($"Valid From = {tokken.ValidFrom.ToLongDateString() ?? string.Empty}");
-                Console.WriteLine($"Valid To = {tokken.ValidTo.ToLongDateString() ?? string.Empty}");
+                // Console.WriteLine($"Issuer = {tokken.Issuer ?? string.Empty}");
+                // Console.WriteLine($"Subject = {tokken.Subject ?? string.Empty}");
+                // Console.WriteLine($"Valid From = {tokken.ValidFrom.ToLongDateString() ?? string.Empty}");
+                // Console.WriteLine($"Valid To = {tokken.ValidTo.ToLongDateString() ?? string.Empty}");
 
                 //var newToken = new JwtSecurityToken(
                 //    issuer: tokken.Issuer,
@@ -208,10 +228,10 @@ namespace Web.Server.Helpers
                 try
                 {
                     result = app.AcquireTokenForClient(ResourceIds).ExecuteAsync().Result;
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Token acquired \n");
-                    Console.WriteLine(result.AccessToken);
-                    Console.ResetColor();
+                    // Console.ForegroundColor = ConsoleColor.Green;
+                    // Console.WriteLine("Token acquired \n");
+                    // Console.WriteLine(result.AccessToken);
+                    // Console.ResetColor();
                 }
                 catch (MsalClientException ex)
                 {

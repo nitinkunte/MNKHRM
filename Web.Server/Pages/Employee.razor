@@ -1,93 +1,94 @@
 @page "/employee"
-@using DTO.Data
+
 @inject APIService api
 @inject IJSRuntime JSRuntime; 
 
 <h1>Save Employee</h1>
-        @if (Emp == null)
-        {
-            <p><em>Loading...</em></p>
-        }
-        else
-        {
-            <div class="card shadow p-3 mb-5 bg-white rounded">
-                <EditForm Model="@Emp" OnSubmit="@HandleSubmitAsync">
-                    <DataAnnotationsValidator />
-                    <ValidationSummary />
-                    <input type="hidden" @bind="Emp.Id">
-                    <div class="card-header">
-                        <div class="shadow-sm p-3 bg-white rounded container-fluid">
-                            <div class="picture-container">
-                                <div class="picture">
-                                    <img src="https://www.mnkinfotech.com/wp-content/uploads/2015/05/leadership-150x150.jpg"
-                                        class="picture-src" id="wizardPicturePreview" title="">
-                                    <input type="file" id="wizard-picture" class="form-control">
-                                </div>
-                                <label for="wizard-picture" class="font-weight-light fa fa-camera-retro fa-2x"></label>
+    @if (Emp == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div class="card shadow p-3 mb-5 bg-white rounded">
+            <EditForm Model="@Emp" OnSubmit="@HandleSubmitAsync">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <input type="hidden" @bind="Emp.Id">
+                <div class="card-header">
+                    <div class="shadow-sm p-3 bg-white rounded container-fluid">
+                        <div class="picture-container">
+                            <div class="picture">
+                                <img src="https://www.mnkinfotech.com/wp-content/uploads/2015/05/leadership-150x150.jpg"
+                                    class="picture-src" id="wizardPicturePreview" title="">
+                                <input type="file" id="wizard-picture" class="form-control">
                             </div>
-                            <hr>
-                            <div class="row mt-3">
-                                <div class="col-sm-5 form-group">
-                                    <label for="NameFirst">*First Name</label>
-                                    <input id="NameFirst" class="form-control" placeholder="First Name" required 
-                                        @bind-value="Emp.NameFirst" />
-                                    <div class="invalid-feedback">
-                                        Please provide a First Name.
-                                    </div>
-                                </div>
-                                <div class="col-sm-2 form-group">
-                                    <label for="NameMiddle">Middle</label>
-                                    <input id="NameMiddle" class="form-control" placeholder="Middle Name" @bind-value="Emp.NameMiddle" />
-                                </div>
-                                <div class="col-sm-5 form-group">
-                                    <label for="NameLast">*Last Name</label>
-                                    <input id="NameLast" class="form-control" placeholder="Last Name" required @bind-value="Emp.NameLast"/>
-                                    <div class="invalid-feedback">
-                                        Please provide a Last Name.
-                                    </div>
+                            <label for="wizard-picture" class="font-weight-light fa fa-camera-retro fa-2x"></label>
+                        </div>
+                        <hr>
+                        <div class="row mt-3">
+                            <div class="col-sm-5 form-group">
+                                <label for="NameFirst">*First Name</label>
+                                <input id="NameFirst" class="form-control" placeholder="First Name" required 
+                                    @bind-value="Emp.NameFirst" />
+                                <div class="invalid-feedback">
+                                    Please provide a First Name.
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-5 form-group">
-                                    <label for="dob">Date of Birth</label>
-                                    <input id="dob" class="form-control" type="date" 
-                                    required min="1920-01-01" max="@MaxDate"
-                                    @bind-value="Emp.DateOfBirth"/>
-                                    <div class="invalid-feedback">
-                                        Please provide a Date of Birth.
-                                    </div>
-                                </div>
-                                <div class="col-sm-7 form-group">
-                                    <label for="SSN">Social Security Number</label>
-                                    <input id="SSN" class="form-control" placeholder="SSN" required @bind-value="Emp.SSN" />
-                                    <div class="invalid-feedback">
-                                        Please provide a SSN.
-                                    </div>
-                                </div>
+                            <div class="col-sm-2 form-group">
+                                <label for="NameMiddle">Middle</label>
+                                <input id="NameMiddle" class="form-control" placeholder="Middle Name" @bind-value="Emp.NameMiddle" />
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-12">
-                                    <button type="submit" class="btn btn-primary btn-block" id="btnSubmit">Save</button>
+                            <div class="col-sm-5 form-group">
+                                <label for="NameLast">*Last Name</label>
+                                <input id="NameLast" class="form-control" placeholder="Last Name" required @bind-value="Emp.NameLast"/>
+                                <div class="invalid-feedback">
+                                    Please provide a Last Name.
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </EditForm>
-                <div class="card-body">
-                    <div class="container-fluid">
-                        <div id="accordion" class="panel-group">
-                            <CascadingValue Value="@Emp" Name="Emp">
-                                <Web.Server.Components.Personal />
-                            </CascadingValue>
-
+                        <div class="row">
+                            <div class="col-sm-5 form-group">
+                                <label for="dob">Date of Birth</label>
+                                <input id="dob" class="form-control" type="date" 
+                                required min="1920-01-01" max="@MaxDate"
+                                @bind-value="Emp.DateOfBirth"/>
+                                <div class="invalid-feedback">
+                                    Please provide a Date of Birth.
+                                </div>
+                            </div>
+                            <div class="col-sm-7 form-group">
+                                <label for="SSN">Social Security Number</label>
+                                <input id="SSN" class="form-control" placeholder="SSN" required @bind-value="Emp.SSN" />
+                                <div class="invalid-feedback">
+                                    Please provide a SSN.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-block" id="btnSubmit">Save</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
-
+            </EditForm>
+            <div class="card-body">
+                <div class="container-fluid">
+                    <div id="accordion" class="panel-group">
+                        @* <CascadingValue Value="@Emp" Name="Emp">
+                            <Web.Server.Components.Personal />
+                        </CascadingValue> *@
+                        <Web.Server.Components.Personal Emp="Emp" />
+                        <Web.Server.Components.Address EmployeeId="Emp.Id" />
+                    </div>
+                </div>
             </div>
-        }
+
+
+
+        </div>
+    }
 
 
 @code {
@@ -99,7 +100,7 @@
     {
         try 
         { 
-            Emp = await api.GetEmployeeByIdAsync(3);
+            Emp = await api.GetEmployeeByIdAsync(2);
         }
         catch(Exception ex)
         {
@@ -116,8 +117,7 @@
 
     private async Task HandleSubmitAsync()
     {
-        var abc = Emp;
-        var ky = await api.SaveEmployeeAsync(Emp);
+        Emp = await api.SaveEmployeeAsync(Emp);
     }
 
 }

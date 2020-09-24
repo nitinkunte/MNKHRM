@@ -87,11 +87,13 @@
 </EditForm>
 
 @code{
-    [CascadingParameter(Name = "Emp")]
-    protected EmployeeModel Emp { get; set; }
+    [Parameter]
+    public EmployeeModel Emp { get; set; }
     private string MaxDate = DateTime.Now.AddYears (-17).ToString ("yyyy-MM-dd");
     private async Task HandleSubmitAsync () {
-        var abc = Emp;
-        var ky = await api.SaveEmployeeAsync (Emp);
+        if (Emp?.Id > 0)
+        {
+            Emp = await api.SaveEmployeeAsync (Emp);
+        }
     }
 }
