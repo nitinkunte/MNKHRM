@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using BlazorStrap;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -70,6 +71,7 @@ namespace Web.Server
 
             services.AddOptions();
 
+            services.AddBootstrapCss();
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);

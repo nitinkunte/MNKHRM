@@ -6,7 +6,7 @@
     }
     else
     {
-        <EditForm Model="@Addr" OnSubmit="@HandleSubmitAsync">
+        <EditForm Model="@Addr" OnValidSubmit="HandleSubmitAsync">
             <DataAnnotationsValidator />
             <ValidationSummary />
             <input type="hidden" @bind="EmployeeId">
@@ -23,12 +23,12 @@
                             <div>
                                 <div class="d-flex justify-content-between">
                                     <p>
-                                        <button type="button" class="btn btn-outline-primary">Save Adress &
+                                        <button type="submit" class="btn btn-outline-primary">Save Adress &
                                             Contact
                                             Information</button>
                                     </p>
                                     <p>
-                                        <button type="button" class="btn btn-outline-secondary">Reset</button>
+                                        <button type="reset" class="btn btn-outline-secondary">Reset</button>
                                     </p>
                                 </div>
                             </div>

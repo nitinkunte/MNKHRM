@@ -1,7 +1,7 @@
 
 @inject APIService api
 
-<EditForm Model="@Emp" OnSubmit="@HandleSubmitAsync">
+<EditForm Model="@Emp" OnValidSubmit="HandleSubmitAsync">
     <DataAnnotationsValidator />
     <ValidationSummary />
     <input type="hidden" @bind="Emp.Id">
