@@ -1,0 +1,54 @@
+@page "/test"
+<h1>First Form</h1>
+<EditForm Model="@test1" OnValidSubmit="HandleValidSubmit1">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="@nameof(test1.Name)">@nameof(test1.Name)</label>
+        <InputText id="@nameof(test1.Name)" @bind-Value="test1.Name" class="form-control" />
+        <ValidationMessage For="@(() => test1.Name)" />
+    </div>  
+    <button type="submit">Submit</button>
+</EditForm>
+<hr/>
+<Web.Server.Components.Test3333 EmployeeId="44" TestFromParent="parameterForChild"></Web.Server.Components.Test3333>
+
+
+
+@code {
+    
+    private Test1 test1 {get; set;} 
+
+    private Test1 parameterForChild;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try 
+        { 
+            test1  = new Test1{Id = 10, Name = "test1"};
+            parameterForChild = new Test1 {Id = 100 , Name = "Param from Parent to Child"};
+        }
+        catch(Exception ex)
+        {
+            
+        }
+    }
+
+    private void HandleValidSubmit1()
+    {
+        var abc = test1;
+        parameterForChild = new Test1 {Id = 200 , Name = "Parent form submitted"};
+
+    }
+
+
+
+   public class Test1
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+    }
+
+
+}

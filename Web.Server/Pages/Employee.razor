@@ -28,41 +28,30 @@
                         <hr>
                         <div class="row mt-3">
                             <div class="col-sm-5 form-group">
-                                <label for="NameFirst">*First Name</label>
-                                <input id="NameFirst" class="form-control" placeholder="First Name" required 
-                                    @bind-value="Emp.NameFirst" />
-                                <div class="invalid-feedback">
-                                    Please provide a First Name.
-                                </div>
-                            </div>
+                                <label for="@nameof(Emp.NameFirst)">First Name</label>
+                                <InputText id="@nameof(Emp.NameFirst)" @bind-Value="Emp.NameFirst" class="form-control" />
+                                <ValidationMessage For="@(() => Emp.NameFirst)" />
+                            </div>  
                             <div class="col-sm-2 form-group">
                                 <label for="NameMiddle">Middle</label>
                                 <input id="NameMiddle" class="form-control" placeholder="Middle Name" @bind-value="Emp.NameMiddle" />
                             </div>
                             <div class="col-sm-5 form-group">
-                                <label for="NameLast">*Last Name</label>
-                                <input id="NameLast" class="form-control" placeholder="Last Name" required @bind-value="Emp.NameLast"/>
-                                <div class="invalid-feedback">
-                                    Please provide a Last Name.
-                                </div>
-                            </div>
+                                <label for="@nameof(Emp.NameLast)">Last Name</label>
+                                <InputText id="@nameof(Emp.NameLast)" @bind-Value="Emp.NameLast" class="form-control" />
+                                <ValidationMessage For="@(() => Emp.NameLast)" />
+                            </div>  
                         </div>
                         <div class="row">
                             <div class="col-sm-5 form-group">
-                                <label for="dob">Date of Birth</label>
-                                <input id="dob" class="form-control" type="date" 
-                                required min="1920-01-01" max="@MaxDate"
-                                @bind-value="Emp.DateOfBirth"/>
-                                <div class="invalid-feedback">
-                                    Please provide a Date of Birth.
-                                </div>
+                                <label for="@nameof(Emp.DateOfBirth)">Date of Birth</label>
+                                <InputDate id="@nameof(Emp.DateOfBirth)" @bind-Value="Emp.DateOfBirth" class="form-control"  min="1920-01-01" max="@MaxDate"/>
+                                <ValidationMessage For="@(() => Emp.DateOfBirth)" />
                             </div>
                             <div class="col-sm-7 form-group">
-                                <label for="SSN">Social Security Number</label>
-                                <input id="SSN" class="form-control" placeholder="SSN" required @bind-value="Emp.SSN" />
-                                <div class="invalid-feedback">
-                                    Please provide a SSN.
-                                </div>
+                                <label for="@nameof(Emp.SSN)">Social Security Number</label>
+                                <InputText id="@nameof(Emp.SSN)" @bind-Value="Emp.SSN" class="form-control" />
+                                <ValidationMessage For="@(() => Emp.SSN)" />
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -73,20 +62,14 @@
                     </div>
                 </div>
             </EditForm>
-            <div class="card-body">
+             <div class="card-body">
                 <div class="container-fluid">
                     <div id="accordion" class="panel-group">
-                        @* <CascadingValue Value="@Emp" Name="Emp">
-                            <Web.Server.Components.Personal />
-                        </CascadingValue> *@
-                        <Web.Server.Components.Personal Emp="Emp" />
-                        <Web.Server.Components.Address EmployeeId="Emp.Id" />
+                        <Web.Server.Components.Personal EmpPersonal="Emp" />
+                        <Web.Server.Components.Address2 EmployeeId="Emp.Id" />
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     }
 
@@ -107,14 +90,15 @@
             Emp = new EmployeeModel();
         }
     }
+    /*
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             await JSRuntime.InvokeVoidAsync("setDatePicker", "dob");
-        }
+        } 
     }
-
+    */
     private async Task HandleSubmitAsync()
     {
         Emp = await api.SaveEmployeeAsync(Emp);

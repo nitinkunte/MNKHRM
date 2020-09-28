@@ -1,0 +1,86 @@
+
+
+<h1>Data from Employee Form</h1>
+<EditForm Model="@EmpPersonal" OnValidSubmit="HandleEmpSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <label>EmployeeId = @EmpPersonal.Id</label>
+    <div class="form-group">
+        <label for="@nameof(EmpPersonal.NamePrintOnCheck)">@nameof(EmpPersonal.NamePrintOnCheck)</label>
+        <InputText id="@nameof(EmpPersonal.NamePrintOnCheck)" @bind-Value="EmpPersonal.NamePrintOnCheck" class="form-control" />
+        <ValidationMessage For="@(() => EmpPersonal.NamePrintOnCheck)" />
+    </div>  
+    <button type="submit">Submit</button>
+</EditForm>
+
+<h1>Third Form</h1>
+<EditForm Model="@secondValueClass" OnValidSubmit="HandleValidSubmit2">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <label>EmployeeId = @EmployeeId</label>
+    <div class="form-group">
+        <label for="@nameof(secondValueClass.LastName)">@nameof(secondValueClass.LastName)</label>
+        <InputText id="@nameof(secondValueClass.LastName)" @bind-Value="secondValueClass.LastName" class="form-control" />
+        <ValidationMessage For="@(() => secondValueClass.LastName)" />
+    </div>  
+    <button type="submit">Submit</button>
+</EditForm>
+<h1>Data from Parent Form</h1>
+<EditForm Model="@TestFromParent" OnValidSubmit="HandleValidSubmit3">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <label>EmployeeId = @TestFromParent.Id</label>
+    <div class="form-group">
+        <label for="@nameof(TestFromParent.Name)">@nameof(TestFromParent.Name)</label>
+        <InputText id="@nameof(TestFromParent.Name)" @bind-Value="TestFromParent.Name" class="form-control" />
+        <ValidationMessage For="@(() => TestFromParent.Name)" />
+    </div>  
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code{
+
+    [Parameter]
+    public int EmployeeId { get; set; }
+    private Test44 secondValueClass {get; set;} 
+
+    [Parameter]
+    public Web.Server.Pages.Test33.Test1 TestFromParent { get; set; }
+
+    [Parameter]
+    public EmployeeModel EmpPersonal { get; set; }
+
+     protected override async Task OnInitializedAsync()
+    {
+        try 
+        { 
+            secondValueClass = new Test44{Id = EmployeeId, LastName = "44 test"};
+            TestFromParent = new Web.Server.Pages.Test33.Test1 {Id = 3000, Name="some junk"};
+        }
+        catch(Exception ex)
+        {
+            
+        }
+    }
+
+    private void HandleValidSubmit2()
+    {
+        var abc = secondValueClass;
+    }
+
+
+    private void HandleValidSubmit3()
+    {
+        var abc = TestFromParent;
+    }
+    private void HandleEmpSubmit()
+    {
+        var abc = EmpPersonal;
+    }
+    public class Test44
+    {
+        public int Id { get; set; }
+        public string LastName { get; set; }
+
+    }
+}
