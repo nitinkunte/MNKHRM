@@ -1,0 +1,61 @@
+@using System.Linq.Expressions
+@using System.Globalization
+@using Microsoft.AspNetCore.Components.Forms
+
+
+@inherits InputCheckbox
+
+                                                
+
+
+<div class="row">
+
+    <div class="form-group @CssClass">
+        <input type="checkbox" name="fancy-checkbox-info" id="@Id" autocomplete="off" @bind-value="@CurrentValue" />
+        <div class="btn-group @CssClass">
+            @if (!string.IsNullOrWhiteSpace(Label))
+            {        
+                <label for="@Id" class="btn btn-info">
+                    <span class="fa fa-check"></span>
+                    <span> </span>
+                </label>
+            }
+            @if (!string.IsNullOrWhiteSpace(Label))
+            {
+                <label class="btn active @LabelCss" for="@Id">@Label</label>
+            }
+        </div>
+    </div>
+    <div class="form-control-validation">
+        <ValidationMessage For="@ValidationFor" />
+    </div>
+</div>
+
+@code {
+
+    [Parameter] public string Id { get; set; }
+    [Parameter] public string Label { get; set; }
+    [Parameter] public string LabelCss { get; set; }
+    //[Parameter] public bool IsChecked { get; set; }
+    [Parameter] public Expression<Func<bool>> ValidationFor { get; set; }
+   
+    /* protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
+    {
+        if (typeof(T) == typeof(bool))
+        {
+            result = (T)(object)value;
+            validationErrorMessage = null;
+            return true;
+        }
+        else if (typeof(T) == typeof(string))
+        {
+            bool.TryParse(value, out var parsedValue);
+            result = (T)(object)parsedValue;
+            validationErrorMessage = null;
+            return true;
+        }
+        throw new InvalidOperationException($"{GetType()} does not support the type '{typeof(T)}'.");
+    } */
+}
+
+        

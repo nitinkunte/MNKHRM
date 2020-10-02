@@ -25,6 +25,7 @@ namespace Web.Api.Migrations
                     Email = table.Column<string>(nullable: false),
                     PhoneLand = table.Column<string>(nullable: true),
                     PhoneMobile = table.Column<string>(nullable: true),
+                    EmailOther = table.Column<string>(nullable: true),
                     Website = table.Column<string>(nullable: true),
                     Fax = table.Column<string>(nullable: true),
                     AddressType = table.Column<string>(nullable: false),
@@ -48,13 +49,13 @@ namespace Web.Api.Migrations
                     Name = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: false),
-                    RelationshipStatusId = table.Column<int>(nullable: false),
+                    RelationshipStatus = table.Column<string>(nullable: false),
                     EmployeeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EmergencyContacts", x => x.Id);
-                    table.UniqueConstraint("AK_EmergencyContacts_EmployeeId_RelationshipStatusId", x => new { x.EmployeeId, x.RelationshipStatusId });
+                    table.UniqueConstraint("AK_EmergencyContacts_EmployeeId_RelationshipStatus", x => new { x.EmployeeId, x.RelationshipStatus });
                 });
 
             migrationBuilder.CreateTable(
@@ -141,7 +142,7 @@ namespace Web.Api.Migrations
                     OriginalHireDate = table.Column<DateTime>(nullable: false),
                     AdjustedServiceDate = table.Column<DateTime>(nullable: false),
                     ReleaseDate = table.Column<DateTime>(nullable: false),
-                    EmploymentTypeId = table.Column<int>(nullable: false),
+                    EmploymentType = table.Column<string>(nullable: false),
                     IsFullTime = table.Column<bool>(nullable: false),
                     IsSeasonal = table.Column<bool>(nullable: false),
                     IsExempt = table.Column<bool>(nullable: false),
@@ -179,7 +180,7 @@ namespace Web.Api.Migrations
                     IsActive = table.Column<bool>(nullable: false),
                     UpdateUser = table.Column<string>(nullable: true),
                     UpdateDate = table.Column<DateTime>(nullable: true),
-                    StatusId = table.Column<int>(nullable: false),
+                    ImmigrationStatus = table.Column<string>(nullable: false),
                     IsListA = table.Column<bool>(nullable: false),
                     ListADocTitle = table.Column<string>(nullable: true),
                     ListAIssuingAuthority = table.Column<string>(nullable: true),

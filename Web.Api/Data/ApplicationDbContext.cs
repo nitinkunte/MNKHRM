@@ -19,6 +19,7 @@ namespace Web.Api.Data
         public DbSet<ImmigrationModel> Immigrations { get; set; }
         public DbSet<EmergencyContactModel> EmergencyContacts { get; set; }
         public DbSet<EmploymentInfoModel> EmploymentInfos { get; set; }
+        public DbSet<ProfitabilityModel> Profitabilities { get; set; }
         public DbSet<UserRoleModel> UserRoles { get; set; }
         public DbSet<SessionModel> SessionModels { get; set; }
 
@@ -34,14 +35,19 @@ namespace Web.Api.Data
             modelBuilder.Entity<AddressModel>()
                 .HasAlternateKey(x => new { x.EmployeeId, x.AddressType });
 
-
             modelBuilder.Entity<EmergencyContactModel>()
-                .HasAlternateKey(x => new { x.EmployeeId, x.RelationshipStatusId });
+                .HasAlternateKey(x => new { x.EmployeeId, x.RelationshipStatus });
 
             modelBuilder.Entity<EmployeeModel>()
                .HasOne<ImmigrationModel>(x => x.Immigration)
                .WithOne(e => e.Employee)
                .HasForeignKey<ImmigrationModel>(y => y.EmployeeId)
+               .IsRequired(false);
+
+            modelBuilder.Entity<EmployeeModel>()
+               .HasOne<ProfitabilityModel>(x => x.Profitability)
+               .WithOne(e => e.Employee)
+               .HasForeignKey<ProfitabilityModel>(y => y.EmployeeId)
                .IsRequired(false);
 
             modelBuilder.Entity<UserRoleModel>()

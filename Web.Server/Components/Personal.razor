@@ -8,6 +8,7 @@
                 data-parent="#accordion">Personal Information</a>
         </h4>
     </div>
+
     <EditForm Model="@EmpPersonal" OnValidSubmit="HandleSubmitPersonalAsync">
         <DataAnnotationsValidator />
         <ValidationSummary />
@@ -26,58 +27,66 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-4 form-group">
-                        <label for="gender">Gender</label>
-                        <InputSelect @bind-Value="EmpPersonal.Gender" class="form-control">
-                            @foreach (var gender in Enum.GetValues(typeof( Web.DTO.Enums.GenderEnum)))
+                        <MNK.Components.MNKInputSelect @bind-Value="EmpPersonal.Gender" class="form-control"
+                                ValidationFor="@(() => EmpPersonal.Gender)" Label="Please select..." >
+                            @foreach (var val in Enum.GetValues(typeof(Web.DTO.Enums.GenderEnum)))
                             {
-                                <option value="@gender">
-                                    @gender
+                                <option value="@val">
+                                    @val
                                 </option>
                             }
-                        </InputSelect>
+                        </MNK.Components.MNKInputSelect>
                     </div>
                     <div class="col-sm-8 form-group">
-                        <label for="NamePrintOnCheck">Name to be printed on check</label>
-                        <input id="NamePrintOnCheck" class="form-control" placeholder="Name on check"
-                            @bind="EmpPersonal.NamePrintOnCheck" />
+                        <label for="@nameof(EmpPersonal.NamePrintOnCheck)">Name to be printed on check</label>
+                        <InputText id="@nameof(EmpPersonal.NamePrintOnCheck)" @bind-Value="EmpPersonal.NamePrintOnCheck" class="form-control"  placeholder="Enter Name to be printed on check" />
+                        <ValidationMessage For="@(() => EmpPersonal.NamePrintOnCheck)" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4 form-group">
-                        <label for="maritalStatus">Maritial Status</label>
-                        <InputSelect @bind-Value="EmpPersonal.MaritalStatus" class="form-control">
-                            @foreach (var ms in Enum.GetValues(typeof( Web.DTO.Enums.MaritalStatusEnum)))
+                        <MNK.Components.MNKInputSelect @bind-Value="EmpPersonal.MaritalStatus" class="form-control"
+                                ValidationFor="@(() => EmpPersonal.MaritalStatus)" Label="Please select..." 
+                                ShowDefaultOption="true">
+                            @foreach (var val in Enum.GetValues(typeof( Web.DTO.Enums.MaritalStatusEnum)))
                             {
-                                <option value="@ms">
-                                    @ms
+                                <option value="@val">
+                                    @val
                                 </option>
                             }
-                        </InputSelect>                            
+                        </MNK.Components.MNKInputSelect>
                     </div>
                     <div class="col-sm-4 form-group">
-                        <label for="Ethnicity">Ethnicity</label>
-                        <InputSelect @bind-Value="EmpPersonal.Ethnicity" class="form-control">
+                        <MNK.Components.MNKInputSelect @bind-Value="EmpPersonal.Ethnicity" class="form-control"
+                                ValidationFor="@(() => EmpPersonal.Ethnicity)" Label="Please select..." 
+                                ShowDefaultOption="true">
                             @foreach (var eth in Enum.GetValues(typeof( Web.DTO.Enums.EthnicityEnum)))
                             {
                                 <option value="@eth">
                                     @eth
                                 </option>
                             }
-                        </InputSelect>
+                        </MNK.Components.MNKInputSelect>
                     </div>
                     <div class="col-sm-4 form-group">
-                        <label for="isDisabled">Is Disabled</label> &nbsp;&nbsp;
-                        <InputCheckbox type="checkbox" class="form-check-input" id="isDisabled" @bind-Value="EmpPersonal.IsDisabled" />
+                        <label class="form-control-label">Disability</label>
+                        <div class="custom-control custom-switch">
+                            <InputCheckbox class="custom-control-input" id="@nameof(EmpPersonal.IsDisabled)"  @bind-Value="EmpPersonal.IsDisabled" />
+                            <label class="custom-control-label" for="@nameof(EmpPersonal.IsDisabled)">Does Employee have any disability?</label>
+                        </div>
                         @if (EmpPersonal.IsDisabled)
                         {
+                            <label for="@nameof(EmpPersonal.DisabilityDesc)">Disability Description</label>
                             <InputTextArea id="disablitydesc" class="form-control" rows="3" @bind-Value="EmpPersonal.DisabilityDesc"></InputTextArea>
+                            <ValidationMessage For="@(() => EmpPersonal.DisabilityDesc)" />
                         }
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12 form-group">
-                        <label for="notes">Notes</label>
+                        <label for="@nameof(EmpPersonal.Notes)">Notes</label>
                         <InputTextArea id="Notes" class="form-control" rows="3" @bind-Value="EmpPersonal.Notes"></InputTextArea>
+                        <ValidationMessage For="@(() => EmpPersonal.Notes)" />
                     </div>
                 </div>
             
@@ -92,11 +101,9 @@
     public EmployeeModel EmpPersonal { get; set; }
     private string MaxDate = DateTime.Now.AddYears (-17).ToString ("yyyy-MM-dd");
 
-    //private string isDisabled = "";
-
     protected override async Task OnInitializedAsync () 
     {
-        //isDisabled = (EmpPersonal?.IsDisabled == true) ? "checked" : "";
+        
     }
 
     private async Task HandleSubmitPersonalAsync () 

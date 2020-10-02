@@ -41,9 +41,7 @@ namespace Web.DTO.Enums
             }
             return ret;
         }
-
     }
-
 
     public enum RelationshipStatusEnum
     {
@@ -153,6 +151,7 @@ namespace Web.DTO.Enums
 
     public enum StateFullEnum
     {
+        
         Alabama = 10,
         Alaska = 20,
         Arizona = 30,
@@ -208,6 +207,7 @@ namespace Web.DTO.Enums
     }
     public enum ImmigrationStatusEnum
     {
+        
         H1B = 10,
         Citizen = 20,
 
@@ -221,5 +221,11 @@ namespace Web.DTO.Enums
         L2 = 80
     }
 
+    public enum RatePerEnum
+    {
+        Hourly = 10,
+        Yearly = 20,
+        Monthly = 30
+    }
 }
 

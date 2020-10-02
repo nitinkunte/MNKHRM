@@ -69,9 +69,7 @@ namespace Web.Api.Controllers
             try
             {
                 var emp = await employeeService.GetEmployeesAsync();
-
                 var responseData = ResponseData.Create(true, string.Empty, emp);
-                //var abc = System.Text.Json.JsonSerializer.Serialize(responseData);
                 return Ok(responseData);
             }
             catch (Exception exception)
@@ -91,17 +89,16 @@ namespace Web.Api.Controllers
         {
             try
             {
-                //var user = base.SignInUserId;
-                var emp = await employeeService.GetEmployeeByIdAsync(employeeId);
-                if (emp != null)
+                var ret = await employeeService.GetEmployeeByIdAsync(employeeId);
+                if (ret != null)
                 {
-                    return Ok(emp);
+                    var responseData = ResponseData.Create(true, string.Empty, ret);
+                    return Ok(responseData);
                 }
                 else
                 {
                     return NotFound();
                 }
-
             }
             catch (Exception exception)
             {
@@ -351,7 +348,11 @@ namespace Web.Api.Controllers
                 if (!ModelState.IsValid) return BadRequest(ModelState);
 
                 if (model?.EmployeeId < 0) return NotFound("Invalid EmployeeId");
-                if (model?.RelationshipStatusId < 0) return NotFound("Invalid RelationshipStatus");
+                if (string.IsNullOrWhiteSpace(model?.RelationshipStatus)) return NotFound("Invalid RelationshipStatus");
+
+                var validRelationships = Enum.GetNames(typeof(Web.DTO.Enums.RelationshipStatusEnum)).ToList();
+                var correct = validRelationships.Any(x => x.ToLower() == model.RelationshipStatus.ToLower());
+                if (correct == false) return NotFound("Invalid RelationshipStatus");
 
                 var ret = await employeeService.SaveEmergencyContactAsync(model);
 
@@ -364,6 +365,7 @@ namespace Web.Api.Controllers
                 return HandleException(exception);
             }
         }
+
 
         /// <summary>
         /// Soft delete for employee - just the IsActive flag is set to false. 

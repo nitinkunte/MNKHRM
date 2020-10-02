@@ -10,7 +10,7 @@ namespace Web.DTO.Data
     public class ImmigrationModel : BaseEntity
     {
         [Required]
-        public int StatusId { get; set; }
+        public string ImmigrationStatus { get; set; }
         public bool IsListA { get; set; }
 
         public string ListADocTitle { get; set; }

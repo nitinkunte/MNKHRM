@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Web.Server.Data;
 using Web.Server.Helpers;
@@ -79,11 +80,11 @@ namespace Web.Server
             services.AddHttpClient<APIService>(c =>
             {
                 c.BaseAddress = new Uri(baseUri);
-
-
             });
             services.AddHttpClient();
-
+            ///TODO - remove this before production
+            IdentityModelEventSource.ShowPII = true;
+            
             services.AddScoped<TokenProvider>();
 
             services.AddControllersWithViews(options =>

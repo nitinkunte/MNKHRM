@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Web.Api.Data;
 
 namespace Web.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200930163445_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,9 +188,6 @@ namespace Web.Api.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ProfitabilityId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("SSN")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -363,51 +362,6 @@ namespace Web.Api.Migrations
                     b.ToTable("Immigrations");
                 });
 
-            modelBuilder.Entity("Web.DTO.Data.ProfitabilityModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("IncomeRate")
-                        .HasColumnType("REAL");
-
-                    b.Property<string>("IncomeRatePer")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("PayRate")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("PayRateHourly")
-                        .HasColumnType("REAL");
-
-                    b.Property<string>("PayRatePer")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<double>("PayRateYearly")
-                        .HasColumnType("REAL");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UpdateUser")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
-
-                    b.ToTable("Profitability");
-                });
-
             modelBuilder.Entity("Web.DTO.Data.SessionModel", b =>
                 {
                     b.Property<int>("Id")
@@ -490,13 +444,6 @@ namespace Web.Api.Migrations
                     b.HasOne("Web.DTO.Data.EmployeeModel", "Employee")
                         .WithOne("Immigration")
                         .HasForeignKey("Web.DTO.Data.ImmigrationModel", "EmployeeId");
-                });
-
-            modelBuilder.Entity("Web.DTO.Data.ProfitabilityModel", b =>
-                {
-                    b.HasOne("Web.DTO.Data.EmployeeModel", "Employee")
-                        .WithOne("Profitability")
-                        .HasForeignKey("Web.DTO.Data.ProfitabilityModel", "EmployeeId");
                 });
 #pragma warning restore 612, 618
         }

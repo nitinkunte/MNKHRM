@@ -1,0 +1,141 @@
+
+@inject APIService api
+
+@if (Addr == null)
+{
+    <p><em>Loading address...</em></p>
+}
+else
+{
+    <EditForm Model="@Addr" OnValidSubmit="HandleSubmitAsync">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <input type="hidden" @bind="EmployeeId">
+        <input type="hidden" @bind="Addr.AddressType" />
+        <div class="panel">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a href="#panelBodyAddress" class="accordion-toggle collapsed" data-toggle="collapse"
+                        data-parent="#accordion">Address & Contact</a>
+                </h4>
+            </div>
+            <div id="panelBodyAddress" class="panel-collapse collapse">
+                <div class="panel-body shadow-sm p-3 mb-3 bg-white rounded">
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            <p>
+                                <button type="submit" class="btn btn-outline-primary">Save Adress & Contact Information</button>
+                            </p>
+                            <p>
+                                <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="@nameof(Addr.Email)">Main Email</label>
+                            <InputText id="@nameof(Addr.Email)" @bind-Value="Addr.Email" class="form-control"  placeholder="Enter Main Email" type="email" />
+                            <ValidationMessage For="@(() => Addr.Email)" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="@nameof(Addr.PhoneMobile)">Cell Phone</label>
+                            <InputText id="@nameof(Addr.PhoneMobile)" @bind-Value="Addr.PhoneMobile" class="form-control"  placeholder="111-111-1111" type="tel"/>
+                            <ValidationMessage For="@(() => Addr.PhoneMobile)" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="@nameof(Addr.Street1)">Street Address</label>
+                            <InputText id="@nameof(Addr.Street1)" @bind-Value="Addr.Street1" class="form-control"  placeholder="Enter Street Address" />
+                            <ValidationMessage For="@(() => Addr.Street1)" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="@nameof(Addr.Street2)">Adress 2</label>
+                            <InputText id="@nameof(Addr.Street2)" @bind-Value="Addr.Street2" class="form-control"  placeholder="Enter Adress 2" />
+                            <ValidationMessage For="@(() => Addr.Street2)" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="@nameof(Addr.City)">City</label>
+                            <InputText id="@nameof(Addr.City)" @bind-Value="Addr.City" class="form-control"  placeholder="Enter City" />
+                            <ValidationMessage For="@(() => Addr.City)" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <MNK.Components.MNKInputSelect @bind-Value="Addr.State" class="form-control"
+                                    ValidationFor="@(() => Addr.State)" Label="Please select..." >
+                                @foreach (var val in Enum.GetValues(typeof( Web.DTO.Enums.StateEnum)))
+                                {
+                                    <option value="@val">
+                                        @val
+                                    </option>
+                                }
+                            </MNK.Components.MNKInputSelect>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="@nameof(Addr.Zip)">Zip</label>
+                            <InputText id="@nameof(Addr.Zip)" @bind-Value="Addr.Zip" class="form-control"  placeholder="Enter Zip" />
+                            <ValidationMessage For="@(() => Addr.Zip)" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="@nameof(Addr.Website)">Website</label>
+                            <InputText id="@nameof(Addr.Website)" @bind-Value="Addr.Website" class="form-control"  placeholder="Enter Website" type="url"/>
+                            <ValidationMessage For="@(() => Addr.Website)" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="@nameof(Addr.Fax)">Fax</label>
+                            <InputText id="@nameof(Addr.Fax)" @bind-Value="Addr.Fax" class="form-control"  placeholder="111-111-1111" type="tel"/>
+                            <ValidationMessage For="@(() => Addr.Fax)" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="@nameof(Addr.EmailOther)">Other Email</label>
+                            <InputText id="@nameof(Addr.EmailOther)" @bind-Value="Addr.EmailOther" class="form-control"  placeholder="Enter Other Email" type="email"/>
+                            <ValidationMessage For="@(() => Addr.EmailOther)" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="@nameof(Addr.PhoneLand)">Other Phone</label>
+                            <InputText id="@nameof(Addr.PhoneLand)" @bind-Value="Addr.PhoneLand" class="form-control"  placeholder="111-111-1111" type="tel"/>
+                            <ValidationMessage For="@(() => Addr.PhoneLand)" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </EditForm> 
+}
+
+@code{
+    private AddressModel Addr;
+
+    [Parameter]
+    public int EmployeeId { get; set; }
+    private string MaxDate = DateTime.Now.AddYears (-17).ToString ("yyyy-MM-dd");
+
+    protected override async Task OnInitializedAsync () 
+    {
+        Addr = new AddressModel {AddressType = "Home"};
+        if (EmployeeId > 0) 
+        {
+            
+            var addresses = await api.GetAddressesAsync (EmployeeId);
+            if (addresses?.Count > 0) 
+            {
+                Addr = addresses.FirstOrDefault (x => x.AddressType.ToUpper() == Web.DTO.Enums.AddressTypeEnums.Home.Value);
+            }
+        } 
+    }
+
+    private async Task HandleSubmitAsync () 
+    {
+        if (EmployeeId > 0) 
+        {
+            Addr.EmployeeId = EmployeeId;
+            Addr = await api.SaveAddressAsync(Addr);
+        }
+    }
+}

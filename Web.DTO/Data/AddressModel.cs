@@ -31,6 +31,9 @@ namespace Web.DTO.Data
         [DataType(DataType.PhoneNumber)]
         public string PhoneMobile { get; set; }
 
+        [DataType(DataType.EmailAddress)]
+        public string EmailOther { get; set; }
+
         [DataType(DataType.Url)]
         public string Website { get; set; }
         public string Fax { get; set; }

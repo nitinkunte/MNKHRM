@@ -67,6 +67,9 @@ namespace Web.DTO.Data
 
         public int EmploymentInfoId { get; set; }
         public virtual EmploymentInfoModel EmploymentInfo { get; set; }
+
+        public int ProfitabilityId { get; set; }
+        public virtual ProfitabilityModel Profitability { get; set; }
     }
 
 

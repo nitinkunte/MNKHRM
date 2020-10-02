@@ -16,7 +16,7 @@ namespace Web.DTO.Data
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
 
-        public int RelationshipStatusId { get; set; }
+        public string RelationshipStatus { get; set; }
 
         [Required]
         public int EmployeeId { get; set; }

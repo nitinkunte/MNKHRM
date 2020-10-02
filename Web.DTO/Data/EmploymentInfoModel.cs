@@ -31,7 +31,7 @@ namespace Web.DTO.Data
         public DateTime ReleaseDate { get; set; } = SqlDateTime.MinValue.Value;
 
         [Required]
-        public int EmploymentTypeId { get; set; }
+        public string EmploymentType { get; set; }
 
         public bool IsFullTime { get; set; } = true;
         public bool IsSeasonal { get; set; } = false;
@@ -58,6 +58,7 @@ namespace Web.DTO.Data
         public string SeverancePayNotes { get; set; }
 
         public string TerminationDetail { get; set; }
+        
         [DataType(DataType.MultilineText)]
         public string TerminationNotes { get; set; }
 

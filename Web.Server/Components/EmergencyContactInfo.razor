@@ -1,0 +1,145 @@
+@inject APIService api
+
+
+
+@if (ECInfo == null)
+{
+    <p><em>Loading Emergency Contact Information...</em></p>
+}
+else
+{
+    <EditForm Model="@ECInfo" OnValidSubmit="HandleSubmitAsync">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <input type="hidden" @bind="EmployeeId">
+        <div class="panel">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a href="#panelBodyEmergencyContact" class="accordion-toggle collapsed"
+                        data-toggle="collapse" data-parent="#accordion">Emergency Contact</a>
+                </h4>
+            </div>
+            <div id="panelBodyEmergencyContact" class="panel-collapse collapse">
+                <div class="panel-body shadow-sm p-3 bg-white rounded">
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            <p>
+                                <button type="submit" class="btn btn-outline-primary">Save Emergency Contact Information</button>
+                            </p>
+                            <p>
+                                <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                            </p>
+                        </div>
+                        <hr>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="@nameof(ECInfo.EC1.Name)">Contact Name</label>
+                                <InputText id="@nameof(ECInfo.EC1.Name)" @bind-Value="ECInfo.EC1.Name" class="form-control"  placeholder="Enter Contact Name" />
+                                <ValidationMessage For="@(() => ECInfo.EC1.Name)" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="@nameof(ECInfo.EC1.Email)">Contact Email</label>
+                                <InputText id="@nameof(ECInfo.EC1.Email)" @bind-Value="ECInfo.EC1.Email" class="form-control"  placeholder="Enter Contact Email" />
+                                <ValidationMessage For="@(() => ECInfo.EC1.Email)" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="@nameof(ECInfo.EC1.Phone)">Contact Phone</label>
+                                <InputText id="@nameof(ECInfo.EC1.Phone)" @bind-Value="ECInfo.EC1.Phone" class="form-control"  placeholder="Enter Contact Phone" />
+                                <ValidationMessage For="@(() => ECInfo.EC1.Phone)" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                 <MNK.Components.MNKInputSelect @bind-Value="ECInfo.EC1.RelationshipStatus" class="form-control"
+                                         ValidationFor="@(() => ECInfo.EC1.RelationshipStatus)" Label="Relationship">
+                                     @foreach (var val in Enum.GetValues(typeof(Web.DTO.Enums.RelationshipStatusEnum)))
+                                     {
+                                         <option value="@val">
+                                             @val
+                                         </option>
+                                     }
+                                 </MNK.Components.MNKInputSelect>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="@nameof(ECInfo.EC2.Name)">Contact Name</label>
+                                <InputText id="@nameof(ECInfo.EC2.Name)" @bind-Value="ECInfo.EC2.Name" class="form-control"  placeholder="Enter Contact Name" />
+                                <ValidationMessage For="@(() => ECInfo.EC2.Name)" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="@nameof(ECInfo.EC2.Email)">Contact Email</label>
+                                <InputText id="@nameof(ECInfo.EC2.Email)" @bind-Value="ECInfo.EC2.Email" class="form-control"  placeholder="Enter Contact Email" />
+                                <ValidationMessage For="@(() => ECInfo.EC2.Email)" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="@nameof(ECInfo.EC2.Phone)">Contact Phone</label>
+                                <InputText id="@nameof(ECInfo.EC2.Phone)" @bind-Value="ECInfo.EC2.Phone" class="form-control"  placeholder="Enter Contact Phone" />
+                                <ValidationMessage For="@(() => ECInfo.EC2.Phone)" />
+                            </div>
+                            <div class="form-group col-md-3">
+                                 <MNK.Components.MNKInputSelect @bind-Value="ECInfo.EC2.RelationshipStatus" class="form-control"
+                                         ValidationFor="@(() => ECInfo.EC2.RelationshipStatus)" Label="Relationship">
+                                     @foreach (var val in Enum.GetValues(typeof(Web.DTO.Enums.RelationshipStatusEnum)))
+                                     {
+                                         <option value="@val">
+                                             @val
+                                         </option>
+                                     }
+                                 </MNK.Components.MNKInputSelect>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </EditForm>
+}
+
+@code {
+    private EmergencyContacts ECInfo;
+
+    [Parameter]
+    public int EmployeeId { get; set; }
+    private string MaxDate = DateTime.Now.AddDays(7).ToString ("yyyy-MM-dd");
+
+    protected override async Task OnInitializedAsync () 
+    {
+        ECInfo = new EmergencyContacts{EC1 = new EmergencyContactModel(), EC2 = new EmergencyContactModel()};
+        if (EmployeeId > 0) 
+        {
+            var listOfEC = await api.GetEmergencyContactAsync(EmployeeId);
+            if (listOfEC?.Count > 0)
+            {
+                ECInfo.EC1 = listOfEC[1];
+                if (listOfEC?.Count > 1)
+                {
+                    ECInfo.EC2 = listOfEC[2];
+                }
+            }
+        } 
+    }
+
+    private async Task HandleSubmitAsync () 
+    {
+        if (EmployeeId > 0) 
+        {
+            ECInfo.EC1.EmployeeId = EmployeeId;
+            ECInfo.EC2.EmployeeId = EmployeeId;
+            if (!string.IsNullOrWhiteSpace(ECInfo.EC1.RelationshipStatus))
+            {
+                ECInfo.EC1 = await api.SaveEmergencyContactAsync(ECInfo.EC1);
+            }
+            if (!string.IsNullOrWhiteSpace(ECInfo.EC2.RelationshipStatus))
+            {
+                ECInfo.EC2 = await api.SaveEmergencyContactAsync(ECInfo.EC2);
+            }
+        }
+    }
+
+    private class EmergencyContacts
+    {
+        public EmergencyContactModel EC1 {get; set;}
+        public EmergencyContactModel EC2 {get; set;}
+    }
+}

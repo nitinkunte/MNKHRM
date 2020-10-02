@@ -1,9 +1,11 @@
 @page "/employee"
+@page "/employee/{id}"
 
 @inject APIService api
 @inject IJSRuntime JSRuntime; 
 
-<h1>Save Employee</h1>
+<h2>Save Employee</h2>
+
     @if (Emp == null)
     {
         <p><em>Loading...</em></p>
@@ -66,7 +68,10 @@
                 <div class="container-fluid">
                     <div id="accordion" class="panel-group">
                         <Web.Server.Components.Personal EmpPersonal="Emp" />
-                        <Web.Server.Components.Address2 EmployeeId="Emp.Id" />
+                        <Web.Server.Components.Address EmployeeId="Emp.Id" />
+                        <Web.Server.Components.EmploymentInfo EmployeeId="Emp.Id" />
+                        <Web.Server.Components.ImmigrationInfo EmployeeId="Emp.Id" />
+                        <Web.Server.Components.EmergencyContactInfo EmployeeId="Emp.Id" />
                     </div>
                 </div>
             </div>
@@ -79,18 +84,27 @@
     private EmployeeModel Emp;
     private string MaxDate = DateTime.Now.AddYears(-17).ToString("yyyy-MM-dd");
 
+    [Parameter]
+    public string Id { get; set; }
     protected override async Task OnInitializedAsync()
     {
+        Emp = new EmployeeModel();
         try 
         { 
-            Emp = await api.GetEmployeeByIdAsync(2);
+            if (!string.IsNullOrWhiteSpace(Id))
+            {
+                int empId = 1;
+                Int32.TryParse(Id, out empId);
+
+                Emp = await api.GetEmployeeByIdAsync(empId);
+            }
         }
         catch(Exception ex)
         {
-            Emp = new EmployeeModel();
+            
         }
     }
-    /*
+    
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -98,7 +112,7 @@
             await JSRuntime.InvokeVoidAsync("setDatePicker", "dob");
         } 
     }
-    */
+    
     private async Task HandleSubmitAsync()
     {
         Emp = await api.SaveEmployeeAsync(Emp);

@@ -20,6 +20,7 @@ namespace Web.Server.Helpers
     {
         Task<UserRoleModel> GetUserRole(string userName);
         Task<UserRoleModel> LoginAsync();
+        Task<List<EmployeeModel>> GetAllEmployeesAsync();
         Task<EmployeeModel> GetEmployeeByIdAsync(int employeeId);
         /// <summary>
         /// Returns employee with all details such as Address, Emergency Contact, Job Info & Immigration
@@ -34,6 +35,10 @@ namespace Web.Server.Helpers
         /// <param name="employeeId">Id for the given employee</param>
         /// <returns>Returns List of Addresses for this employee</returns>
         Task<List<AddressModel>> GetAddressesAsync(int employeeId);
+        Task<EmploymentInfoModel> GetEmploymentInfoAsync(int employeeId);
+        Task<ImmigrationModel> GetImmigrationInfoAsync(int employeeId);
+        Task<List<EmergencyContactModel>> GetEmergencyContactAsync(int employeeId);
+
         /// <summary>
         /// Insert/Update employee and all related classes like EmploymentInfo, Address, EmergencyContact, Immigration if they are sent
         /// </summary>
@@ -52,8 +57,8 @@ namespace Web.Server.Helpers
         private readonly TokenProvider tokenProvider;
 
         private readonly AzureAd appSettings;
-        private readonly string URL_SESSION = "api/session/";
-        private readonly string URL_EMPLOYEE = "api/employees/";
+        private readonly string URL_SESSION = "api/session";
+        private readonly string URL_EMPLOYEE = "api/employees";
 
         public APIService(HttpClient http, TokenProvider tokenProvider, IOptions<AzureAd> iOptions)
         {
@@ -65,24 +70,41 @@ namespace Web.Server.Helpers
                 new AuthenticationHeaderValue("Bearer", token);
         }
 
+        public async Task<List<EmployeeModel>> GetAllEmployeesAsync()
+        {
+            var ret = new List<EmployeeModel>();
+            var url = $"{URL_EMPLOYEE }/GetAll";
+            var response = await http.GetFromJsonAsync<ResponseData>(url);
+            if ((response?.IsSuccess == true) && (null != response?.Data))
+            {
+                ret = response.Deserialize<List<EmployeeModel>>();
+            }
+            return ret;
+        }
+
         public async Task<EmployeeModel> GetEmployeeByIdAsync(int employeeId)
         {
-            var url = $"{URL_EMPLOYEE }GetEmployee/{employeeId}";
-            var ret = await http.GetFromJsonAsync<EmployeeModel>(url);
+            var ret = new EmployeeModel();
+            var url = $"{URL_EMPLOYEE }/GetEmployee/{employeeId}";
+            var response = await http.GetFromJsonAsync<ResponseData>(url);
+            if ((response?.IsSuccess == true) && (null != response?.Data))
+            {
+                ret = response.Deserialize<EmployeeModel>();
+            }
             return ret;
         }
 
         public async Task<EmployeeModel> GetEmployeeDetailsByIdAsync(int employeeId)
         {
-            var url = $"{URL_EMPLOYEE }GetDetails/{employeeId}";
+            var url = $"{URL_EMPLOYEE }/GetDetails/{employeeId}";
             var ret = await http.GetFromJsonAsync<EmployeeModel>(url);
             return ret;
         }
 
-       public async Task<List<AddressModel>> GetAddressesAsync(int employeeId)
+        public async Task<List<AddressModel>> GetAddressesAsync(int employeeId)
         {
             var ret = new List<AddressModel>();
-            var url = $"{URL_EMPLOYEE }GetAddresses/{employeeId}";
+            var url = $"{URL_EMPLOYEE }/GetAddresses/{employeeId}";
             var response = await http.GetFromJsonAsync<ResponseData>(url);
             if ((response?.IsSuccess == true) && (null != response?.Data))
             {
@@ -92,20 +114,55 @@ namespace Web.Server.Helpers
             return ret;
         }
 
+        public async Task<EmploymentInfoModel> GetEmploymentInfoAsync(int employeeId)
+        {
+            var ret = new EmploymentInfoModel();
+            var url = $"{URL_EMPLOYEE }/GetEmploymentInfo/{employeeId}";
+            var response = await http.GetFromJsonAsync<ResponseData>(url);
+            if ((response?.IsSuccess == true) && (null != response?.Data))
+            {
+                ret = response.Deserialize<EmploymentInfoModel>();
+            }
+            return ret;
+        }
+        public async Task<ImmigrationModel> GetImmigrationInfoAsync(int employeeId)
+        {
+            var ret = new ImmigrationModel();
+            var url = $"{URL_EMPLOYEE }/GetImmigration/{employeeId}";
+            var response = await http.GetFromJsonAsync<ResponseData>(url);
+            if ((response?.IsSuccess == true) && (null != response?.Data))
+            {
+                ret = response.Deserialize<ImmigrationModel>();
+            }
+            return ret;
+        }
+
+        public async Task<List<EmergencyContactModel>> GetEmergencyContactAsync(int employeeId)
+        {
+            var ret = new List<EmergencyContactModel>();
+            var url = $"{URL_EMPLOYEE }/GetEmergencyContact/{employeeId}";
+            var response = await http.GetFromJsonAsync<ResponseData>(url);
+            if ((response?.IsSuccess == true) && (null != response?.Data))
+            {
+                ret = response.Deserialize<List<EmergencyContactModel>>();
+            }
+            return ret;
+        }
+
         public async Task<UserRoleModel> GetUserRole(string userName)
         {
-            return await http.GetFromJsonAsync<UserRoleModel>($"{URL_EMPLOYEE }getrole");
+            return await http.GetFromJsonAsync<UserRoleModel>($"{URL_EMPLOYEE }/getrole");
         }
 
         public async Task<UserRoleModel> LoginAsync()
         {
-            return await http.GetFromJsonAsync<UserRoleModel>($"{URL_SESSION }login");
+            return await http.GetFromJsonAsync<UserRoleModel>($"{URL_SESSION }/login");
         }
 
         public async Task<EmployeeModel> SaveEmployeeAsync(EmployeeModel employeeModel)
         {
             EmployeeModel ret = new EmployeeModel();
-            var url = $"{URL_EMPLOYEE }SaveEmployee";
+            var url = $"{URL_EMPLOYEE }/SaveEmployee";
             var response = await http.PostAsJsonAsync<EmployeeModel>(url, employeeModel);
             if (response?.IsSuccessStatusCode == true)
             {
@@ -121,7 +178,7 @@ namespace Web.Server.Helpers
         public async Task<AddressModel> SaveAddressAsync(AddressModel addressModel)
         {
             AddressModel ret = new AddressModel();
-            var url = $"{URL_EMPLOYEE }SaveAddress";
+            var url = $"{URL_EMPLOYEE }/SaveAddress";
             var response = await http.PostAsJsonAsync<AddressModel>(url, addressModel);
             if (response?.IsSuccessStatusCode == true)
             {
@@ -137,7 +194,7 @@ namespace Web.Server.Helpers
         public async Task<EmploymentInfoModel> SaveEmploymentInfoAsync(EmploymentInfoModel employmentInfoModel)
         {
             EmploymentInfoModel ret = new EmploymentInfoModel();
-            var url = $"{URL_EMPLOYEE }SaveEmploymentInfo";
+            var url = $"{URL_EMPLOYEE }/SaveEmploymentInfo";
             var response = await http.PostAsJsonAsync<EmploymentInfoModel>(url, employmentInfoModel);
             if (response?.IsSuccessStatusCode == true)
             {
@@ -153,7 +210,7 @@ namespace Web.Server.Helpers
         public async Task<ImmigrationModel> SaveImmigrationAsync(ImmigrationModel immigrationModel)
         {
             ImmigrationModel ret = new ImmigrationModel();
-            var url = $"{URL_EMPLOYEE }SaveEmploymentInfo";
+            var url = $"{URL_EMPLOYEE }/SaveEmploymentInfo";
             var response = await http.PostAsJsonAsync<ImmigrationModel>(url, immigrationModel);
             if (response?.IsSuccessStatusCode == true)
             {
@@ -169,7 +226,7 @@ namespace Web.Server.Helpers
         public async Task<EmergencyContactModel> SaveEmergencyContactAsync(EmergencyContactModel emergencyContactModel)
         {
             EmergencyContactModel ret = new EmergencyContactModel();
-            var url = $"{URL_EMPLOYEE }SaveEmploymentInfo";
+            var url = $"{URL_EMPLOYEE }/SaveEmploymentInfo";
             var response = await http.PostAsJsonAsync<EmergencyContactModel>(url, emergencyContactModel);
             if (response?.IsSuccessStatusCode == true)
             {

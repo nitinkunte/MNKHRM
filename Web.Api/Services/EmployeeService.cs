@@ -50,6 +50,14 @@ namespace Web.Api.Services
                                 .ToListAsync();
         }
 
+
+        public async Task<List<EmployeeModel>> GetEmployeesSynopsisAsync()
+        {
+            return await dbContext.Employees
+                                .AsNoTracking()
+                                .ToListAsync();
+        }
+
         public async Task<EmployeeModel> GetEmployeeByIdAsync(int employeeId)
         {
             var ret = await dbContext.Employees
@@ -136,11 +144,12 @@ namespace Web.Api.Services
         public async Task<EmergencyContactModel> SaveEmergencyContactAsync(EmergencyContactModel model)
         {
             EmergencyContactModel ret = null;
-            if ((model?.EmployeeId > 0) && (model?.RelationshipStatusId > 0))
+            if ((model?.EmployeeId > 0) && (!string.IsNullOrWhiteSpace(model?.RelationshipStatus)))
             {
                 var emergency = await dbContext.EmergencyContacts
                                     .AsNoTracking()
-                                    .FirstOrDefaultAsync(x => x.EmployeeId == model.EmployeeId && x.RelationshipStatusId == model.RelationshipStatusId);
+                                    .FirstOrDefaultAsync(x => x.EmployeeId == model.EmployeeId 
+                                        && x.RelationshipStatus.ToLower() == model.RelationshipStatus.ToLower());
                 if (emergency?.Id > 0) //update
                 {
                     model.Id = emergency.Id;
